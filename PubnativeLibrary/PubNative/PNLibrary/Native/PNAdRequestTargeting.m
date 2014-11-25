@@ -54,16 +54,15 @@
         self.os = [[UIDevice currentDevice] systemName];
         self.os_version = [[UIDevice currentDevice] systemVersion];
         self.device_model = [[UIDevice currentDevice] model];
+        self.icon_size = kIconSize;
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
-            self.icon_size = kIpadIconSize;
             self.banner_size = kIpadBannerSize;
             self.device_type = kIpadDeviceName;
         }
         else
         {
-            self.icon_size = kIphoneIconSize;
             self.banner_size = kIphoneBannerSize;
             self.device_type = kIphoneDeviceName;
         }

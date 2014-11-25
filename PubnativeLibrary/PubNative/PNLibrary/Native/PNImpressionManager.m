@@ -96,8 +96,6 @@ static PNImpressionManager *sharedManager = nil;
     
     if (![[[PNImpressionManager sharedInstance] confirmedAds] containsObject:beacon.url])
     {
-        NSLog(@"Confirming impression for '%@'", ad.title);
-        
         [[[PNImpressionManager sharedInstance] confirmedAds] addObject:beacon.url];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:[[PNImpressionManager sharedInstance] confirmedAds] forKey:@"confirmedAds"];

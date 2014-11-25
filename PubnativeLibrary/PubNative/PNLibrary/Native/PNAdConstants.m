@@ -31,8 +31,7 @@ NSString *const kMethodGet          = @"GET";
 NSString *const kMethodPost         = @"POST";
 NSInteger const kImpressionTime     = 1;
 
-NSString *const kIpadIconSize       = @"200x200";
-NSString *const kIphoneIconSize     = @"100x100";
+NSString *const kIconSize           = @"400x400";
 NSString *const kIpadBannerSize     = @"1200x627";
 NSString *const kIphoneBannerSize   = @"640x334";
 

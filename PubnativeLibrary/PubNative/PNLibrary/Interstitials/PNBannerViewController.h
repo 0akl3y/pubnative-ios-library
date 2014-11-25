@@ -1,7 +1,7 @@
 //
-// ViewController.m
+// PNBannerViewController.h
 //
-// Created by Csongor Nagy on 11/11/14.
+// Created by Csongor Nagy on 12/11/14.
 // Copyright (c) 2014 PubNative
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,50 +22,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ViewController.h"
+#import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import "AMRatingControl.h"
 #import "PNLibrary.h"
+#import "PNAdRequest.h"
+#import "PNAdRenderingManager.h"
 
-@interface ViewController () <PNLibraryDelegate>
+@interface PNBannerViewController : UIViewController
 
-@end
+@property (weak, nonatomic) IBOutlet UIImageView            *iconView;
+@property (nonatomic, weak) IBOutlet UIView                 *dataContainer;
+@property (weak, nonatomic) IBOutlet UILabel                *titleLabel;
+@property (nonatomic, weak) IBOutlet UIView                 *ratingContainer;
+@property (weak, nonatomic) IBOutlet UIButton               *installButton;
+@property (nonatomic, strong) AMRatingControl               *ratingControl;
 
-@implementation ViewController
+@property (nonatomic, strong) NSObject<PNLibraryDelegate>   *delegate;
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [PNLibrary startWithAppID:@"e1a8e9fcf8aaeff31d1ddaee1f60810957f4c297859216dea9fa283043f8680f"
-                        frame:CGRectMake(0, 200, 320, 180)
-                     delegate:self];
-    [PNLibrary requestType:PNAdTypeBanner];
-}
+- (IBAction)installButtonPressed:(id)sender;
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-
-#pragma mark - PNLibraryDelegate Methods
-
-- (void)pnAdReady:(UIViewController*)controller
-{
-    [[[self.view subviews] lastObject] removeFromSuperview];
-    [self.view addSubview:controller.view];
-}
-
-- (void)pnAdDidShow
-{
-    
-}
-
-- (void)pnAdDidFailWithError:(NSError*)error
-{
-    
-}
-
-- (void)pnAdDidClose
-{
-    
-}
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil
+                         bundle:(NSBundle *)nibBundleOrNil
+                          frame:(CGRect)frame
+                       delegate:(NSObject<PNLibraryDelegate>*)delegate;
 
 @end

@@ -63,6 +63,8 @@
 
 - (void)getAds
 {
+    __weak typeof(self) weakSelf = self;
+    
     self.apiModel = [[PNAPIModel alloc] initWithURL:[NSURL URLWithString:kUrlString]
                                              method:kMethodGet
                                              params:[self.targeting getProperties]
@@ -71,11 +73,21 @@
                                             timeout:30
                                  andCompletionBlock:^(NSError *error)
                      {
-                         if (!error && self.requestBlock)
-                         {
-                             self.requestBlock(self.apiModel, error);
-                         }
+                         __strong typeof(self) strongSelf = weakSelf;
+                         [strongSelf processAdsWithError:error];
                      }];
+}
+
+- (void)processAdsWithError:(NSError*)error
+{
+    if (!error && [self.apiModel.status isEqualToString:@"ok"])
+    {
+        self.requestBlock([self.apiModel.ads mutableCopy], nil);
+    }
+    else
+    {
+        self.requestBlock(nil, error);
+    }
 }
 
 @end

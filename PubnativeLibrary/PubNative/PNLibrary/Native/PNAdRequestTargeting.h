@@ -53,7 +53,7 @@
 @property (nonatomic, strong) NSString                          *icon_size;
 @property (nonatomic, strong) NSString                          *zone_id;
 
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 - (NSMutableDictionary*)getProperties;
 
 @end

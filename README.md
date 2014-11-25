@@ -1,4 +1,4 @@
-![ScreenShot](/PubNativeLibrary/Images.xcassets/PNLogo.png)
+![ScreenShot](/PubnativeLibrary/Images.xcassets/PNLogo.png)
 
 ![](https://ship.io/jobs/8tguNiRCQXeL6_S8/build_status.png)
 

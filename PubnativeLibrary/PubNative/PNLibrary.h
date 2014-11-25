@@ -1,7 +1,7 @@
 //
-// ViewController.m
+// PNLibrary.h
 //
-// Created by Csongor Nagy on 11/11/14.
+// Created by Csongor Nagy on 12/11/14.
 // Copyright (c) 2014 PubNative
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,50 +22,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ViewController.h"
-#import "PNLibrary.h"
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface ViewController () <PNLibraryDelegate>
+// Types and Contstants
+//================================
+
+typedef NS_ENUM(NSInteger, PNAdType) {
+    PNAdTypeBanner      = 0,
+    PNAdTypeIcon        = 1,
+    PNAdTypeVideoBanner = 2
+};
+
+// PNLibraryDelegate
+//================================
+
+@protocol PNLibraryDelegate <NSObject>
+
+@optional
+
+- (void)pnAdReady:(UIViewController*)controller;
+- (void)pnAdDidShow;
+- (void)pnAdDidFailWithError:(NSError*)error;
+- (void)pnAdDidClose;
 
 @end
 
-@implementation ViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [PNLibrary startWithAppID:@"e1a8e9fcf8aaeff31d1ddaee1f60810957f4c297859216dea9fa283043f8680f"
-                        frame:CGRectMake(0, 200, 320, 180)
-                     delegate:self];
-    [PNLibrary requestType:PNAdTypeBanner];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
 
 
-#pragma mark - PNLibraryDelegate Methods
+// PNLibrary Interface
+//================================
 
-- (void)pnAdReady:(UIViewController*)controller
-{
-    [[[self.view subviews] lastObject] removeFromSuperview];
-    [self.view addSubview:controller.view];
-}
+@interface PNLibrary : NSObject
 
-- (void)pnAdDidShow
-{
-    
-}
++ (void)startWithAppID:(NSString *)appId
+                 frame:(CGRect)frame
+              delegate:(id<PNLibraryDelegate>)delegate;
 
-- (void)pnAdDidFailWithError:(NSError*)error
-{
-    
-}
-
-- (void)pnAdDidClose
-{
-    
-}
++ (void)requestType:(PNAdType)type;
 
 @end

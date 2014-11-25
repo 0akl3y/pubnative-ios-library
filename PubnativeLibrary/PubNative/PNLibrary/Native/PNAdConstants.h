@@ -44,8 +44,7 @@ FOUNDATION_EXPORT NSString *const   kMethodGet;
 FOUNDATION_EXPORT NSString *const   kMethodPost;
 FOUNDATION_EXPORT NSInteger const   kImpressionTime;
 
-FOUNDATION_EXPORT NSString *const   kIpadIconSize;
-FOUNDATION_EXPORT NSString *const   kIphoneIconSize;
+FOUNDATION_EXPORT NSString *const   kIconSize;
 FOUNDATION_EXPORT NSString *const   kIpadBannerSize;
 FOUNDATION_EXPORT NSString *const   kIphoneBannerSize;
 FOUNDATION_EXPORT NSString *const   kIpadDeviceName;
@@ -53,7 +52,7 @@ FOUNDATION_EXPORT NSString *const   kIphoneDeviceName;
 
 FOUNDATION_EXPORT NSString *const   kSponsoredContent;
 
-typedef void (^PNRequestCompletionBlock)(id result, NSError *error);
+typedef void (^PNRequestCompletionBlock)(NSMutableArray *ads, NSError *error);
 typedef void (^PNImpressionCompletionBlock)(id result, NSError *error);
 
 + (PNAdConstants*)sharedConstants;
