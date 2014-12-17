@@ -25,6 +25,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+FOUNDATION_EXPORT NSInteger  const kPNPadding;
+FOUNDATION_EXPORT NSInteger  const kPNPortraitBannerWidth;
+FOUNDATION_EXPORT NSInteger  const kPNPortraitBannerHeigth;
+FOUNDATION_EXPORT NSInteger  const kPNLandscapeBannerWidth;
+FOUNDATION_EXPORT NSInteger  const kPNLandscapeBannerHeigth;
+
 FOUNDATION_EXPORT NSString * const kPNAdConstantAPIModelStatusSuccess;
 FOUNDATION_EXPORT NSInteger  const kPNAdConstantShowTimeForImpression;
 
