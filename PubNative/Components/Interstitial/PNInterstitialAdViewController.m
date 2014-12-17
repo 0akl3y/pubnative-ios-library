@@ -58,6 +58,31 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 
 @implementation PNInterstitialAdViewController
 
+#pragma mark - Public Methods
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil
+                         bundle:(NSBundle *)nibBundleOrNil
+                          model:(PNNativeAdModel*)model
+{
+    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self)
+    {
+        self.model = model;
+        
+        self.wasStatusBarHidden = [UIApplication sharedApplication].statusBarHidden;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(closePressed:)
+                                                     name:UIApplicationWillResignActiveNotification
+                                                   object:NULL];
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didRotate:)
+                                                    name:UIDeviceOrientationDidChangeNotification
+                                                  object:nil];
+        [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+    }
+    return self;
+}
+
 #pragma mark - NSObject
 
 - (void)dealloc
@@ -155,13 +180,15 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self didRotate:nil];
     
-    if (!self.wasStatusBarHidden)
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
     {
-        if (![self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-        {
-            [[UIApplication sharedApplication] setStatusBarHidden:YES];
-        }
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
 
     if ([self.delegate respondsToSelector:@selector(pnAdDidShow)])
@@ -205,26 +232,46 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
     return YES;
 }
 
-#pragma mark - PNInterstitialAdViewController
-
-#pragma mark public methods
-
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil
-                         bundle:(NSBundle *)nibBundleOrNil
-                          model:(PNNativeAdModel*)model
+- (BOOL)shouldAutorotate
 {
-    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
+    return YES;
+}
+
+- (void)didRotate:(NSNotification *)notification
+{
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    if (orientation == UIDeviceOrientationPortrait)
     {
-        self.model = model;
+        CGRect bannerImageFrame = CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.width*kPNPortraitBannerWidth/kPNPortraitBannerHeigth));
+        self.bannerImage.frame = bannerImageFrame;
         
-        self.wasStatusBarHidden = [UIApplication sharedApplication].statusBarHidden;
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(closePressed:)
-                                                     name:UIApplicationWillResignActiveNotification
-                                                   object:NULL];
+        PNNativeAdRenderItem *renderItem = [PNNativeAdRenderItem renderItem];
+        renderItem.banner = self.bannerImage;
+        [PNAdRenderingManager renderNativeAdItem:renderItem withAd:self.model];
+        
+        CGRect bannerFrame = CGRectMake(kPNPadding,
+                                        bannerImageFrame.size.height+kPNPadding,
+                                        self.view.frame.size.width-(kPNPadding*2),
+                                        self.view.frame.size.height-bannerImageFrame.size.height-(kPNPadding*2));
+        self.bannerDataView.frame = bannerFrame;
     }
-    return self;
+    else if (UIDeviceOrientationIsLandscape(orientation))
+    {
+        CGRect bannerImageFrame = CGRectMake(0, 0, (self.view.frame.size.height*kPNLandscapeBannerHeigth/kPNLandscapeBannerWidth), self.view.frame.size.height);
+        self.bannerImage.frame = bannerImageFrame;
+        
+        PNNativeAdRenderItem *renderItem = [PNNativeAdRenderItem renderItem];
+        renderItem.portrait_banner = self.bannerImage;
+        [PNAdRenderingManager renderNativeAdItem:renderItem withAd:self.model];
+        
+        CGRect bannerFrame = CGRectMake(bannerImageFrame.size.width+kPNPadding,
+                                        kPNPadding,
+                                        self.view.frame.size.width-bannerImageFrame.size.width-(kPNPadding*2),
+                                        self.view.frame.size.height-(kPNPadding*2));
+        self.bannerDataView.frame = bannerFrame;
+    }
+    
 }
 
 

@@ -22,7 +22,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "PNAdConstants.h"
+#import "PNAdConstants.h"\
+
+NSInteger  const kPNPadding                                         = 5;
+NSInteger  const kPNPortraitBannerWidth                             = 627;
+NSInteger  const kPNPortraitBannerHeigth                            = 1200;
+NSInteger  const kPNLandscapeBannerWidth                            = 960;
+NSInteger  const kPNLandscapeBannerHeigth                           = 640;
 
 NSString * const kPNAdConstantAPIModelStatusSuccess                 = @"ok";
 NSInteger  const kPNAdConstantShowTimeForImpression                 = 1;
