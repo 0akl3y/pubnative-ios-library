@@ -136,11 +136,6 @@
 {
     [super viewDidDisappear:animated];
     
-    if ([self.delegate respondsToSelector:@selector(pnAdDidClose)])
-    {
-        [self.delegate pnAdDidClose];
-    }
-    
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
 }
@@ -198,19 +193,26 @@
     [self.adWindow makeKeyAndVisible];
     
     __block CGSize adWindowSize = [UIApplication sharedApplication].keyWindow.rootViewController.view.frame.size;
+    __block CGSize adVideoSize = adWindowSize;
+    
+    if (adVideoSize.width > adVideoSize.height)
+    {
+        adVideoSize.width = adWindowSize.height;
+        adVideoSize.height = adWindowSize.width;
+    }
+    
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.5f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut animations:^{
                             weakSelf.videoAdPlayer.view.transform = CGAffineTransformIdentity;
+                            weakSelf.videoAdPlayer.view.center = CGPointMake(adVideoSize.width/2.0,
+                                                                             adVideoSize.height/2.0);
                             weakSelf.videoAdPlayer.view.transform = CGAffineTransformMakeRotation(M_PI_2);
                             weakSelf.videoAdPlayer.view.frame = CGRectMake(0.0f,
                                                                            0.0f,
-                                                                           adWindowSize.width,
-                                                                           adWindowSize.height);
-                            
-                            weakSelf.videoAdPlayer.view.center = CGPointMake(adWindowSize.width/2.0,
-                                                                             adWindowSize.height/2.0);
+                                                                           adVideoSize.width,
+                                                                           adVideoSize.height);
                         }
                      completion:nil];
 }
@@ -273,7 +275,7 @@
     self.interstitialVC = [[PNInterstitialAdViewController alloc] initWithNibName:NSStringFromClass([PNInterstitialAdViewController class])
                                                                            bundle:nil
                                                                             model:self.model];
-    self.interstitialVC.delegate = self;
+    self.interstitialVC.delegate = self.delegate;
     self.adWindow.rootViewController = self.interstitialVC;
 }
 

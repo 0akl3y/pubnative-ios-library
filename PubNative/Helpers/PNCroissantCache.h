@@ -1,8 +1,7 @@
 //
-//  PNAdRenderingManager.h
+//  PNCroissantCache.h
 //
-//  Created by Csongor Nagy on 04/06/14.
-//  Copyright (c) 2014 PubNative
+//  Created by David Martin on 15/05/14.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,13 +22,14 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "PNNativeAdModel.h"
-#import "PNNativeAdRenderItem.h"
-#import "PNCacheManager.h"
 
-@interface PNAdRenderingManager : NSObject
+@interface PNCroissantCache : NSObject
 
-+ (void)renderNativeAdItem:(PNNativeAdRenderItem*)renderItem withAd:(PNNativeAdModel*)ad;
++ (BOOL)cleanCache;
++ (void)cacheData:(NSData*)data witName:(NSString*)name;
++ (BOOL)hasCachedDataWithName:(NSString*)name;
++ (NSData*)cachedDataWithName:(NSString*)name;
++ (NSString*)cacheFolder;
++ (NSString*)getCachedNameFromURL:(NSString*)urlString;
 
 @end
