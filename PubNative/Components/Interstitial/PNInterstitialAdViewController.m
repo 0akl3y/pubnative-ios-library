@@ -38,21 +38,22 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 
 @interface PNInterstitialAdViewController()
 
-@property (nonatomic, weak)     IBOutlet    UIImageView     *bannerImage;
-@property (nonatomic, weak)     IBOutlet    UIView          *bannerDataView;
-@property (nonatomic, weak)     IBOutlet    UIView          *ratingDataView;
-@property (nonatomic, weak)     IBOutlet    UIView          *ratingContainer;
-@property (nonatomic, weak)     IBOutlet    UILabel         *totalRatings;
-@property (nonatomic, weak)     IBOutlet    UITextView      *descriptionLabel;
-@property (nonatomic, weak)     IBOutlet    UIButton        *downloadButton;
-@property (nonatomic, weak)     IBOutlet    UIImageView     *iconImage;
-@property (nonatomic, weak)     IBOutlet    UILabel         *titleLabel;
-@property (nonatomic, weak)     IBOutlet    UILabel         *versionLabel;
+@property (nonatomic, weak)     IBOutlet    UIImageView             *bannerImage;
+@property (nonatomic, weak)     IBOutlet    UIView                  *bannerDataView;
+@property (nonatomic, weak)     IBOutlet    UIView                  *ratingDataView;
+@property (nonatomic, weak)     IBOutlet    UIView                  *ratingContainer;
+@property (nonatomic, weak)     IBOutlet    UILabel                 *totalRatings;
+@property (nonatomic, weak)     IBOutlet    UITextView              *descriptionLabel;
+@property (nonatomic, weak)     IBOutlet    UIButton                *downloadButton;
+@property (nonatomic, weak)     IBOutlet    UIImageView             *iconImage;
+@property (nonatomic, weak)     IBOutlet    UILabel                 *titleLabel;
+@property (nonatomic, weak)     IBOutlet    UILabel                 *versionLabel;
 
-@property (nonatomic, strong)               AMRatingControl *ratingControl;
-@property (nonatomic, strong)               PNNativeAdModel *model;
-@property (nonatomic, assign)               BOOL            wasStatusBarHidden;
-@property (nonatomic, strong)               NSTimer         *impressionTimer;
+@property (nonatomic, strong)               AMRatingControl         *ratingControl;
+@property (nonatomic, strong)               PNNativeAdModel         *model;
+@property (nonatomic, assign)               BOOL                    wasStatusBarHidden;
+@property (nonatomic, strong)               NSTimer                 *impressionTimer;
+@property (nonatomic, assign)               UIInterfaceOrientation  currentOrientation;
 
 @end
 
@@ -240,9 +241,18 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 
 - (void)didRotate:(NSNotification *)notification
 {
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
-    if (orientation == UIDeviceOrientationPortrait)
+    if(orientation == self.currentOrientation)
+    {
+        return;
+    }
+    else
+    {
+        self.currentOrientation = orientation;
+    }
+    
+    if (UIInterfaceOrientationIsPortrait(orientation))
     {
         CGRect bannerImageFrame = CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.width*kPNPortraitBannerWidth/kPNPortraitBannerHeigth));
         self.bannerImage.frame = bannerImageFrame;
@@ -257,7 +267,7 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
                                         self.view.frame.size.height-bannerImageFrame.size.height-(kPNPadding*2));
         self.bannerDataView.frame = bannerFrame;
     }
-    else if (UIDeviceOrientationIsLandscape(orientation))
+    else
     {
         CGRect bannerImageFrame = CGRectMake(0, 0, (self.view.frame.size.height*kPNLandscapeBannerHeigth/kPNLandscapeBannerWidth), self.view.frame.size.height);
         self.bannerImage.frame = bannerImageFrame;
@@ -272,7 +282,6 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
                                         self.view.frame.size.height-(kPNPadding*2));
         self.bannerDataView.frame = bannerFrame;
     }
-    
 }
 
 
