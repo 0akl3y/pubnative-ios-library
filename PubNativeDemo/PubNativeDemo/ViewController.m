@@ -46,11 +46,22 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self cleanContainer];
 }
 
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.currentAdVC.view removeFromSuperview];
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self addCurrentAdVC];
+}
+
 #pragma mark - ViewController
 
 - (IBAction)bannerTouchUpInside:(id)sender
 {
     [self startLoading];
+    [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_Banner;
     [Pubnative requestAdType:Pubnative_AdType_Banner
                 withAppToken:kPubnativeTestAppToken
@@ -60,6 +71,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)interstitialTouchUpInside:(id)sender
 {
     [self startLoading];
+    [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_Interstitial;
     [Pubnative requestAdType:Pubnative_AdType_Interstitial
                 withAppToken:kPubnativeTestAppToken
@@ -69,6 +81,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)iconTouchUpInside:(id)sender
 {
     [self startLoading];
+    [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_Icon;
     [Pubnative requestAdType:Pubnative_AdType_Icon
                 withAppToken:kPubnativeTestAppToken
@@ -78,6 +91,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)videoTouchUpInside:(id)sender
 {
     [self startLoading];
+    [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_VideoBanner;
     [Pubnative requestAdType:Pubnative_AdType_VideoBanner
                 withAppToken:kPubnativeTestAppToken
@@ -109,7 +123,19 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 {
     [self stopLoading];
     self.currentAdVC = adVC;
-    
+    [self addCurrentAdVC];
+}
+
+-(void)pnAdDidClose
+{
+    if(Pubnative_AdType_Banner != self.currentType)
+    {
+        [self cleanContainer];
+    }
+}
+
+- (void)addCurrentAdVC
+{
     switch (self.currentType)
     {
         case Pubnative_AdType_Banner:
@@ -117,26 +143,42 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
             self.currentAdVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
             self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
             [self.adContainer addSubview:self.currentAdVC.view];
+            self.currentAdVC.view.alpha = 0;
+            [UIView animateWithDuration:0.3f
+                             animations:^{
+                                 self.currentAdVC.view.alpha = 1;
+                             }];
         }
-        break;
+            break;
         case Pubnative_AdType_VideoBanner:
         {
+            self.currentAdVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 150);
             self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
             [self.adContainer addSubview:self.currentAdVC.view];
+            self.currentAdVC.view.alpha = 0;
+            [UIView animateWithDuration:0.3f
+                             animations:^{
+                                 self.currentAdVC.view.alpha = 1;
+                             }];
         }
-        break;
+            break;
         case Pubnative_AdType_Interstitial:
         {
-            [self.view addSubview:self.currentAdVC.view];
+            [self presentViewController:self.currentAdVC animated:YES completion:nil];
         }
-        break;
+            break;
         case Pubnative_AdType_Icon:
         {
             self.currentAdVC.view.frame = CGRectMake(0, 0, 100, 100);
             self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
             [self.adContainer addSubview:self.currentAdVC.view];
+            self.currentAdVC.view.alpha = 0;
+            [UIView animateWithDuration:0.3f
+                             animations:^{
+                                 self.currentAdVC.view.alpha = 1;
+                             }];
         }
-        break;
+            break;
     }
 }
 

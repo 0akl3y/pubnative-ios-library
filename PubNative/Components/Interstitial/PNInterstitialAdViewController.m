@@ -171,6 +171,8 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 {
     [super viewWillAppear:animated];
     
+    [self didRotate:nil];
+    
     if ([self.delegate respondsToSelector:@selector(pnAdWillShow)])
     {
         [self.delegate pnAdWillShow];
@@ -180,7 +182,6 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self didRotate:nil];
     
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
     {

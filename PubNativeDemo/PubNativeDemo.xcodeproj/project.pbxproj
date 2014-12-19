@@ -55,6 +55,10 @@
 		D589E6111A3B21C7008C6C88 /* PNAdConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D589E6101A3B21C7008C6C88 /* PNAdConstants.m */; };
 		D589E6141A3B3263008C6C88 /* PNNativeVideoAPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D589E6131A3B3263008C6C88 /* PNNativeVideoAPIModel.m */; };
 		D589E6181A3B53ED008C6C88 /* Pubnative.m in Sources */ = {isa = PBXBuildFile; fileRef = D589E6171A3B53ED008C6C88 /* Pubnative.m */; };
+		D58E0A911A4318CB00C96F2E /* PNCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E0A901A4318CB00C96F2E /* PNCacheManager.m */; };
+		D58E0A921A4318CB00C96F2E /* PNCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E0A901A4318CB00C96F2E /* PNCacheManager.m */; };
+		D58E0A951A431F5300C96F2E /* PNCroissantCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E0A941A431F5300C96F2E /* PNCroissantCache.m */; };
+		D58E0A961A431F5300C96F2E /* PNCroissantCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E0A941A431F5300C96F2E /* PNCroissantCache.m */; };
 		D5E11A601A12177B001109A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11A5F1A12177B001109A1 /* main.m */; };
 		D5E11A631A12177B001109A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11A621A12177B001109A1 /* AppDelegate.m */; };
 		D5E11A661A12177B001109A1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11A651A12177B001109A1 /* ViewController.m */; };
@@ -169,6 +173,10 @@
 		D589E6131A3B3263008C6C88 /* PNNativeVideoAPIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNNativeVideoAPIModel.m; sourceTree = "<group>"; };
 		D589E6161A3B53ED008C6C88 /* Pubnative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pubnative.h; sourceTree = "<group>"; };
 		D589E6171A3B53ED008C6C88 /* Pubnative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pubnative.m; sourceTree = "<group>"; };
+		D58E0A8F1A4318CB00C96F2E /* PNCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCacheManager.h; sourceTree = "<group>"; };
+		D58E0A901A4318CB00C96F2E /* PNCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCacheManager.m; sourceTree = "<group>"; };
+		D58E0A931A431F5300C96F2E /* PNCroissantCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCroissantCache.h; sourceTree = "<group>"; };
+		D58E0A941A431F5300C96F2E /* PNCroissantCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCroissantCache.m; sourceTree = "<group>"; };
 		D5E11A5A1A12177B001109A1 /* PubnativeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PubnativeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5E11A5E1A12177B001109A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5E11A5F1A12177B001109A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -280,10 +288,14 @@
 		D585D6361A39E26D00423640 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				D585D6371A39E26D00423640 /* PNNativeAdRenderItem.h */,
-				D585D6381A39E26D00423640 /* PNNativeAdRenderItem.m */,
 				D585D6391A39E26D00423640 /* PNAdRenderingManager.h */,
 				D585D63A1A39E26D00423640 /* PNAdRenderingManager.m */,
+				D58E0A8F1A4318CB00C96F2E /* PNCacheManager.h */,
+				D58E0A901A4318CB00C96F2E /* PNCacheManager.m */,
+				D58E0A931A431F5300C96F2E /* PNCroissantCache.h */,
+				D58E0A941A431F5300C96F2E /* PNCroissantCache.m */,
+				D585D6371A39E26D00423640 /* PNNativeAdRenderItem.h */,
+				D585D6381A39E26D00423640 /* PNNativeAdRenderItem.m */,
 				D585D63B1A39E26D00423640 /* PNTrackingManager.h */,
 				D585D63C1A39E26D00423640 /* PNTrackingManager.m */,
 			);
@@ -592,6 +604,7 @@
 			files = (
 				D585D6561A39E26D00423640 /* YADMJSONApiModel.m in Sources */,
 				D585D6621A39E26D00423640 /* PNImageAdModel.m in Sources */,
+				D58E0A911A4318CB00C96F2E /* PNCacheManager.m in Sources */,
 				D589E5F61A3B0721008C6C88 /* PNVideoBannerViewController.m in Sources */,
 				D585D65D1A39E26D00423640 /* PNTrackingManager.m in Sources */,
 				D585D6661A39E26D00423640 /* PNAdRequest.m in Sources */,
@@ -605,6 +618,7 @@
 				D585D6571A39E26D00423640 /* YADMApiCall.m in Sources */,
 				D585D6531A39E26D00423640 /* NSObject+DictionaryValue.m in Sources */,
 				D589E5F01A3B0721008C6C88 /* AMRatingControl.m in Sources */,
+				D58E0A951A431F5300C96F2E /* PNCroissantCache.m in Sources */,
 				D585D6581A39E26D00423640 /* YADMApiCallResult.m in Sources */,
 				D585D6651A39E26D00423640 /* PNNativeAPIModel.m in Sources */,
 				D589E5CC1A3B0639008C6C88 /* PNNativeVideoAdModel.m in Sources */,
@@ -640,7 +654,9 @@
 			files = (
 				D5E11AD41A12211E001109A1 /* PNAdRenderingManagerTests.m in Sources */,
 				D5E11AD91A12211E001109A1 /* PNSHA1Tests.m in Sources */,
+				D58E0A921A4318CB00C96F2E /* PNCacheManager.m in Sources */,
 				D5E11AD71A12211E001109A1 /* PNMD5Tests.m in Sources */,
+				D58E0A961A431F5300C96F2E /* PNCroissantCache.m in Sources */,
 				D5E11AD61A12211E001109A1 /* PNTrackingManagerTests.m in Sources */,
 				D5E11AD51A12211E001109A1 /* PNAdRequestTests.m in Sources */,
 			);

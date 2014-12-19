@@ -60,35 +60,29 @@
         if(renderItem.banner)
         {
             renderItem.banner.alpha = 0;
-            dispatch_queue_t bannerDownloadQueue = dispatch_queue_create("bannerLoader", NULL);
-            dispatch_async(bannerDownloadQueue, ^{
-                NSData *bannerData = [NSData dataWithContentsOfURL:[NSURL URLWithString:ad.banner_url]];
-                dispatch_async(dispatch_get_main_queue(), ^ {
-                    UIImage *bannerImage = [UIImage imageWithData:bannerData];
-                    renderItem.banner.image = bannerImage;
-                    [UIView animateWithDuration:0.3f
-                                     animations:^{
-                                         renderItem.banner.alpha = 1;
-                                     }];
-                });
-            });
+            [PNCacheManager dataWithURLString:ad.banner_url
+                                andCompletion:^(NSData *data) {
+                                    UIImage *portraitBannerImage = [UIImage imageWithData:data];
+                                    renderItem.banner.image = portraitBannerImage;
+                                    [UIView animateWithDuration:0.3f
+                                                     animations:^{
+                                                         renderItem.banner.alpha = 1;
+                                                     }];
+                                }];
         }
         
         if(renderItem.portrait_banner)
         {
             renderItem.portrait_banner.alpha = 0;
-            dispatch_queue_t portraitBannerDownloadQueue = dispatch_queue_create("portraitBannerLoader", NULL);
-            dispatch_async(portraitBannerDownloadQueue, ^{
-                NSData *portraitBannerData = [NSData dataWithContentsOfURL:[NSURL URLWithString:ad.portrait_banner_url]];
-                dispatch_async(dispatch_get_main_queue(), ^ {
-                    UIImage *postraitBannerImage = [UIImage imageWithData:portraitBannerData];
-                    renderItem.portrait_banner.image = postraitBannerImage;
-                    [UIView animateWithDuration:0.3f
-                                     animations:^{
-                                         renderItem.portrait_banner.alpha = 1;
-                                     }];
-                });
-            });
+            [PNCacheManager dataWithURLString:ad.portrait_banner_url
+                                andCompletion:^(NSData *data) {
+                                    UIImage *portraitBannerImage = [UIImage imageWithData:data];
+                                    renderItem.portrait_banner.image = portraitBannerImage;
+                                    [UIView animateWithDuration:0.3f
+                                                     animations:^{
+                                                         renderItem.portrait_banner.alpha = 1;
+                                                     }];
+                                }];
         }
         
         if (renderItem.cta_text)

@@ -94,7 +94,7 @@
         else
         {
             PNNativeAdModel *adModel = [ads firstObject];
-            UIViewController *adVC = [Pubnative createType:adType withAd:adModel];
+            UIViewController *adVC = [Pubnative createType:adType withAd:adModel andDelegate:weakDelegate];
             if(weakDelegate && [weakDelegate respondsToSelector:@selector(pnAdDidLoad:)])
             {
                 [weakDelegate pnAdDidLoad:adVC];
@@ -117,40 +117,43 @@
     return _sharedInstance;
 }
 
-+ (UIViewController*)createType:(Pubnative_AdType)type withAd:(PNNativeAdModel*)ad
++ (UIViewController*)createType:(Pubnative_AdType)type withAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
 {
     UIViewController *result = nil;
     switch (type)
     {
-        case Pubnative_AdType_Banner:       result = [Pubnative createAdTypeBannerWithAd:ad];       break;
-        case Pubnative_AdType_VideoBanner:  result = [Pubnative createAdTypeVideoBannerWithAd:ad];  break;
-        case Pubnative_AdType_Interstitial: result = [Pubnative createAdTypeInterstitialWithAd:ad]; break;
+        case Pubnative_AdType_Banner:       result = [Pubnative createAdTypeBannerWithAd:ad andDelegate:delegate];       break;
+        case Pubnative_AdType_VideoBanner:  result = [Pubnative createAdTypeVideoBannerWithAd:ad andDelegate:delegate];  break;
+        case Pubnative_AdType_Interstitial: result = [Pubnative createAdTypeInterstitialWithAd:ad andDelegate:delegate]; break;
         case Pubnative_AdType_Icon:         result = [Pubnative createAdTypeIconWithAd:ad];         break;
     }
     return result;
 }
 
-+ (UIViewController*)createAdTypeBannerWithAd:(PNNativeAdModel*)ad
++ (UIViewController*)createAdTypeBannerWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
 {
     PNBannerViewController *result = [[PNBannerViewController alloc] initWithNibName:NSStringFromClass([PNBannerViewController class])
                                                                               bundle:nil
                                                                                model:ad];
+    result.delegate = delegate;
     return result;
 }
 
-+ (UIViewController*)createAdTypeVideoBannerWithAd:(PNNativeAdModel*)ad
++ (UIViewController*)createAdTypeVideoBannerWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
 {
     PNVideoBannerViewController *result = [[PNVideoBannerViewController alloc] initWithNibName:NSStringFromClass([PNVideoBannerViewController class])
                                                                                         bundle:nil
-                                                                                         model:ad];
+                                                                                         model:(PNNativeVideoAdModel*)ad];
+    result.delegate = delegate;
     return result;
 }
 
-+ (UIViewController*)createAdTypeInterstitialWithAd:(PNNativeAdModel*)ad
++ (UIViewController*)createAdTypeInterstitialWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
 {
     PNInterstitialAdViewController *result = [[PNInterstitialAdViewController alloc] initWithNibName:NSStringFromClass([PNInterstitialAdViewController class])
                                                                                               bundle:nil
                                                                                                model:ad];
+    result.delegate = delegate;
     return result;
 }
 
