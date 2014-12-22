@@ -27,6 +27,7 @@
 
 #import "PNTrackingManager.h"
 #import "PNNativeAdModel.h"
+#import "PNAdConstants.h"
 
 NSString * const kPNTrackingManagerTestMockURL    = @"FancyURL";
 NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
@@ -43,7 +44,7 @@ NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
     [super setUp];
 
     NSArray *confirmedAds = [[NSArray alloc] init];
-    [[NSUserDefaults standardUserDefaults] setObject:confirmedAds forKey:kPNTrackingManagerConfirmedAdsKey];
+    [[NSUserDefaults standardUserDefaults] setObject:confirmedAds forKey:kPNAdConstantTrackingConfirmedAdsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     self.model = [[PNNativeAdModel alloc] init];
@@ -66,7 +67,7 @@ NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
 {
     // This should NOT save the ad as we are using a fancyURL
     PNBeaconModel *impressionBeacon = [[PNBeaconModel alloc] init];
-    impressionBeacon.type = kPNTrackingBeaconImpressionTypeString;
+    impressionBeacon.type = kPNAdConstantTrackingBeaconImpressionTypeString;
     impressionBeacon.url = kPNTrackingManagerTestGoogleURL;
     
     NSMutableArray *array = [NSMutableArray array];
@@ -74,12 +75,12 @@ NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
     
     self.model.beacons = (NSArray<PNBeaconModel>*) array;
     
-    __block NSArray *confirmedAds = [[NSUserDefaults standardUserDefaults] objectForKey:kPNTrackingManagerConfirmedAdsKey];
+    __block NSArray *confirmedAds = [[NSUserDefaults standardUserDefaults] objectForKey:kPNAdConstantTrackingConfirmedAdsKey];
     [PNTrackingManager trackImpressionWithAd:self.model
                           completion:^(id result, NSError *error)
      {
          XCTAssertNotEqualObjects(confirmedAds,
-                                  [[NSUserDefaults standardUserDefaults] objectForKey:kPNTrackingManagerConfirmedAdsKey],
+                                  [[NSUserDefaults standardUserDefaults] objectForKey:kPNAdConstantTrackingConfirmedAdsKey],
                                   @"Expected ad to be saved with good URL");
      }];
 }
@@ -88,7 +89,7 @@ NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
 {
     // This should NOT save the ad as we are using a fancyURL
     PNBeaconModel *impressionBeacon = [[PNBeaconModel alloc] init];
-    impressionBeacon.type = kPNTrackingBeaconImpressionTypeString;
+    impressionBeacon.type = kPNAdConstantTrackingBeaconImpressionTypeString;
     impressionBeacon.url = kPNTrackingManagerTestMockURL;
     
     NSMutableArray *array = [NSMutableArray array];
@@ -96,13 +97,13 @@ NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
     
     self.model.beacons = (NSArray<PNBeaconModel>*) array;
     
-    __block NSArray *confirmedAds = [[NSUserDefaults standardUserDefaults] objectForKey:kPNTrackingManagerConfirmedAdsKey];
+    __block NSArray *confirmedAds = [[NSUserDefaults standardUserDefaults] objectForKey:kPNAdConstantTrackingConfirmedAdsKey];
     
     [PNTrackingManager trackImpressionWithAd:self.model
                             completion:^(id result, NSError *error)
     {
         XCTAssertEqualObjects(confirmedAds,
-                              [[NSUserDefaults standardUserDefaults] objectForKey:kPNTrackingManagerConfirmedAdsKey],
+                              [[NSUserDefaults standardUserDefaults] objectForKey:kPNAdConstantTrackingConfirmedAdsKey],
                               @"Expected ad not to be saved with mock URL");
     }];
 }
