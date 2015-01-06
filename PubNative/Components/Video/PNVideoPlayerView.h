@@ -41,6 +41,10 @@
 @property (nonatomic, strong)   PNProgressLabel                         *loadLabel;
 @property (nonatomic, strong)   UIView                                  *skipView;
 @property (nonatomic, strong)   UIButton                                *skipButton;
+@property (nonatomic, strong)   UIView                                  *muteView;
+@property (nonatomic, strong)   UIButton                                *muteButton;
+@property (nonatomic, strong)   UIView                                  *learnMoreView;
+@property (nonatomic, strong)   UIButton                                *learnMoreButton;
 @property (nonatomic, assign)   NSInteger                               skipTime;
 
 - (id)initWithFrame:(CGRect)frame

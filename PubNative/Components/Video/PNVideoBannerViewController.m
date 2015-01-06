@@ -252,6 +252,10 @@
 
 - (void)videoClicked:(NSString*)clickThroughUrl
 {
+    if (self.model && self.model.click_url)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.model.click_url]];
+    }
 }
 
 - (void)videoReady

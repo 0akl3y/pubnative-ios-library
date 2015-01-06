@@ -31,6 +31,7 @@
 @property (nonatomic, strong) MPMoviePlayerController       *player;
 @property (nonatomic, weak) id<PNVideoPlayerDelegate>       delegate;
 @property (nonatomic, strong) NSTimer                       *progressTimer;
+@property (nonatomic, assign) float                         volume;
 
 - (id)initWithDelegate:(id<PNVideoPlayerDelegate>)delegate;
 - (void)open:(NSString*)urlString autoplay:(BOOL)autoplay;
@@ -38,6 +39,7 @@
 - (void)play;
 - (void)stop;
 - (void)pause;
+- (void)mute;
 - (void)seekTo:(NSInteger)posInSeconds;
 - (NSInteger)duration;
 - (NSInteger)currentPosition;
