@@ -102,6 +102,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 {
     [self.currentAdVC.view removeFromSuperview];
     self.currentAdVC = nil;
+    self.currentType = -1;
 }
 
 - (void)startLoading

@@ -79,6 +79,7 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didRotate:)
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
+        self.view.frame = [UIScreen mainScreen].bounds;
         [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     }
     return self;
@@ -106,8 +107,6 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.view.frame = [UIScreen mainScreen].bounds;
     
     if(self.model)
     {

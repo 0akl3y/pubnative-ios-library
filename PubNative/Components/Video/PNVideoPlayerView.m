@@ -209,6 +209,48 @@
                                            30);
         [self.skipButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [self.skipButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+        
+        self.muteView = [[UIView alloc] initWithFrame:CGRectMake(10,
+                                                                 5,
+                                                                 160,
+                                                                 30)];
+        
+        self.muteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.muteButton addTarget:self
+                            action:@selector(muteAdd:)
+                  forControlEvents:UIControlEventTouchDown];
+        [self.muteButton setTitle:@"Mute" forState:UIControlStateNormal];
+        [self.muteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.muteButton setTitleShadowColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        self.muteButton.titleLabel.shadowOffset = CGSizeMake(1, 1);
+        self.muteButton.frame = CGRectMake(0,
+                                           0,
+                                           160,
+                                           30);
+        [self.muteButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [self.muteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+        
+        [self.muteView addSubview:self.muteButton];
+        [self.view addSubview:self.muteView];
+        [self.view bringSubviewToFront:self.muteView];
+        
+        self.learnMoreView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-90, 5, 160, 30)];
+        
+        self.learnMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.learnMoreButton addTarget:self
+                                 action:@selector(learnMoreAdd:)
+                       forControlEvents:UIControlEventTouchDown];
+        [self.learnMoreButton setTitle:@"Learn More" forState:UIControlStateNormal];
+        [self.learnMoreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.learnMoreButton setTitleShadowColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        self.learnMoreButton.titleLabel.shadowOffset = CGSizeMake(1, 1);
+        self.learnMoreButton.frame = CGRectMake(0, 0, 160, 30);
+        [self.learnMoreButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [self.learnMoreButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+        
+        [self.learnMoreView addSubview:self.learnMoreButton];
+        [self.view addSubview:self.learnMoreView];
+        [self.view bringSubviewToFront:self.learnMoreView];
     }
     
     return self;
@@ -219,6 +261,16 @@
 - (void)skipAdd:(id)sender
 {
     [self close];
+}
+
+- (void)muteAdd:(id)sender
+{
+    [self.videoPlayer mute];
+}
+
+- (void)learnMoreAdd:(id)sender
+{
+    [self handleGesture:nil];
 }
 
 - (void)ad:(VastContainer*)ad autoStart:(BOOL)autoStart
@@ -240,7 +292,6 @@
     }
     if(self.delegate)
     {
-        
         [self.delegate videoClicked:self.vastAd.mediaFile];
     }
 }

@@ -23,6 +23,8 @@
 // THE SOFTWARE.
 
 #import "PNVideoPlayer.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVAudioSession.h>
 
 @implementation PNVideoPlayer
 
@@ -64,6 +66,8 @@
     [self.player setShouldAutoplay:autoplay];
     [self.player setMovieSourceType:MPMovieSourceTypeFile];
     
+    self.volume = [MPMusicPlayerController applicationMusicPlayer].volume;
+    
     if ([self.delegate respondsToSelector:@selector(videoViewAvailable:)])
     {
         [self.delegate videoViewAvailable:self.player.view];
@@ -95,7 +99,6 @@
     self.delegate = nil;
     [self stop];
     [self cleanup];
-    
 }
 
 - (void)cleanup
@@ -118,11 +121,51 @@
 - (void)stop
 {
     [self.player stop];
+    if (![MPMusicPlayerController applicationMusicPlayer].volume && ![self silenced])
+    {
+        [[MPMusicPlayerController applicationMusicPlayer] setVolume:self.volume];
+    }
 }
 
 - (void)pause
 {
     [self.player pause];
+}
+
+- (BOOL)silenced
+{
+#if TARGET_IPHONE_SIMULATOR
+    return NO;
+#endif
+    
+    CFStringRef state;
+    UInt32 propertySize = sizeof(CFStringRef);
+    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+    AudioSessionGetProperty(kAudioSessionProperty_AudioRoute, &propertySize, &state);
+    
+    if(CFStringGetLength(state) > 0)
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
+- (void)mute
+{
+    if (![self silenced])
+    {
+        if ([MPMusicPlayerController applicationMusicPlayer].volume)
+        {
+            [[MPMusicPlayerController applicationMusicPlayer] setVolume:0];
+        }
+        else
+        {
+            [[MPMusicPlayerController applicationMusicPlayer] setVolume:self.volume];
+        }
+    }
 }
 
 - (void)seekTo:(NSInteger)posInSeconds
