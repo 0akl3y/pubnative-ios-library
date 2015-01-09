@@ -47,14 +47,16 @@
         
         if (renderItem.icon)
         {
-            dispatch_queue_t iconDownloadQueue = dispatch_queue_create("iconLoader", NULL);
-            dispatch_async(iconDownloadQueue, ^{
-                NSData *iconData = [NSData dataWithContentsOfURL:[NSURL URLWithString:ad.icon_url]];
-                dispatch_async(dispatch_get_main_queue(), ^ {
-                    UIImage *iconImage = [UIImage imageWithData:iconData];
-                    renderItem.icon.image = iconImage;
-                });
-            });
+            renderItem.icon.alpha = 0;
+            [PNCacheManager dataWithURLString:ad.icon_url
+                                andCompletion:^(NSData *data) {
+                                    UIImage *iconImage = [UIImage imageWithData:data];
+                                    renderItem.icon.image = iconImage;
+                                    [UIView animateWithDuration:0.3f
+                                                     animations:^{
+                                                         renderItem.icon.alpha = 1;
+                                                     }];
+                                }];
         }
 
         if(renderItem.banner)

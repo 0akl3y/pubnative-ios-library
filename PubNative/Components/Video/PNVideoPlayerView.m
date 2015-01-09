@@ -34,7 +34,7 @@
 @property (nonatomic, assign)   BOOL                                    wasStatusBarHidden;
 @property (nonatomic, strong)   NSMutableArray                          *trackingEvents;
 
-- (void)skipAdd:(id)sender;
+- (void)skipAd:(id)sender;
 
 @end
 
@@ -170,8 +170,9 @@
         [self.view addSubview:self.videoContainer];
         
         UIView *gestureView = [[UIView alloc] initWithFrame:frame];
+        gestureView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                        action:@selector(handleGesture:)];
+                                                                                        action:@selector(tapGesture:)];
         [self.view addSubview:gestureView];
         [gestureView addGestureRecognizer:tapRecognizer];
         
@@ -197,7 +198,7 @@
         
         self.skipButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.skipButton addTarget:self
-                            action:@selector(skipAdd:)
+                            action:@selector(skipAd:)
                   forControlEvents:UIControlEventTouchDown];
         [self.skipButton setTitle:model.skip_video_button forState:UIControlStateNormal];
         [self.skipButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -210,23 +211,20 @@
         [self.skipButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
         [self.skipButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:16]];
         
-        self.muteView = [[UIView alloc] initWithFrame:CGRectMake(10,
-                                                                 5,
-                                                                 160,
-                                                                 30)];
+        self.muteView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                 0,
+                                                                 60,
+                                                                 50)];
         
         self.muteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.muteButton addTarget:self
-                            action:@selector(muteAdd:)
+                            action:@selector(muteAd:)
                   forControlEvents:UIControlEventTouchDown];
         [self.muteButton setTitle:@"Mute" forState:UIControlStateNormal];
         [self.muteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.muteButton setTitleShadowColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         self.muteButton.titleLabel.shadowOffset = CGSizeMake(1, 1);
-        self.muteButton.frame = CGRectMake(0,
-                                           0,
-                                           160,
-                                           30);
+        self.muteButton.frame = self.muteView.frame;
         [self.muteButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [self.muteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:16]];
         
@@ -238,7 +236,7 @@
         
         self.learnMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.learnMoreButton addTarget:self
-                                 action:@selector(learnMoreAdd:)
+                                 action:@selector(learnMoreAd:)
                        forControlEvents:UIControlEventTouchDown];
         [self.learnMoreButton setTitle:@"Learn More" forState:UIControlStateNormal];
         [self.learnMoreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -258,19 +256,19 @@
 
 #pragma mark private
 
-- (void)skipAdd:(id)sender
+- (void)skipAd:(id)sender
 {
     [self close];
 }
 
-- (void)muteAdd:(id)sender
+- (void)muteAd:(id)sender
 {
     [self.videoPlayer mute];
 }
 
-- (void)learnMoreAdd:(id)sender
+- (void)learnMoreAd:(id)sender
 {
-    [self handleGesture:nil];
+    [self tapGesture:nil];
 }
 
 - (void)ad:(VastContainer*)ad autoStart:(BOOL)autoStart
@@ -283,7 +281,7 @@
     [self.cacher startCaching];
 }
 
-- (void)handleGesture:(UIGestureRecognizer*)sender
+- (void)tapGesture:(UIGestureRecognizer*)sender
 {
     [self.trackingEvents addObject:@"clickThrough"];
     if ((NSNull*)self.vastAd.clickThrough != [NSNull null])
@@ -297,6 +295,7 @@
 }
 
 #pragma mark - DELEGATES -
+
 #pragma mark PNVideoCacherDelegate
 
 - (void)videoCacherDidCache:(NSString *)videoFile
