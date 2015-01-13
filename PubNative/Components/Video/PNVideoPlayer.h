@@ -40,6 +40,7 @@
 - (void)stop;
 - (void)pause;
 - (void)mute;
+- (BOOL)silenced;
 - (void)seekTo:(NSInteger)posInSeconds;
 - (NSInteger)duration;
 - (NSInteger)currentPosition;
