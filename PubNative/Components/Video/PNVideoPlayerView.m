@@ -266,6 +266,18 @@
 - (void)muteAdd:(id)sender
 {
     [self.videoPlayer mute];
+    
+    if (![self.videoPlayer silenced])
+    {
+        if ([MPMusicPlayerController applicationMusicPlayer].volume > 0.0f)
+        {
+            [self.muteButton setTitle:@"Mute" forState:UIControlStateNormal];
+        }
+        else
+        {
+            [self.muteButton setTitle:@"Unmute" forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (void)learnMoreAdd:(id)sender

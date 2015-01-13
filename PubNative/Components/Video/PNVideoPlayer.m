@@ -157,9 +157,9 @@
 {
     if (![self silenced])
     {
-        if ([MPMusicPlayerController applicationMusicPlayer].volume)
+        if ([MPMusicPlayerController applicationMusicPlayer].volume > 0.0f)
         {
-            [[MPMusicPlayerController applicationMusicPlayer] setVolume:0];
+            [[MPMusicPlayerController applicationMusicPlayer] setVolume:0.0f];
         }
         else
         {
