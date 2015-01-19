@@ -18,13 +18,12 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 
 @interface PNVideoTableViewCell () <VastXMLParserDelegate, PNVideoPlayerViewDelegate>
 
-@property (nonatomic, strong)   UIImageView         *banner;
-@property (nonatomic, strong)   UIButton            *bannerButton;
-@property (nonatomic, strong)   PNVideoPlayerView   *playerContainer;
-@property (nonatomic, strong)   VastContainer       *vastModel;
-@property (nonatomic, strong)   UIButton            *fullscreenButton;
-@property (nonatomic, strong)   UIView              *fullscreenButtonView;
-
+@property (nonatomic, strong) UIImageView       *banner;
+@property (nonatomic, strong) UIButton          *bannerButton;
+@property (nonatomic, strong) UILabel           *cta_label;
+@property (nonatomic, strong) PNVideoPlayerView *playerContainer;
+@property (nonatomic, strong) VastContainer     *vastModel;
+@property (nonatomic, strong) NSTimer           *impressionTimer;
 @end
 
 @implementation PNVideoTableViewCell
@@ -48,14 +47,10 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     }
     self.playerContainer = nil;
     
+    [self.impressionTimer invalidate];
+    self.impressionTimer = nil;
     
     self.vastModel = nil;
-
-    [self.fullscreenButton removeFromSuperview];
-    self.fullscreenButton = nil;
-    
-    [self.fullscreenButtonView removeFromSuperview];
-    self.fullscreenButtonView = nil;
 }
 
 #pragma mark UITableViewCell
@@ -80,32 +75,29 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
                                                                   model:nil
                                                                delegate:self];
         self.playerContainer.skipView.hidden = YES;
-        self.playerContainer.learnMoreView.hidden = YES;
         self.playerContainer.loadLabel.hidden = YES;
+        self.playerContainer.learnMoreView.hidden = YES;
+        self.playerContainer.muteView.frame = CGRectMake(0,
+                                                         self.frame.size.height - self.playerContainer.muteView.frame.size.height,
+                                                         self.playerContainer.muteView.frame.size.width,
+                                                         self.playerContainer.muteView.frame.size.height);
+        self.playerContainer.muteView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
         self.playerContainer.view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         self.playerContainer.view.hidden = YES;
-        [self.contentView addSubview:self.playerContainer.view];
         
-        self.fullscreenButtonView = [[UIView alloc] initWithFrame:CGRectMake(self.playerContainer.view.frame.origin.x + self.playerContainer.view.frame.size.width - 50,
-                                                                             self.playerContainer.view.frame.origin.y + 25,
-                                                                             100,
-                                                                             50)];
-        self.fullscreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.fullscreenButton addTarget:self
-                                  action:@selector(fullScreenTouchDown:)
-                        forControlEvents:UIControlEventTouchDown];
-        [self.fullscreenButton setTitle:@"Full screen" forState:UIControlStateNormal];
-        [self.fullscreenButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.fullscreenButton setTitleShadowColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        self.fullscreenButton.titleLabel.shadowOffset = CGSizeMake(1, 1);
-        self.fullscreenButton.frame = CGRectMake(0,
-                                                 0,
-                                                 self.fullscreenButtonView.frame.size.width,
-                                                 self.fullscreenButtonView.frame.size.height);
-        [self.fullscreenButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [self.fullscreenButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-        [self.fullscreenButtonView addSubview:self.fullscreenButton];
-        [self.playerContainer.view addSubview:self.fullscreenButtonView];
+        self.cta_label = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 100, 0, 100, 50)];
+        self.cta_label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin;
+        self.cta_label.textColor = [UIColor whiteColor];
+        self.cta_label.textAlignment = NSTextAlignmentRight;
+        self.cta_label.shadowColor = [UIColor darkGrayColor];
+        [self.playerContainer.view addSubview:self.cta_label];
+        
+        UIButton *ctaButton = [[UIButton alloc] initWithFrame:self.cta_label.frame];
+        ctaButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin;
+        [ctaButton addTarget:self action:@selector(ctaLabelTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        [self.playerContainer.view addSubview:ctaButton];
+        
+        [self.contentView addSubview:self.playerContainer.view];
         
         [self addObserver:self
                forKeyPath:kPNTableViewCellContentViewFrameKey
@@ -131,7 +123,9 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 {
     self.banner.hidden = YES;
     self.playerContainer.view.hidden = YES;
-    self.fullscreenButtonView.hidden = YES;
+    
+    [self.impressionTimer invalidate];
+    self.impressionTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(impressionTimerTick:) userInfo:nil repeats:NO];
     
     [self loadAd];
 }
@@ -153,14 +147,14 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
         }
     }
     
-    [self.fullscreenButton setTitle:@"Full screen" forState:UIControlStateNormal];
-    self.fullscreenButtonView.hidden = YES;
-    
     if(self.banner)
     {
         [self.banner setImage:nil];
         self.banner.hidden = YES;
     }
+    
+    [self.impressionTimer invalidate];
+    self.impressionTimer = nil;
 }
 
 - (void)clearCell:(NSNotification*)notification
@@ -180,6 +174,7 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     
     PNNativeAdRenderItem *renderItem = [PNNativeAdRenderItem renderItem];
     renderItem.banner = self.banner;
+    renderItem.cta_text = self.cta_label;
     [PNAdRenderingManager renderNativeAdItem:renderItem
                                       withAd:self.model];
     
@@ -197,11 +192,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
         if([object valueForKeyPath:keyPath] != [NSNull null])
         {
             CGRect frame = [[object valueForKeyPath:keyPath] CGRectValue];
-            self.fullscreenButtonView.frame = CGRectMake(frame.origin.x + frame.size.width - 100,
-                                                         frame.origin.y,
-                                                         100,
-                                                         50);
-            
             self.bannerButton.frame = frame;
             
             if(self.playerContainer.view.superview == self.contentView)
@@ -214,7 +204,7 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     }
 }
 
-- (void)fullScreenTouchDown:(id)sender
+- (void)openFullScreen
 {
     if(self.playerContainer.view.superview == self.contentView)
     {
@@ -230,16 +220,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
         self.playerContainer.videoContainer.frame = newFrame;
         self.playerContainer.videoPlayer.player.view.frame = newFrame;
         [presentingController.view addSubview:self.playerContainer.view];
-        [self.fullscreenButton setTitle:@"Done" forState:UIControlStateNormal];
-    }
-    else
-    {
-        [self.playerContainer.view removeFromSuperview];
-        self.playerContainer.view.frame = self.contentView.frame;
-        self.playerContainer.videoContainer.frame = self.contentView.frame;
-        self.playerContainer.videoPlayer.player.view.frame = self.contentView.frame;
-        [self.contentView addSubview:self.playerContainer.view];
-        [self.fullscreenButton setTitle:@"Full screen" forState:UIControlStateNormal];
     }
 }
 
@@ -260,7 +240,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 - (void)setVideoHidden:(BOOL)hidden
 {
     self.playerContainer.view.hidden = hidden;
-    self.fullscreenButtonView.hidden = hidden;
 }
 
 - (void)didRotate:(NSNotification*)notification
@@ -280,6 +259,20 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     }
 }
 
+- (void)ctaLabelTouchUpInside:(id)sender
+{
+    [self openOffer];
+}
+
+- (void)impressionTimerTick:(NSTimer *)timer
+{
+    if([timer isValid])
+    {
+        [PNTrackingManager trackImpressionWithAd:self.model
+                                      completion:nil];
+    }
+}
+
 #pragma mark - DELEGATES -
 
 #pragma mark VastXMLParserDelegate
@@ -294,13 +287,19 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 
 - (void)videoClicked:(NSString*)clickThroughUrl
 {
-    [self openOffer];
+    if(self.playerContainer.view.superview == self.contentView)
+    {
+        [self openFullScreen];
+    }
+    else
+    {
+        [self openOffer];
+    }
 }
 - (void)videoReady
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.playerContainer.view.hidden = NO;
-        self.fullscreenButtonView.hidden = NO;
         [self.playerContainer.videoPlayer play];
     });
 }
@@ -309,7 +308,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 - (void)videoCompleted
 {
     self.playerContainer.view.hidden = YES;
-    self.fullscreenButtonView.hidden = YES;
 }
 - (void)videoError:(NSInteger)errorCode details:(NSString*)description {}
 - (void)videoProgress:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration {}
