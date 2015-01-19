@@ -1,6 +1,6 @@
 ![PNLogo](PNLogo.png)
 
-![](https://ship.io/jobs/8tguNiRCQXeL6_S8/build_status.png)
+[![Build Status](https://travis-ci.org/pubnative/pubnative-ios-library.svg?branch=master)](https://travis-ci.org/pubnative/pubnative-ios-library)
 
 PubNative is an API-based publisher platform dedicated to native advertising which does not require the integration of an SDK. Through PubNative, publishers can request over 20 parameters to enrich their ads and thereby create any number of combinations for unique and truly native ad units.
 
