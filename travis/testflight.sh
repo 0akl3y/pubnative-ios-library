@@ -15,7 +15,13 @@ APP_NAME="PubnativeDemo"
 echo "****************************"
 echo "*     BUILDING RELEASE     *"
 echo "****************************"
-xctool -workspace pubnative-ios-library.xcworkspace -scheme PubnativeDemo -sdk iphoneos -configuration Release OBJROOT=$TRAVIS_BUILD_DIR SYMROOT=$TRAVIS_BUILD_DIR
+xctool -workspace pubnative-ios-library.xcworkspace \
+       -scheme PubnativeDemo \
+       -sdk iphoneos \
+       -configuration Release \
+       OBJROOT=$TRAVIS_BUILD_DIR \
+       SYMROOT=$TRAVIS_BUILD_DIR \
+       clean build
 
 echo "****************************"
 echo "*       BUILDING IPA       *"
