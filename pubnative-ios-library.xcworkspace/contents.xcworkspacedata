@@ -38,6 +38,9 @@
       <FileRef
          location = "group:remove_keys.sh">
       </FileRef>
+      <FileRef
+         location = "group:coveralls.rb">
+      </FileRef>
    </Group>
    <FileRef
       location = "group:PubNativeDemo/PubNativeDemo.xcodeproj">
