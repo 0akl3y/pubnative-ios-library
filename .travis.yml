@@ -2,13 +2,21 @@ language: objective-c
 xcode_workspace: pubnative-ios-library.xcworkspace
 xcode_scheme: PubnativeDemo
 before_install: 
+- sudo easy_install cpp-coveralls
+- chmod a+x travis/add_keys.sh
+- chmod a+x travis/testflight.sh
+- chmod a+x travis/coveralls.sh
+- chmod a+x travis/coveralls.rb
+- chmod a+x travis/remove_keys.sh
 install: 
 before_script:
+- env
 - ./travis/add_keys.sh
 script:
-- xctool -workspace pubnative-ios-library.xcworkspace -scheme PubnativeDemo -sdk iphonesimulator build test
+- xctool -workspace pubnative-ios-library.xcworkspace -scheme PubnativeDemo -sdk iphonesimulator clean build test
 after_success:
 - ./travis/testflight.sh
+- ./travis/coveralls.sh
 after_failure: 
 after_script:
 - ./travis/remove_keys.sh
