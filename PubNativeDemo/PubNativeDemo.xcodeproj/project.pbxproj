@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		D51116B71A40A70B00A0B42C /* PNIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D51116B51A40A70B00A0B42C /* PNIconViewController.m */; };
 		D51116B81A40A70B00A0B42C /* PNIconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D51116B61A40A70B00A0B42C /* PNIconViewController.xib */; };
+		D52FD8461A6EB24600274164 /* PNExternalLink.png in Resources */ = {isa = PBXBuildFile; fileRef = D52FD8401A6EB24600274164 /* PNExternalLink.png */; };
+		D52FD8471A6EB24600274164 /* PNExternalLink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D52FD8411A6EB24600274164 /* PNExternalLink@2x.png */; };
+		D52FD8481A6EB24600274164 /* PnMute.png in Resources */ = {isa = PBXBuildFile; fileRef = D52FD8421A6EB24600274164 /* PnMute.png */; };
+		D52FD8491A6EB24600274164 /* PnMute@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D52FD8431A6EB24600274164 /* PnMute@2x.png */; };
+		D52FD84A1A6EB24600274164 /* PnUnMute.png in Resources */ = {isa = PBXBuildFile; fileRef = D52FD8441A6EB24600274164 /* PnUnMute.png */; };
+		D52FD84B1A6EB24600274164 /* PnUnMute@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D52FD8451A6EB24600274164 /* PnUnMute@2x.png */; };
+		D52FD84E1A6FB31800274164 /* PnFullScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = D52FD84C1A6FB31800274164 /* PnFullScreen.png */; };
+		D52FD84F1A6FB31800274164 /* PnFullScreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D52FD84D1A6FB31800274164 /* PnFullScreen@2x.png */; };
+		D54DD1C31A6FC35C0044E149 /* PNVideoPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D54DD1C21A6FC35C0044E149 /* PNVideoPlayerView.xib */; };
 		D585D6531A39E26D00423640 /* NSObject+DictionaryValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6231A39E26D00423640 /* NSObject+DictionaryValue.m */; };
 		D585D6541A39E26D00423640 /* NSString+PNMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6251A39E26D00423640 /* NSString+PNMD5.m */; };
 		D585D6551A39E26D00423640 /* NSString+PNSHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6271A39E26D00423640 /* NSString+PNSHA1.m */; };
@@ -89,6 +98,15 @@
 		D51116B41A40A70B00A0B42C /* PNIconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNIconViewController.h; sourceTree = "<group>"; };
 		D51116B51A40A70B00A0B42C /* PNIconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNIconViewController.m; sourceTree = "<group>"; };
 		D51116B61A40A70B00A0B42C /* PNIconViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNIconViewController.xib; sourceTree = "<group>"; };
+		D52FD8401A6EB24600274164 /* PNExternalLink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PNExternalLink.png; sourceTree = "<group>"; };
+		D52FD8411A6EB24600274164 /* PNExternalLink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PNExternalLink@2x.png"; sourceTree = "<group>"; };
+		D52FD8421A6EB24600274164 /* PnMute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnMute.png; sourceTree = "<group>"; };
+		D52FD8431A6EB24600274164 /* PnMute@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PnMute@2x.png"; sourceTree = "<group>"; };
+		D52FD8441A6EB24600274164 /* PnUnMute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnUnMute.png; sourceTree = "<group>"; };
+		D52FD8451A6EB24600274164 /* PnUnMute@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PnUnMute@2x.png"; sourceTree = "<group>"; };
+		D52FD84C1A6FB31800274164 /* PnFullScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnFullScreen.png; sourceTree = "<group>"; };
+		D52FD84D1A6FB31800274164 /* PnFullScreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PnFullScreen@2x.png"; sourceTree = "<group>"; };
+		D54DD1C21A6FC35C0044E149 /* PNVideoPlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNVideoPlayerView.xib; sourceTree = "<group>"; };
 		D55C98491A3B736D002CA128 /* PubnativeAdDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubnativeAdDelegate.h; sourceTree = "<group>"; };
 		D585D6221A39E26D00423640 /* NSObject+DictionaryValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DictionaryValue.h"; sourceTree = "<group>"; };
 		D585D6231A39E26D00423640 /* NSObject+DictionaryValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DictionaryValue.m"; sourceTree = "<group>"; };
@@ -403,13 +421,13 @@
 		D589E5DA1A3B0721008C6C88 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				D589E5DF1A3B0721008C6C88 /* PNVideoBannerViewController.h */,
-				D589E5E01A3B0721008C6C88 /* PNVideoBannerViewController.m */,
-				D589E5E11A3B0721008C6C88 /* PNVideoBannerViewController.xib */,
 				D589E5DB1A3B0721008C6C88 /* PNProgressLabel.h */,
 				D589E5DC1A3B0721008C6C88 /* PNProgressLabel.m */,
 				D589E5DD1A3B0721008C6C88 /* PNPropertyAnimation.h */,
 				D589E5DE1A3B0721008C6C88 /* PNPropertyAnimation.m */,
+				D589E5DF1A3B0721008C6C88 /* PNVideoBannerViewController.h */,
+				D589E5E01A3B0721008C6C88 /* PNVideoBannerViewController.m */,
+				D589E5E11A3B0721008C6C88 /* PNVideoBannerViewController.xib */,
 				D589E5E21A3B0721008C6C88 /* PNVideoCacher.h */,
 				D589E5E31A3B0721008C6C88 /* PNVideoCacher.m */,
 				D589E5E41A3B0721008C6C88 /* PNVideoPlayer.h */,
@@ -417,6 +435,7 @@
 				D589E5E61A3B0721008C6C88 /* PNVideoPlayerDelegate.h */,
 				D589E5E71A3B0721008C6C88 /* PNVideoPlayerView.h */,
 				D589E5E81A3B0721008C6C88 /* PNVideoPlayerView.m */,
+				D54DD1C21A6FC35C0044E149 /* PNVideoPlayerView.xib */,
 				D589E5E91A3B0721008C6C88 /* PNVideoPlayerViewDelegate.h */,
 				D589E5EA1A3B0721008C6C88 /* VastContainer.h */,
 				D589E5EB1A3B0721008C6C88 /* VastContainer.m */,
@@ -429,6 +448,14 @@
 		D589E6041A3B21B1008C6C88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D52FD84C1A6FB31800274164 /* PnFullScreen.png */,
+				D52FD84D1A6FB31800274164 /* PnFullScreen@2x.png */,
+				D52FD8401A6EB24600274164 /* PNExternalLink.png */,
+				D52FD8411A6EB24600274164 /* PNExternalLink@2x.png */,
+				D52FD8421A6EB24600274164 /* PnMute.png */,
+				D52FD8431A6EB24600274164 /* PnMute@2x.png */,
+				D52FD8441A6EB24600274164 /* PnUnMute.png */,
+				D52FD8451A6EB24600274164 /* PnUnMute@2x.png */,
 				D589E6051A3B21B1008C6C88 /* PNCloseIcon.png */,
 				D589E6061A3B21B1008C6C88 /* PNCloseIcon@2x.png */,
 				D589E6071A3B21B1008C6C88 /* PNLogoGrey.png */,
@@ -596,16 +623,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D52FD84F1A6FB31800274164 /* PnFullScreen@2x.png in Resources */,
 				D589E5F71A3B0721008C6C88 /* PNVideoBannerViewController.xib in Resources */,
 				D589E60E1A3B21B1008C6C88 /* PNVersion.plist in Resources */,
+				D54DD1C31A6FC35C0044E149 /* PNVideoPlayerView.xib in Resources */,
 				D589E60B1A3B21B1008C6C88 /* PNCloseIcon@2x.png in Resources */,
 				D589E5EE1A3B0721008C6C88 /* PNBannerViewController.xib in Resources */,
 				D589E60D1A3B21B1008C6C88 /* PNLogoGrey@2x.png in Resources */,
 				D51116B81A40A70B00A0B42C /* PNIconViewController.xib in Resources */,
+				D52FD84B1A6EB24600274164 /* PnUnMute@2x.png in Resources */,
+				D52FD8481A6EB24600274164 /* PnMute.png in Resources */,
+				D52FD84E1A6FB31800274164 /* PnFullScreen.png in Resources */,
+				D52FD84A1A6EB24600274164 /* PnUnMute.png in Resources */,
+				D52FD8491A6EB24600274164 /* PnMute@2x.png in Resources */,
 				D5E11A691A12177B001109A1 /* Main.storyboard in Resources */,
 				D589E5F21A3B0721008C6C88 /* PNInterstitialAdViewController~ipad.xib in Resources */,
 				D5E11A6E1A12177B001109A1 /* LaunchScreen.xib in Resources */,
 				D5E11A6B1A12177B001109A1 /* Images.xcassets in Resources */,
+				D52FD8471A6EB24600274164 /* PNExternalLink@2x.png in Resources */,
+				D52FD8461A6EB24600274164 /* PNExternalLink.png in Resources */,
 				D589E60C1A3B21B1008C6C88 /* PNLogoGrey.png in Resources */,
 				D589E5F31A3B0721008C6C88 /* PNInterstitialAdViewController~iphone.xib in Resources */,
 				D589E60A1A3B21B1008C6C88 /* PNCloseIcon.png in Resources */,

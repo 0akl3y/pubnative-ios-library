@@ -74,31 +74,11 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
         self.playerContainer = [[PNVideoPlayerView alloc] initWithFrame:self.frame
                                                                   model:nil
                                                                delegate:self];
-        self.playerContainer.skipView.hidden = YES;
-        self.playerContainer.loadLabel.hidden = YES;
-        self.playerContainer.learnMoreView.hidden = YES;
-        self.playerContainer.muteView.frame = CGRectMake(0,
-                                                         self.frame.size.height - self.playerContainer.muteView.frame.size.height,
-                                                         self.playerContainer.muteView.frame.size.width,
-                                                         self.playerContainer.muteView.frame.size.height);
-        self.playerContainer.muteView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
-        self.playerContainer.view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-        self.playerContainer.view.hidden = YES;
         
-        self.cta_label = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 100, 0, 100, 50)];
-        self.cta_label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin;
-        self.cta_label.textColor = [UIColor whiteColor];
-        self.cta_label.textAlignment = NSTextAlignmentRight;
-        self.cta_label.shadowColor = [UIColor darkGrayColor];
-        [self.playerContainer.view addSubview:self.cta_label];
-        
-        UIButton *ctaButton = [[UIButton alloc] initWithFrame:self.cta_label.frame];
-        ctaButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin;
-        [ctaButton addTarget:self action:@selector(ctaLabelTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-        [self.playerContainer.view addSubview:ctaButton];
-        
+        UIImage *linkImage = [UIImage imageNamed:@"PnFullScreen.png"];
+        [self.playerContainer.learnMoreButton setImage:linkImage forState:UIControlStateNormal];
         [self.contentView addSubview:self.playerContainer.view];
-        
+    
         [self addObserver:self
                forKeyPath:kPNTableViewCellContentViewFrameKey
                   options:NSKeyValueObservingOptionNew
@@ -141,8 +121,7 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
         {
             [self.playerContainer.view removeFromSuperview];
             self.playerContainer.view.frame = self.contentView.frame;
-            self.playerContainer.videoContainer.frame = self.contentView.frame;
-            self.playerContainer.videoPlayer.player.view.frame = self.contentView.frame;
+            self.playerContainer.videoPlayer.layer.frame = self.contentView.frame;
             [self.contentView addSubview:self.playerContainer.view];
         }
     }
@@ -197,8 +176,7 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
             if(self.playerContainer.view.superview == self.contentView)
             {
                 self.playerContainer.view.frame = frame;
-                self.playerContainer.videoContainer.frame = frame;
-                self.playerContainer.videoPlayer.player.view.frame = frame;
+                self.playerContainer.videoPlayer.layer.frame = frame;
             }
         }
     }
@@ -206,21 +184,17 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 
 - (void)openFullScreen
 {
-    if(self.playerContainer.view.superview == self.contentView)
+    [self.playerContainer.view removeFromSuperview];
+    UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if(presentingController.presentedViewController)
     {
-        [self.playerContainer.view removeFromSuperview];
-        UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        if(presentingController.presentedViewController)
-        {
-            presentingController = presentingController.presentedViewController;
-        }
-        
-        CGRect newFrame = presentingController.view.frame;
-        self.playerContainer.view.frame = newFrame;
-        self.playerContainer.videoContainer.frame = newFrame;
-        self.playerContainer.videoPlayer.player.view.frame = newFrame;
-        [presentingController.view addSubview:self.playerContainer.view];
+        presentingController = presentingController.presentedViewController;
     }
+    
+    CGRect newFrame = presentingController.view.frame;
+    self.playerContainer.view.frame = newFrame;
+    self.playerContainer.videoPlayer.layer.frame = newFrame;
+    [presentingController.view addSubview:self.playerContainer.view];
 }
 
 - (void)bannerButtonTouchUpInside:(id)sender
@@ -230,8 +204,7 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 
 - (void)openOffer
 {
-    if(self.model &&
-       self.model.click_url)
+    if(self.model && self.model.click_url)
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.model.click_url]];
     }
@@ -254,8 +227,7 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
         
         CGRect newFrame = presentingController.view.frame;
         self.playerContainer.view.frame = newFrame;
-        self.playerContainer.videoContainer.frame = newFrame;
-        self.playerContainer.videoPlayer.player.view.frame = newFrame;
+        self.playerContainer.videoPlayer.layer.frame = newFrame;
     }
 }
 

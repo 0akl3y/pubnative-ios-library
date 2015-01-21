@@ -51,7 +51,12 @@
             [PNCacheManager dataWithURLString:ad.icon_url
                                 andCompletion:^(NSData *data) {
                                     UIImage *iconImage = [UIImage imageWithData:data];
-                                    renderItem.icon.image = iconImage;
+                                    
+                                    [renderItem.icon
+                                     performSelectorOnMainThread:@selector(setImage:)
+                                     withObject:iconImage
+                                     waitUntilDone:NO];
+                                    
                                     [UIView animateWithDuration:0.3f
                                                      animations:^{
                                                          renderItem.icon.alpha = 1;
@@ -65,7 +70,12 @@
             [PNCacheManager dataWithURLString:ad.banner_url
                                 andCompletion:^(NSData *data) {
                                     UIImage *portraitBannerImage = [UIImage imageWithData:data];
-                                    renderItem.banner.image = portraitBannerImage;
+                                    
+                                    [renderItem.banner
+                                     performSelectorOnMainThread:@selector(setImage:)
+                                     withObject:portraitBannerImage
+                                     waitUntilDone:NO];
+                                    
                                     [UIView animateWithDuration:0.3f
                                                      animations:^{
                                                          renderItem.banner.alpha = 1;
@@ -79,7 +89,12 @@
             [PNCacheManager dataWithURLString:ad.portrait_banner_url
                                 andCompletion:^(NSData *data) {
                                     UIImage *portraitBannerImage = [UIImage imageWithData:data];
-                                    renderItem.portrait_banner.image = portraitBannerImage;
+                                    
+                                    [renderItem.portrait_banner
+                                     performSelectorOnMainThread:@selector(setImage:)
+                                     withObject:portraitBannerImage
+                                     waitUntilDone:NO];
+                                    
                                     [UIView animateWithDuration:0.3f
                                                      animations:^{
                                                          renderItem.portrait_banner.alpha = 1;

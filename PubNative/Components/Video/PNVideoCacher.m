@@ -33,7 +33,7 @@ NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownl
 @property (strong)  NSMutableData    *mutableData;
 @property (strong)  NSURLConnection  *connection;
 @property (strong)  NSString         *videoUrl;
-
+@property (nonatomic, strong)  dispatch_queue_t videoCacheQueue;
 
 - (void)invokeCacherDidCache:(NSString*)file;
 - (void)invokeCacherDidFail:(NSError*)error;
@@ -78,7 +78,7 @@ NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownl
     self.mutableData = [NSMutableData dataWithCapacity:0];
     
     self.connection = [NSURLConnection connectionWithRequest:request
-                                                                delegate:self];
+                                                    delegate:self];
     
     if (!self.connection)
     {
@@ -180,18 +180,22 @@ NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownl
 
 - (void)invokeCacherDidCache:(NSString*)file
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(videoCacherDidCache:)])
-    {
-        [self.delegate videoCacherDidCache:file];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(videoCacherDidCache:)])
+        {
+            [self.delegate videoCacherDidCache:file];
+        }
+    });
 }
 
 - (void)invokeCacherDidFail:(NSError*)error
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(videoCacherDidFail:)])
-    {
-        [self.delegate videoCacherDidFail:error];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(videoCacherDidFail:)])
+        {
+            [self.delegate videoCacherDidFail:error];
+        }
+    });
 }
 
 #pragma mark - DELEGATE -
