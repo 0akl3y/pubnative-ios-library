@@ -10,6 +10,38 @@
    <FileRef
       location = "group:PNLogo.png">
    </FileRef>
+   <Group
+      location = "group:travis"
+      name = "travis">
+      <FileRef
+         location = "group:add_keys.sh">
+      </FileRef>
+      <Group
+         location = "group:certs"
+         name = "certs">
+         <FileRef
+            location = "group:apple.cer">
+         </FileRef>
+         <FileRef
+            location = "group:distribution.cer.enc">
+         </FileRef>
+         <FileRef
+            location = "group:distribution.mobileprovision.enc">
+         </FileRef>
+         <FileRef
+            location = "group:distribution.p12.enc">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:testflight.sh">
+      </FileRef>
+      <FileRef
+         location = "group:remove_keys.sh">
+      </FileRef>
+      <FileRef
+         location = "group:coveralls.rb">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:PubNativeDemo/PubNativeDemo.xcodeproj">
    </FileRef>
