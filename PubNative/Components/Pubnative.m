@@ -69,6 +69,11 @@
         break;
         case Pubnative_AdType_Interstitial:
         {
+            if(UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM())
+            {
+                parameters.icon_size = @"400x400";
+                parameters.banner_size = @"1200x627";
+            }
         }
         break;
         case Pubnative_AdType_Icon:
