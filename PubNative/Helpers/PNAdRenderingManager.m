@@ -47,14 +47,21 @@
         
         if (renderItem.icon)
         {
-            dispatch_queue_t iconDownloadQueue = dispatch_queue_create("iconLoader", NULL);
-            dispatch_async(iconDownloadQueue, ^{
-                NSData *iconData = [NSData dataWithContentsOfURL:[NSURL URLWithString:ad.icon_url]];
-                dispatch_async(dispatch_get_main_queue(), ^ {
-                    UIImage *iconImage = [UIImage imageWithData:iconData];
-                    renderItem.icon.image = iconImage;
-                });
-            });
+            renderItem.icon.alpha = 0;
+            [PNCacheManager dataWithURLString:ad.icon_url
+                                andCompletion:^(NSData *data) {
+                                    UIImage *iconImage = [UIImage imageWithData:data];
+                                    
+                                    [renderItem.icon
+                                     performSelectorOnMainThread:@selector(setImage:)
+                                     withObject:iconImage
+                                     waitUntilDone:NO];
+                                    
+                                    [UIView animateWithDuration:0.3f
+                                                     animations:^{
+                                                         renderItem.icon.alpha = 1;
+                                                     }];
+                                }];
         }
 
         if(renderItem.banner)
@@ -63,7 +70,12 @@
             [PNCacheManager dataWithURLString:ad.banner_url
                                 andCompletion:^(NSData *data) {
                                     UIImage *portraitBannerImage = [UIImage imageWithData:data];
-                                    renderItem.banner.image = portraitBannerImage;
+                                    
+                                    [renderItem.banner
+                                     performSelectorOnMainThread:@selector(setImage:)
+                                     withObject:portraitBannerImage
+                                     waitUntilDone:NO];
+                                    
                                     [UIView animateWithDuration:0.3f
                                                      animations:^{
                                                          renderItem.banner.alpha = 1;
@@ -77,7 +89,12 @@
             [PNCacheManager dataWithURLString:ad.portrait_banner_url
                                 andCompletion:^(NSData *data) {
                                     UIImage *portraitBannerImage = [UIImage imageWithData:data];
-                                    renderItem.portrait_banner.image = portraitBannerImage;
+                                    
+                                    [renderItem.portrait_banner
+                                     performSelectorOnMainThread:@selector(setImage:)
+                                     withObject:portraitBannerImage
+                                     waitUntilDone:NO];
+                                    
                                     [UIView animateWithDuration:0.3f
                                                      animations:^{
                                                          renderItem.portrait_banner.alpha = 1;

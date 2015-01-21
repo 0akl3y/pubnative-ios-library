@@ -28,7 +28,7 @@
 
 @required
 
-- (void)videoViewAvailable:(UIView*)videoView;
+- (void)videoViewAvailable:(AVPlayerLayer*)videoLayer;
 - (void)playbackPreparing;
 - (void)playbackStartedWithDuration:(NSTimeInterval)duration;;
 - (void)playbackCompleted;

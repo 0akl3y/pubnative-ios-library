@@ -9,6 +9,18 @@
 /* Begin PBXBuildFile section */
 		D51116B71A40A70B00A0B42C /* PNIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D51116B51A40A70B00A0B42C /* PNIconViewController.m */; };
 		D51116B81A40A70B00A0B42C /* PNIconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D51116B61A40A70B00A0B42C /* PNIconViewController.xib */; };
+		D570E6231A6FF25F0074EF4E /* PNTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D570E6201A6FF25F0074EF4E /* PNTableViewManager.m */; };
+		D570E6241A6FF25F0074EF4E /* PNVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D570E6221A6FF25F0074EF4E /* PNVideoTableViewCell.m */; };
+		D570E6271A6FF29B0074EF4E /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D570E6261A6FF29B0074EF4E /* FeedViewController.m */; };
+		D570E6291A6FF2BA0074EF4E /* PNVideoPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D570E6281A6FF2BA0074EF4E /* PNVideoPlayerView.xib */; };
+		D570E6321A6FF3700074EF4E /* PNExternalLink.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E62A1A6FF3700074EF4E /* PNExternalLink.png */; };
+		D570E6331A6FF3700074EF4E /* PNExternalLink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E62B1A6FF3700074EF4E /* PNExternalLink@2x.png */; };
+		D570E6341A6FF3700074EF4E /* PnFullScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E62C1A6FF3700074EF4E /* PnFullScreen.png */; };
+		D570E6351A6FF3700074EF4E /* PnFullScreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E62D1A6FF3700074EF4E /* PnFullScreen@2x.png */; };
+		D570E6361A6FF3700074EF4E /* PnMute.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E62E1A6FF3700074EF4E /* PnMute.png */; };
+		D570E6371A6FF3700074EF4E /* PnMute@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E62F1A6FF3700074EF4E /* PnMute@2x.png */; };
+		D570E6381A6FF3700074EF4E /* PnUnMute.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E6301A6FF3700074EF4E /* PnUnMute.png */; };
+		D570E6391A6FF3700074EF4E /* PnUnMute@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E6311A6FF3700074EF4E /* PnUnMute@2x.png */; };
 		D585D6531A39E26D00423640 /* NSObject+DictionaryValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6231A39E26D00423640 /* NSObject+DictionaryValue.m */; };
 		D585D6541A39E26D00423640 /* NSString+PNMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6251A39E26D00423640 /* NSString+PNMD5.m */; };
 		D585D6551A39E26D00423640 /* NSString+PNSHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6271A39E26D00423640 /* NSString+PNSHA1.m */; };
@@ -87,6 +99,21 @@
 		D51116B51A40A70B00A0B42C /* PNIconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNIconViewController.m; sourceTree = "<group>"; };
 		D51116B61A40A70B00A0B42C /* PNIconViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNIconViewController.xib; sourceTree = "<group>"; };
 		D55C98491A3B736D002CA128 /* PubnativeAdDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubnativeAdDelegate.h; sourceTree = "<group>"; };
+		D570E61F1A6FF25F0074EF4E /* PNTableViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNTableViewManager.h; sourceTree = "<group>"; };
+		D570E6201A6FF25F0074EF4E /* PNTableViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNTableViewManager.m; sourceTree = "<group>"; };
+		D570E6211A6FF25F0074EF4E /* PNVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNVideoTableViewCell.h; sourceTree = "<group>"; };
+		D570E6221A6FF25F0074EF4E /* PNVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNVideoTableViewCell.m; sourceTree = "<group>"; };
+		D570E6251A6FF29B0074EF4E /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
+		D570E6261A6FF29B0074EF4E /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
+		D570E6281A6FF2BA0074EF4E /* PNVideoPlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNVideoPlayerView.xib; sourceTree = "<group>"; };
+		D570E62A1A6FF3700074EF4E /* PNExternalLink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PNExternalLink.png; sourceTree = "<group>"; };
+		D570E62B1A6FF3700074EF4E /* PNExternalLink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PNExternalLink@2x.png"; sourceTree = "<group>"; };
+		D570E62C1A6FF3700074EF4E /* PnFullScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnFullScreen.png; sourceTree = "<group>"; };
+		D570E62D1A6FF3700074EF4E /* PnFullScreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PnFullScreen@2x.png"; sourceTree = "<group>"; };
+		D570E62E1A6FF3700074EF4E /* PnMute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnMute.png; sourceTree = "<group>"; };
+		D570E62F1A6FF3700074EF4E /* PnMute@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PnMute@2x.png"; sourceTree = "<group>"; };
+		D570E6301A6FF3700074EF4E /* PnUnMute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnUnMute.png; sourceTree = "<group>"; };
+		D570E6311A6FF3700074EF4E /* PnUnMute@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PnUnMute@2x.png"; sourceTree = "<group>"; };
 		D585D6221A39E26D00423640 /* NSObject+DictionaryValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DictionaryValue.h"; sourceTree = "<group>"; };
 		D585D6231A39E26D00423640 /* NSObject+DictionaryValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DictionaryValue.m"; sourceTree = "<group>"; };
 		D585D6241A39E26D00423640 /* NSString+PNMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PNMD5.h"; sourceTree = "<group>"; };
@@ -224,6 +251,17 @@
 			path = Icon;
 			sourceTree = "<group>";
 		};
+		D570E61E1A6FF25F0074EF4E /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				D570E61F1A6FF25F0074EF4E /* PNTableViewManager.h */,
+				D570E6201A6FF25F0074EF4E /* PNTableViewManager.m */,
+				D570E6211A6FF25F0074EF4E /* PNVideoTableViewCell.h */,
+				D570E6221A6FF25F0074EF4E /* PNVideoTableViewCell.m */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
 		D585D6201A39E26D00423640 /* PubNative */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +388,7 @@
 				D51116B31A40A70B00A0B42C /* Icon */,
 				D589E5D51A3B0721008C6C88 /* Interstitial */,
 				D589E5DA1A3B0721008C6C88 /* Video */,
+				D570E61E1A6FF25F0074EF4E /* Feed */,
 				D55C98491A3B736D002CA128 /* PubnativeAdDelegate.h */,
 				D589E6161A3B53ED008C6C88 /* Pubnative.h */,
 				D589E6171A3B53ED008C6C88 /* Pubnative.m */,
@@ -407,6 +446,7 @@
 				D589E5E61A3B0721008C6C88 /* PNVideoPlayerDelegate.h */,
 				D589E5E71A3B0721008C6C88 /* PNVideoPlayerView.h */,
 				D589E5E81A3B0721008C6C88 /* PNVideoPlayerView.m */,
+				D570E6281A6FF2BA0074EF4E /* PNVideoPlayerView.xib */,
 				D589E5E91A3B0721008C6C88 /* PNVideoPlayerViewDelegate.h */,
 				D589E5EA1A3B0721008C6C88 /* VastContainer.h */,
 				D589E5EB1A3B0721008C6C88 /* VastContainer.m */,
@@ -423,6 +463,14 @@
 				D589E6061A3B21B1008C6C88 /* PNCloseIcon@2x.png */,
 				D589E6071A3B21B1008C6C88 /* PNLogoGrey.png */,
 				D589E6081A3B21B1008C6C88 /* PNLogoGrey@2x.png */,
+				D570E62A1A6FF3700074EF4E /* PNExternalLink.png */,
+				D570E62B1A6FF3700074EF4E /* PNExternalLink@2x.png */,
+				D570E62C1A6FF3700074EF4E /* PnFullScreen.png */,
+				D570E62D1A6FF3700074EF4E /* PnFullScreen@2x.png */,
+				D570E62E1A6FF3700074EF4E /* PnMute.png */,
+				D570E62F1A6FF3700074EF4E /* PnMute@2x.png */,
+				D570E6301A6FF3700074EF4E /* PnUnMute.png */,
+				D570E6311A6FF3700074EF4E /* PnUnMute@2x.png */,
 				D589E6091A3B21B1008C6C88 /* PNVersion.plist */,
 			);
 			path = Resources;
@@ -454,6 +502,8 @@
 				D5E11A621A12177B001109A1 /* AppDelegate.m */,
 				D5E11A641A12177B001109A1 /* ViewController.h */,
 				D5E11A651A12177B001109A1 /* ViewController.m */,
+				D570E6251A6FF29B0074EF4E /* FeedViewController.h */,
+				D570E6261A6FF29B0074EF4E /* FeedViewController.m */,
 				D5E11A671A12177B001109A1 /* Main.storyboard */,
 				D5E11A6A1A12177B001109A1 /* Images.xcassets */,
 				D5E11A6C1A12177B001109A1 /* LaunchScreen.xib */,
@@ -573,6 +623,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D570E6321A6FF3700074EF4E /* PNExternalLink.png in Resources */,
+				D570E6331A6FF3700074EF4E /* PNExternalLink@2x.png in Resources */,
 				D589E5F71A3B0721008C6C88 /* PNVideoBannerViewController.xib in Resources */,
 				D589E60E1A3B21B1008C6C88 /* PNVersion.plist in Resources */,
 				D589E60B1A3B21B1008C6C88 /* PNCloseIcon@2x.png in Resources */,
@@ -580,12 +632,19 @@
 				D589E60D1A3B21B1008C6C88 /* PNLogoGrey@2x.png in Resources */,
 				D51116B81A40A70B00A0B42C /* PNIconViewController.xib in Resources */,
 				D5E11A691A12177B001109A1 /* Main.storyboard in Resources */,
+				D570E6351A6FF3700074EF4E /* PnFullScreen@2x.png in Resources */,
+				D570E6341A6FF3700074EF4E /* PnFullScreen.png in Resources */,
+				D570E6371A6FF3700074EF4E /* PnMute@2x.png in Resources */,
+				D570E6291A6FF2BA0074EF4E /* PNVideoPlayerView.xib in Resources */,
+				D570E6381A6FF3700074EF4E /* PnUnMute.png in Resources */,
+				D570E6391A6FF3700074EF4E /* PnUnMute@2x.png in Resources */,
 				D5E11A6E1A12177B001109A1 /* LaunchScreen.xib in Resources */,
 				D5E11A6B1A12177B001109A1 /* Images.xcassets in Resources */,
 				D589E60C1A3B21B1008C6C88 /* PNLogoGrey.png in Resources */,
 				D589E60A1A3B21B1008C6C88 /* PNCloseIcon.png in Resources */,
 				D5A6DDBE1A6EB5B000397B21 /* PNInterstitialAdViewController~iphone.xib in Resources */,
 				D5A6DDBC1A6EAC6100397B21 /* PNInterstitialAdViewController~ipad.xib in Resources */,
+				D570E6361A6FF3700074EF4E /* PnMute.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,7 +674,9 @@
 				D585D65F1A39E26D00423640 /* PNAppModel.m in Sources */,
 				D589E5EF1A3B0721008C6C88 /* PNBannerViewController.m in Sources */,
 				D585D65A1A39E26D00423640 /* YADMJSONToDomainModelParser.m in Sources */,
+				D570E6271A6FF29B0074EF4E /* FeedViewController.m in Sources */,
 				D585D6641A39E26D00423640 /* PNNativeAdModel.m in Sources */,
+				D570E6241A6FF25F0074EF4E /* PNVideoTableViewCell.m in Sources */,
 				D585D6571A39E26D00423640 /* YADMApiCall.m in Sources */,
 				D585D6531A39E26D00423640 /* NSObject+DictionaryValue.m in Sources */,
 				D589E5F01A3B0721008C6C88 /* AMRatingControl.m in Sources */,
@@ -630,6 +691,7 @@
 				D585D6671A39E26D00423640 /* PNAdRequestParameters.m in Sources */,
 				D589E5F51A3B0721008C6C88 /* PNPropertyAnimation.m in Sources */,
 				D585D6541A39E26D00423640 /* NSString+PNMD5.m in Sources */,
+				D570E6231A6FF25F0074EF4E /* PNTableViewManager.m in Sources */,
 				D589E5F81A3B0721008C6C88 /* PNVideoCacher.m in Sources */,
 				D589E6141A3B3263008C6C88 /* PNNativeVideoAPIModel.m in Sources */,
 				D589E5F41A3B0721008C6C88 /* PNProgressLabel.m in Sources */,
