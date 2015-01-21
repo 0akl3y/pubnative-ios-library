@@ -36,8 +36,6 @@
 		D589E5EF1A3B0721008C6C88 /* PNBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D589E5D11A3B0721008C6C88 /* PNBannerViewController.m */; };
 		D589E5F01A3B0721008C6C88 /* AMRatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D589E5D41A3B0721008C6C88 /* AMRatingControl.m */; };
 		D589E5F11A3B0721008C6C88 /* PNInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D589E5D71A3B0721008C6C88 /* PNInterstitialAdViewController.m */; };
-		D589E5F21A3B0721008C6C88 /* PNInterstitialAdViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D589E5D81A3B0721008C6C88 /* PNInterstitialAdViewController~ipad.xib */; };
-		D589E5F31A3B0721008C6C88 /* PNInterstitialAdViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D589E5D91A3B0721008C6C88 /* PNInterstitialAdViewController~iphone.xib */; };
 		D589E5F41A3B0721008C6C88 /* PNProgressLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D589E5DC1A3B0721008C6C88 /* PNProgressLabel.m */; };
 		D589E5F51A3B0721008C6C88 /* PNPropertyAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D589E5DE1A3B0721008C6C88 /* PNPropertyAnimation.m */; };
 		D589E5F61A3B0721008C6C88 /* PNVideoBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D589E5E01A3B0721008C6C88 /* PNVideoBannerViewController.m */; };
@@ -59,6 +57,8 @@
 		D58E0A921A4318CB00C96F2E /* PNCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E0A901A4318CB00C96F2E /* PNCacheManager.m */; };
 		D58E0A951A431F5300C96F2E /* PNCroissantCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E0A941A431F5300C96F2E /* PNCroissantCache.m */; };
 		D58E0A961A431F5300C96F2E /* PNCroissantCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E0A941A431F5300C96F2E /* PNCroissantCache.m */; };
+		D5A6DDBC1A6EAC6100397B21 /* PNInterstitialAdViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5A6DDBB1A6EAC6100397B21 /* PNInterstitialAdViewController~ipad.xib */; };
+		D5A6DDBE1A6EB5B000397B21 /* PNInterstitialAdViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5A6DDBD1A6EB5B000397B21 /* PNInterstitialAdViewController~iphone.xib */; };
 		D5E11A601A12177B001109A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11A5F1A12177B001109A1 /* main.m */; };
 		D5E11A631A12177B001109A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11A621A12177B001109A1 /* AppDelegate.m */; };
 		D5E11A661A12177B001109A1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11A651A12177B001109A1 /* ViewController.m */; };
@@ -141,8 +141,6 @@
 		D589E5D41A3B0721008C6C88 /* AMRatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRatingControl.m; sourceTree = "<group>"; };
 		D589E5D61A3B0721008C6C88 /* PNInterstitialAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNInterstitialAdViewController.h; sourceTree = "<group>"; };
 		D589E5D71A3B0721008C6C88 /* PNInterstitialAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNInterstitialAdViewController.m; sourceTree = "<group>"; };
-		D589E5D81A3B0721008C6C88 /* PNInterstitialAdViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PNInterstitialAdViewController~ipad.xib"; sourceTree = "<group>"; };
-		D589E5D91A3B0721008C6C88 /* PNInterstitialAdViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PNInterstitialAdViewController~iphone.xib"; sourceTree = "<group>"; };
 		D589E5DB1A3B0721008C6C88 /* PNProgressLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNProgressLabel.h; sourceTree = "<group>"; };
 		D589E5DC1A3B0721008C6C88 /* PNProgressLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNProgressLabel.m; sourceTree = "<group>"; };
 		D589E5DD1A3B0721008C6C88 /* PNPropertyAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNPropertyAnimation.h; sourceTree = "<group>"; };
@@ -177,6 +175,8 @@
 		D58E0A901A4318CB00C96F2E /* PNCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCacheManager.m; sourceTree = "<group>"; };
 		D58E0A931A431F5300C96F2E /* PNCroissantCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCroissantCache.h; sourceTree = "<group>"; };
 		D58E0A941A431F5300C96F2E /* PNCroissantCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCroissantCache.m; sourceTree = "<group>"; };
+		D5A6DDBB1A6EAC6100397B21 /* PNInterstitialAdViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PNInterstitialAdViewController~ipad.xib"; sourceTree = "<group>"; };
+		D5A6DDBD1A6EB5B000397B21 /* PNInterstitialAdViewController~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PNInterstitialAdViewController~iphone.xib"; sourceTree = "<group>"; };
 		D5E11A5A1A12177B001109A1 /* PubnativeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PubnativeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5E11A5E1A12177B001109A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5E11A5F1A12177B001109A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -384,8 +384,8 @@
 			children = (
 				D589E5D61A3B0721008C6C88 /* PNInterstitialAdViewController.h */,
 				D589E5D71A3B0721008C6C88 /* PNInterstitialAdViewController.m */,
-				D589E5D81A3B0721008C6C88 /* PNInterstitialAdViewController~ipad.xib */,
-				D589E5D91A3B0721008C6C88 /* PNInterstitialAdViewController~iphone.xib */,
+				D5A6DDBD1A6EB5B000397B21 /* PNInterstitialAdViewController~iphone.xib */,
+				D5A6DDBB1A6EAC6100397B21 /* PNInterstitialAdViewController~ipad.xib */,
 			);
 			path = Interstitial;
 			sourceTree = "<group>";
@@ -580,12 +580,12 @@
 				D589E60D1A3B21B1008C6C88 /* PNLogoGrey@2x.png in Resources */,
 				D51116B81A40A70B00A0B42C /* PNIconViewController.xib in Resources */,
 				D5E11A691A12177B001109A1 /* Main.storyboard in Resources */,
-				D589E5F21A3B0721008C6C88 /* PNInterstitialAdViewController~ipad.xib in Resources */,
 				D5E11A6E1A12177B001109A1 /* LaunchScreen.xib in Resources */,
 				D5E11A6B1A12177B001109A1 /* Images.xcassets in Resources */,
 				D589E60C1A3B21B1008C6C88 /* PNLogoGrey.png in Resources */,
-				D589E5F31A3B0721008C6C88 /* PNInterstitialAdViewController~iphone.xib in Resources */,
 				D589E60A1A3B21B1008C6C88 /* PNCloseIcon.png in Resources */,
+				D5A6DDBE1A6EB5B000397B21 /* PNInterstitialAdViewController~iphone.xib in Resources */,
+				D5A6DDBC1A6EAC6100397B21 /* PNInterstitialAdViewController~ipad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
