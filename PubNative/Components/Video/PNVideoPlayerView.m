@@ -67,8 +67,6 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [self close];
-    
     self.videoPlayer = nil;
     
     self.vastAd = nil;
@@ -138,25 +136,54 @@
     }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft);
-}
-- (BOOL)shouldAutorotate
-{
-    return NO;
-}
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationLandscapeLeft;
-}
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationLandscapeLeft;
-}
-
 #pragma mark - PNVideoPlayerView
 #pragma mark public
+
+- (void)displayCloseButton
+{
+    self.isMaximized = YES;
+    
+    [self.closeButton setHidden:NO];
+    [self.closeButton setEnabled:YES];
+    
+    [self.learnMoreButton setHidden:YES];
+    [self.learnMoreButton setEnabled:NO];
+    
+    [self.fullScreenButton setHidden:YES];
+    [self.fullScreenButton setEnabled:NO];
+}
+
+- (void)hideCloseButton
+{
+    self.isMaximized = NO;
+    
+    [self.closeButton setHidden:YES];
+    [self.closeButton setEnabled:NO];
+    
+    [self.fullScreenButton setHidden:YES];
+    [self.fullScreenButton setEnabled:NO];
+    
+    [self.learnMoreButton setHidden:NO];
+    [self.learnMoreButton setEnabled:YES];
+}
+
+- (void)displayFullscreenButton
+{
+    [self.learnMoreButton setHidden:YES];
+    [self.learnMoreButton setEnabled:NO];
+    
+    [self.fullScreenButton setHidden:NO];
+    [self.fullScreenButton setEnabled:YES];
+}
+
+- (void)hideFullscreenButton
+{
+    [self.learnMoreButton setHidden:NO];
+    [self.learnMoreButton setEnabled:YES];
+    
+    [self.fullScreenButton setHidden:YES];
+    [self.fullScreenButton setEnabled:NO];
+}
 
 - (void)prepareAd:(VastContainer*)ad
 {
@@ -170,22 +197,61 @@
 
 - (void)close
 {
-    [self.view removeFromSuperview];
-
-    if(self.delegate && [self.delegate respondsToSelector:@selector(videoCompleted)])
+    if([self isModal])
     {
-        [self.delegate videoCompleted];
+        [self dismissViewControllerAnimated:NO completion:^{
+            if(self.delegate && [self.delegate respondsToSelector:@selector(videoCompleted)])
+            {
+                [self.delegate videoCompleted];
+                self.delegate = nil;
+            }
+        }];
+    }
+    else
+    {
+        if (self.isMaximized)
+        {
+            [self hideCloseButton];
+            
+            [self.view removeFromSuperview];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(videoDismissedFullscreen)])
+            {
+                [self.delegate videoDismissedFullscreen];
+            }
+            
+            return;
+        }
+        
+        [self willMoveToParentViewController:nil];
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+        if(self.delegate && [self.delegate respondsToSelector:@selector(videoCompleted)])
+        {
+            [self.delegate videoCompleted];
+            self.delegate = nil;
+        }
     }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.videoPlayer close];
     self.videoPlayer = nil;
-    self.delegate = nil;
+}
+
+- (BOOL)isModal
+{
+    if([self presentingViewController])
+        return YES;
+    if([[self presentingViewController] presentedViewController] == self)
+        return YES;
+    if([[[self tabBarController] presentingViewController] isKindOfClass:[UITabBarController class]])
+        return YES;
+    
+    return NO;
 }
 
 
 
-#pragma mark private
+#pragma mark - IBAction Methods
 
 - (IBAction)skipAd:(id)sender
 {
@@ -210,6 +276,31 @@
 {
     [self tapGesture:nil];
 }
+
+- (IBAction)closeAd:(id)sender
+{
+    [self close];
+}
+
+- (IBAction)fullscreenAd:(id)sender
+{
+    [self.view removeFromSuperview];
+    UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if(presentingController.presentedViewController)
+    {
+        presentingController = presentingController.presentedViewController;
+    }
+    
+    CGRect newFrame = presentingController.view.frame;
+    self.view.frame = newFrame;
+    self.videoPlayer.layer.frame = newFrame;
+    [self displayCloseButton];
+    [presentingController.view addSubview:self.view];
+}
+
+
+
+#pragma mark - Private Methods
 
 - (void)ad:(VastContainer*)ad autoStart:(BOOL)autoStart
 {
@@ -241,6 +332,7 @@
 - (void)videoCacherDidCache:(NSString *)videoFile
 {
     self.videoPlayer = [[PNVideoPlayer alloc] initWithDelegate:self];
+    
     [self.videoPlayer open:videoFile autoplay:self.autoStart];
     if(self.delegate)
     {
@@ -303,14 +395,7 @@
         [PNTrackingManager trackURLString:self.vastAd.trackingComplete completion:nil];
     }
     
-    [self.loadLabel removeFromSuperview];
-    self.loadLabel = nil;
-    [self.videoPlayer stop];
-    
-    if(self.delegate)
-    {
-        [self.delegate videoCompleted];
-    }
+    [self close];
 }
 
 - (void)playbackProgress:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration

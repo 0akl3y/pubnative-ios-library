@@ -45,11 +45,20 @@
 @property (nonatomic, weak) IBOutlet UIButton                         *skipButton;
 @property (nonatomic, weak) IBOutlet UIButton                         *muteButton;
 @property (nonatomic, weak) IBOutlet UIButton                         *learnMoreButton;
+@property (nonatomic, weak) IBOutlet UIButton                         *closeButton;
+@property (nonatomic, weak) IBOutlet UIButton                         *fullScreenButton;
 @property (nonatomic, assign)   NSInteger                             skipTime;
+@property (nonatomic, assign) BOOL                                    isMaximized;
 
 - (id)initWithFrame:(CGRect)frame
               model:(PNVastModel*)model
            delegate:(id<PNVideoPlayerViewDelegate>)delegate;
+
+- (void)displayCloseButton;
+- (void)hideCloseButton;
+- (void)displayFullscreenButton;
+- (void)hideFullscreenButton;
+
 - (void)prepareAd:(VastContainer*)ad;
 - (void)showAd:(VastContainer*)ad;
 - (void)close;
@@ -57,5 +66,7 @@
 - (IBAction)skipAd:(id)sender;
 - (IBAction)muteAd:(id)sender;
 - (IBAction)learnMoreAd:(id)sender;
+- (IBAction)closeAd:(id)sender;
+- (IBAction)fullscreenAd:(id)sender;
 
 @end

@@ -19,8 +19,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 @interface PNVideoTableViewCell () <VastXMLParserDelegate, PNVideoPlayerViewDelegate>
 
 @property (nonatomic, strong) UIImageView       *banner;
-@property (nonatomic, strong) UIButton          *bannerButton;
-@property (nonatomic, strong) UILabel           *cta_label;
 @property (nonatomic, strong) PNVideoPlayerView *playerContainer;
 @property (nonatomic, strong) VastContainer     *vastModel;
 @property (nonatomic, strong) NSTimer           *impressionTimer;
@@ -29,31 +27,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 @implementation PNVideoTableViewCell
 
 #pragma mark NSObject
-
-- (void)dealloc
-{
-    self.model = nil;
-    
-    [self.bannerButton removeFromSuperview];
-    self.bannerButton = nil;
-    
-    [self.banner removeFromSuperview];
-    self.banner = nil;
-    
-    if(self.playerContainer)
-    {
-        [self.playerContainer.videoPlayer stop];
-        [self.playerContainer.view removeFromSuperview];
-    }
-    self.playerContainer = nil;
-    
-    [self.impressionTimer invalidate];
-    self.impressionTimer = nil;
-    
-    self.vastModel = nil;
-}
-
-#pragma mark UITableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -64,21 +37,18 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
         self.banner.contentMode = UIViewContentModeScaleAspectFit;
         self.banner.hidden = YES;
         self.backgroundView = self.banner;
-    
-        self.bannerButton = [[UIButton alloc] initWithFrame:self.frame];
-        [self.bannerButton addTarget:self
-                              action:@selector(bannerButtonTouchUpInside:)
-                    forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:self.bannerButton];
-    
+        
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                        action:@selector(openOffer)];
+        tapRecognizer.delegate = self;
+        [self addGestureRecognizer:tapRecognizer];
+        
         self.playerContainer = [[PNVideoPlayerView alloc] initWithFrame:self.frame
                                                                   model:nil
                                                                delegate:self];
         
-        UIImage *linkImage = [UIImage imageNamed:@"PnFullScreen.png"];
-        [self.playerContainer.learnMoreButton setImage:linkImage forState:UIControlStateNormal];
         [self.contentView addSubview:self.playerContainer.view];
-    
+        
         [self addObserver:self
                forKeyPath:kPNTableViewCellContentViewFrameKey
                   options:NSKeyValueObservingOptionNew
@@ -97,12 +67,77 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     return self;
 }
 
-#pragma mark PNTableViewCellFeed
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if ([[gestureRecognizer view] isKindOfClass:[UITableViewCell class]])
+    {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if([kPNTableViewCellContentViewFrameKey isEqualToString:keyPath])
+    {
+        if([object valueForKeyPath:keyPath] != [NSNull null])
+        {
+            CGRect frame = [[object valueForKeyPath:keyPath] CGRectValue];
+            if(self.playerContainer.view.superview == self.contentView)
+            {
+                self.playerContainer.view.frame = frame;
+                self.playerContainer.videoPlayer.layer.frame = frame;
+            }
+        }
+    }
+}
+
+- (void)didRotate:(NSNotification*)notification
+{
+    if(self.playerContainer.view.superview != self.contentView)
+    {
+        UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        if(presentingController.presentedViewController)
+        {
+            presentingController = presentingController.presentedViewController;
+        }
+        
+        CGRect newFrame = presentingController.view.frame;
+        self.playerContainer.view.frame = newFrame;
+        self.playerContainer.videoPlayer.layer.frame = newFrame;
+    }
+}
+
+- (void)dealloc
+{
+    self.model = nil;
+    self.vastModel = nil;
+    
+    [self.banner removeFromSuperview];
+    self.banner = nil;
+    
+    if(self.playerContainer)
+    {
+        [self.playerContainer.videoPlayer stop];
+        [self.playerContainer.view removeFromSuperview];
+    }
+    self.playerContainer = nil;
+    
+    [self.impressionTimer invalidate];
+    self.impressionTimer = nil;
+    
+    self.vastModel = nil;
+}
+
+
+
+#pragma mark - PNTableViewCell Public Methods
 
 - (void)willDisplayCell
 {
     self.banner.hidden = YES;
     self.playerContainer.view.hidden = YES;
+    [self.playerContainer displayFullscreenButton];
     
     [self.impressionTimer invalidate];
     self.impressionTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(impressionTimerTick:) userInfo:nil repeats:NO];
@@ -136,6 +171,10 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     self.impressionTimer = nil;
 }
 
+
+
+#pragma mark - Private Methods
+
 - (void)clearCell:(NSNotification*)notification
 {
     [self didEndDisplayingCell];
@@ -153,7 +192,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     
     PNNativeAdRenderItem *renderItem = [PNNativeAdRenderItem renderItem];
     renderItem.banner = self.banner;
-    renderItem.cta_text = self.cta_label;
     [PNAdRenderingManager renderNativeAdItem:renderItem
                                       withAd:self.model];
     
@@ -164,76 +202,12 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if([kPNTableViewCellContentViewFrameKey isEqualToString:keyPath])
-    {
-        if([object valueForKeyPath:keyPath] != [NSNull null])
-        {
-            CGRect frame = [[object valueForKeyPath:keyPath] CGRectValue];
-            self.bannerButton.frame = frame;
-            
-            if(self.playerContainer.view.superview == self.contentView)
-            {
-                self.playerContainer.view.frame = frame;
-                self.playerContainer.videoPlayer.layer.frame = frame;
-            }
-        }
-    }
-}
-
-- (void)openFullScreen
-{
-    [self.playerContainer.view removeFromSuperview];
-    UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if(presentingController.presentedViewController)
-    {
-        presentingController = presentingController.presentedViewController;
-    }
-    
-    CGRect newFrame = presentingController.view.frame;
-    self.playerContainer.view.frame = newFrame;
-    self.playerContainer.videoPlayer.layer.frame = newFrame;
-    [presentingController.view addSubview:self.playerContainer.view];
-}
-
-- (void)bannerButtonTouchUpInside:(id)sender
-{
-    [self openOffer];
-}
-
 - (void)openOffer
 {
     if(self.model && self.model.click_url)
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.model.click_url]];
     }
-}
-
-- (void)setVideoHidden:(BOOL)hidden
-{
-    self.playerContainer.view.hidden = hidden;
-}
-
-- (void)didRotate:(NSNotification*)notification
-{
-    if(self.playerContainer.view.superview != self.contentView)
-    {
-        UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        if(presentingController.presentedViewController)
-        {
-            presentingController = presentingController.presentedViewController;
-        }
-        
-        CGRect newFrame = presentingController.view.frame;
-        self.playerContainer.view.frame = newFrame;
-        self.playerContainer.videoPlayer.layer.frame = newFrame;
-    }
-}
-
-- (void)ctaLabelTouchUpInside:(id)sender
-{
-    [self openOffer];
 }
 
 - (void)impressionTimerTick:(NSTimer *)timer
@@ -245,9 +219,9 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     }
 }
 
-#pragma mark - DELEGATES -
 
-#pragma mark VastXMLParserDelegate
+
+#pragma mark - VastXMLParserDelegate Methods
 
 - (void)parserReady:(VastContainer*)ad
 {
@@ -255,19 +229,15 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     [self.playerContainer prepareAd:self.vastModel];
 }
 
-#pragma mark PNVideoPlayerViewDelegate
+
+
+#pragma mark - PNVideoPlayerViewDelegate Methods
 
 - (void)videoClicked:(NSString*)clickThroughUrl
 {
-    if(self.playerContainer.view.superview == self.contentView)
-    {
-        [self openFullScreen];
-    }
-    else
-    {
-        [self openOffer];
-    }
+    [self openOffer];
 }
+
 - (void)videoReady
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -275,12 +245,22 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
         [self.playerContainer.videoPlayer play];
     });
 }
-- (void)videoPreparing {}
-- (void)videoStartedWithDuration:(NSTimeInterval)duration {}
+
 - (void)videoCompleted
 {
     self.playerContainer.view.hidden = YES;
 }
+
+- (void)videoDismissedFullscreen
+{
+    self.playerContainer.view.frame = self.contentView.frame;
+    self.playerContainer.videoPlayer.layer.frame = self.contentView.frame;
+    [self.playerContainer displayFullscreenButton];
+    [self.contentView addSubview:self.playerContainer.view];
+}
+
+- (void)videoPreparing {}
+- (void)videoStartedWithDuration:(NSTimeInterval)duration {}
 - (void)videoError:(NSInteger)errorCode details:(NSString*)description {}
 - (void)videoProgress:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration {}
 - (void)videoTrackingEvent:(NSString*)event {}

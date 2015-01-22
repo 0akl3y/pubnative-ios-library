@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D51116B71A40A70B00A0B42C /* PNIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D51116B51A40A70B00A0B42C /* PNIconViewController.m */; };
 		D51116B81A40A70B00A0B42C /* PNIconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D51116B61A40A70B00A0B42C /* PNIconViewController.xib */; };
+		D54DD1C61A7013EC0044E149 /* PnClose.png in Resources */ = {isa = PBXBuildFile; fileRef = D54DD1C41A7013EC0044E149 /* PnClose.png */; };
+		D54DD1C71A7013EC0044E149 /* PnClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D54DD1C51A7013EC0044E149 /* PnClose@2x.png */; };
 		D570E6231A6FF25F0074EF4E /* PNTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D570E6201A6FF25F0074EF4E /* PNTableViewManager.m */; };
 		D570E6241A6FF25F0074EF4E /* PNVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D570E6221A6FF25F0074EF4E /* PNVideoTableViewCell.m */; };
 		D570E6271A6FF29B0074EF4E /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D570E6261A6FF29B0074EF4E /* FeedViewController.m */; };
@@ -98,6 +100,8 @@
 		D51116B41A40A70B00A0B42C /* PNIconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNIconViewController.h; sourceTree = "<group>"; };
 		D51116B51A40A70B00A0B42C /* PNIconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNIconViewController.m; sourceTree = "<group>"; };
 		D51116B61A40A70B00A0B42C /* PNIconViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNIconViewController.xib; sourceTree = "<group>"; };
+		D54DD1C41A7013EC0044E149 /* PnClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnClose.png; sourceTree = "<group>"; };
+		D54DD1C51A7013EC0044E149 /* PnClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PnClose@2x.png"; sourceTree = "<group>"; };
 		D55C98491A3B736D002CA128 /* PubnativeAdDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubnativeAdDelegate.h; sourceTree = "<group>"; };
 		D570E61F1A6FF25F0074EF4E /* PNTableViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNTableViewManager.h; sourceTree = "<group>"; };
 		D570E6201A6FF25F0074EF4E /* PNTableViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNTableViewManager.m; sourceTree = "<group>"; };
@@ -459,14 +463,16 @@
 		D589E6041A3B21B1008C6C88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D54DD1C41A7013EC0044E149 /* PnClose.png */,
+				D54DD1C51A7013EC0044E149 /* PnClose@2x.png */,
 				D589E6051A3B21B1008C6C88 /* PNCloseIcon.png */,
 				D589E6061A3B21B1008C6C88 /* PNCloseIcon@2x.png */,
-				D589E6071A3B21B1008C6C88 /* PNLogoGrey.png */,
-				D589E6081A3B21B1008C6C88 /* PNLogoGrey@2x.png */,
 				D570E62A1A6FF3700074EF4E /* PNExternalLink.png */,
 				D570E62B1A6FF3700074EF4E /* PNExternalLink@2x.png */,
 				D570E62C1A6FF3700074EF4E /* PnFullScreen.png */,
 				D570E62D1A6FF3700074EF4E /* PnFullScreen@2x.png */,
+				D589E6071A3B21B1008C6C88 /* PNLogoGrey.png */,
+				D589E6081A3B21B1008C6C88 /* PNLogoGrey@2x.png */,
 				D570E62E1A6FF3700074EF4E /* PnMute.png */,
 				D570E62F1A6FF3700074EF4E /* PnMute@2x.png */,
 				D570E6301A6FF3700074EF4E /* PnUnMute.png */,
@@ -640,11 +646,13 @@
 				D570E6391A6FF3700074EF4E /* PnUnMute@2x.png in Resources */,
 				D5E11A6E1A12177B001109A1 /* LaunchScreen.xib in Resources */,
 				D5E11A6B1A12177B001109A1 /* Images.xcassets in Resources */,
+				D54DD1C61A7013EC0044E149 /* PnClose.png in Resources */,
 				D589E60C1A3B21B1008C6C88 /* PNLogoGrey.png in Resources */,
 				D589E60A1A3B21B1008C6C88 /* PNCloseIcon.png in Resources */,
 				D5A6DDBE1A6EB5B000397B21 /* PNInterstitialAdViewController~iphone.xib in Resources */,
 				D5A6DDBC1A6EAC6100397B21 /* PNInterstitialAdViewController~ipad.xib in Resources */,
 				D570E6361A6FF3700074EF4E /* PnMute.png in Resources */,
+				D54DD1C71A7013EC0044E149 /* PnClose@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

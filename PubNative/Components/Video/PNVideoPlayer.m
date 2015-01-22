@@ -168,7 +168,6 @@
     {
         [self.delegate playbackCompleted];
     }
-    [self cleanup];
 }
 
 - (void)onProgressTimer
