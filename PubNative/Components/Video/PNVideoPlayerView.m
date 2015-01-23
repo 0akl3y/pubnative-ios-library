@@ -213,23 +213,40 @@
         {
             [self hideCloseButton];
             
+            [self willMoveToParentViewController:nil];
             [self.view removeFromSuperview];
-            if (self.delegate && [self.delegate respondsToSelector:@selector(videoDismissedFullscreen)])
+            [self removeFromParentViewController];
+            
+            if (self.isCompleted)
             {
-                [self.delegate videoDismissedFullscreen];
+                if(self.delegate && [self.delegate respondsToSelector:@selector(videoCompleted)])
+                {
+                    [self.delegate videoCompleted];
+                    self.delegate = nil;
+                }
+            }
+            else
+            {
+                if (self.delegate && [self.delegate respondsToSelector:@selector(videoDismissedFullscreen)])
+                {
+                    [self.delegate videoDismissedFullscreen];
+                    self.delegate = nil;
+                }
             }
             
             return;
         }
         
-        [self willMoveToParentViewController:nil];
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
         if(self.delegate && [self.delegate respondsToSelector:@selector(videoCompleted)])
         {
             [self.delegate videoCompleted];
             self.delegate = nil;
         }
+        
+        [self willMoveToParentViewController:nil];
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+        
     }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -389,13 +406,13 @@
 
 - (void)playbackCompleted
 {
+    self.isCompleted = YES;
+    [self close];
     [self.trackingEvents addObject:@"trackingComplete"];
     if ((NSNull*)self.vastAd.trackingComplete != [NSNull null])
     {
         [PNTrackingManager trackURLString:self.vastAd.trackingComplete completion:nil];
     }
-    
-    [self close];
 }
 
 - (void)playbackProgress:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration
