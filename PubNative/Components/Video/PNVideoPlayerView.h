@@ -49,6 +49,8 @@
 @property (nonatomic, weak) IBOutlet UIButton                         *fullScreenButton;
 @property (nonatomic, assign)   NSInteger                             skipTime;
 @property (nonatomic, assign) BOOL                                    isMaximized;
+@property (nonatomic, assign) BOOL                                    isCompleted;
+
 
 - (id)initWithFrame:(CGRect)frame
               model:(PNVastModel*)model
