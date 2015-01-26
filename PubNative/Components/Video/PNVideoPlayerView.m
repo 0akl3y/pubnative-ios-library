@@ -230,7 +230,6 @@
                 if (self.delegate && [self.delegate respondsToSelector:@selector(videoDismissedFullscreen)])
                 {
                     [self.delegate videoDismissedFullscreen];
-                    self.delegate = nil;
                 }
             }
             
