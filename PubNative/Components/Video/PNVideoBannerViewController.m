@@ -42,10 +42,7 @@
 @property (nonatomic, strong)           PNNativeVideoAdModel            *model;
 @property (nonatomic, strong)           VastContainer                   *vastModel;
 
-@property (nonatomic, strong)           UIWindow                        *appWindow;
-@property (nonatomic, strong)           UIWindow                        *adWindow;
-
-@property (nonatomic, strong)           PNVideoPlayerView               *videoAdPlayer;
+@property (nonatomic, strong)           PNVideoPlayerView               *playerContainer;
 @property (nonatomic, strong)           PNInterstitialAdViewController  *interstitialVC;
 @property (nonatomic, strong)           NSTimer                         *impressionTimer;
 
@@ -69,10 +66,7 @@
     self.model = nil;
     self.vastModel = nil;
     
-    self.appWindow = nil;
-    self.adWindow = nil;
-    
-    self.videoAdPlayer = nil;
+    self.playerContainer = nil;
     self.interstitialVC = nil;
 }
 
@@ -98,7 +92,6 @@
         }
     }
 }
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -140,6 +133,11 @@
     self.impressionTimer = nil;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 #pragma mark - PNVideoBannerViewController
 
 #pragma mark public
@@ -152,13 +150,32 @@
     if (self)
     {
         self.model = model;
-        self.appWindow  = [UIApplication sharedApplication].keyWindow;
-        self.adWindow   = [[UIWindow alloc] initWithFrame:self.appWindow.rootViewController.view.frame];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(didRotate:)
+                                                     name:UIApplicationDidChangeStatusBarOrientationNotification
+                                                   object:nil];
     }
     return self;
 }
 
 #pragma mark private
+
+- (void)didRotate:(NSNotification*)notification
+{
+    if(self.playerContainer.view.superview != self.view)
+    {
+        UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        if(presentingController.presentedViewController)
+        {
+            presentingController = presentingController.presentedViewController;
+        }
+        
+        CGRect newFrame = presentingController.view.frame;
+        self.playerContainer.view.frame = newFrame;
+        self.playerContainer.videoPlayer.layer.frame = newFrame;
+    }
+}
 
 - (void)startImpressionTimer
 {
@@ -185,36 +202,17 @@
 
 - (IBAction)playButtonPressed:(id)sender
 {
-    self.playButton.hidden = YES;
-    
-    [self.videoAdPlayer.videoPlayer play];
-    
-    self.adWindow.rootViewController = self.videoAdPlayer;
-    [self.adWindow makeKeyAndVisible];
-    
-    __block CGSize adWindowSize = [UIApplication sharedApplication].keyWindow.rootViewController.view.frame.size;
-    __block CGSize adVideoSize = adWindowSize;
-    
-    if (adVideoSize.width > adVideoSize.height)
+    UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if(presentingController.presentedViewController)
     {
-        adVideoSize.width = adWindowSize.height;
-        adVideoSize.height = adWindowSize.width;
+        presentingController = presentingController.presentedViewController;
     }
     
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.5f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                            weakSelf.videoAdPlayer.view.transform = CGAffineTransformIdentity;
-                            weakSelf.videoAdPlayer.view.center = CGPointMake(adVideoSize.width/2.0,
-                                                                             adVideoSize.height/2.0);
-                            weakSelf.videoAdPlayer.view.transform = CGAffineTransformMakeRotation(M_PI_2);
-                            weakSelf.videoAdPlayer.view.frame = CGRectMake(0.0f,
-                                                                           0.0f,
-                                                                           adVideoSize.width,
-                                                                           adVideoSize.height);
-                        }
-                     completion:nil];
+    CGRect newFrame = presentingController.view.frame;
+    self.playerContainer.view.frame = newFrame;
+    self.playerContainer.videoPlayer.layer.frame = newFrame;
+    [presentingController presentViewController:self.playerContainer animated:NO completion:nil];
+    [self.playerContainer.videoPlayer play];
 }
 
 - (IBAction)installButtonPressed:(id)sender
@@ -237,15 +235,21 @@
 
 - (void)prepareVideoPlayer
 {
-    CGRect viewFrame = self.appWindow.rootViewController.view.frame;
+    UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if(presentingController.presentedViewController)
+    {
+        presentingController = presentingController.presentedViewController;
+    }
+    
+    CGRect newFrame = presentingController.view.frame;
     PNVastModel *vast =[self.model.vast firstObject];
-    self.videoAdPlayer = [[PNVideoPlayerView alloc] initWithFrame:CGRectMake(0.0f,
+    self.playerContainer = [[PNVideoPlayerView alloc] initWithFrame:CGRectMake(0.0f,
                                                                              0.0f,
-                                                                             viewFrame.size.height,
-                                                                             viewFrame.size.width)
+                                                                             newFrame.size.height,
+                                                                             newFrame.size.width)
                                                             model:vast
                                                          delegate:self];
-    [self.videoAdPlayer prepareAd:self.vastModel];
+    [self.playerContainer prepareAd:self.vastModel];
 }
 
 #pragma mark PNVideoPlayerViewDelegate
@@ -275,12 +279,19 @@
 
 - (void)videoCompleted
 {
-    // Change video for interstitialVC
+    UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if(presentingController.presentedViewController)
+    {
+        presentingController = presentingController.presentedViewController;
+    }
+    CGRect newFrame = presentingController.view.frame;
+    
     self.interstitialVC = [[PNInterstitialAdViewController alloc] initWithNibName:NSStringFromClass([PNInterstitialAdViewController class])
                                                                            bundle:nil
                                                                             model:self.model];
     self.interstitialVC.delegate = self.delegate;
-    self.adWindow.rootViewController = self.interstitialVC;
+    self.interstitialVC.view.frame = newFrame;
+    [presentingController presentViewController:self.interstitialVC animated:NO completion:nil];
 }
 
 - (void)videoError:(NSInteger)errorCode details:(NSString*)description
@@ -297,11 +308,17 @@
     
 }
 
+- (void)videoDismissedFullscreen
+{
+    
+}
+
+
+
 #pragma mark PNAdViewControllerDelegate
 
 - (void)pnAdWillClose
 {
-    [self.appWindow makeKeyAndVisible];
     [self prepareVideoPlayer];
 }
 

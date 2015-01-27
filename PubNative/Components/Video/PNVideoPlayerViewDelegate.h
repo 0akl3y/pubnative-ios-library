@@ -36,5 +36,6 @@
 - (void)videoError:(NSInteger)errorCode details:(NSString*)description;
 - (void)videoProgress:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration;
 - (void)videoTrackingEvent:(NSString*)event;
+- (void)videoDismissedFullscreen;
 
 @end

@@ -23,15 +23,17 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVPlayer.h>
+
 #import "PNVideoPlayerDelegate.h"
 
 @interface PNVideoPlayer : NSObject
 
-@property (nonatomic, strong) MPMoviePlayerController       *player;
+@property (nonatomic, strong) AVPlayer                      *avPlayer;
+@property (nonatomic, strong) AVPlayerLayer                 *layer;
+@property (nonatomic, assign) BOOL                          silenced;
 @property (nonatomic, weak) id<PNVideoPlayerDelegate>       delegate;
-@property (nonatomic, strong) NSTimer                       *progressTimer;
-@property (nonatomic, assign) float                         volume;
 
 - (id)initWithDelegate:(id<PNVideoPlayerDelegate>)delegate;
 - (void)open:(NSString*)urlString autoplay:(BOOL)autoplay;
@@ -41,7 +43,6 @@
 - (void)pause;
 - (void)mute;
 - (BOOL)silenced;
-- (void)seekTo:(NSInteger)posInSeconds;
 - (NSInteger)duration;
 - (NSInteger)currentPosition;
 

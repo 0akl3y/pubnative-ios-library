@@ -53,7 +53,6 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 @property (nonatomic, strong)               PNNativeAdModel         *model;
 @property (nonatomic, assign)               BOOL                    wasStatusBarHidden;
 @property (nonatomic, strong)               NSTimer                 *impressionTimer;
-@property (nonatomic, assign)               UIInterfaceOrientation  currentOrientation;
 
 @end
 
@@ -79,8 +78,6 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didRotate:)
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
-        self.view.frame = [UIScreen mainScreen].bounds;
-        [self.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     }
     return self;
 }
@@ -142,15 +139,6 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
         
         self.iconImage.layer.cornerRadius = 8;
         self.iconImage.clipsToBounds = YES;
-        
-        CGRect bannerImageFrame = CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.width*kPNInterstitialAdVCPortraitImageWidth/kPNInterstitialAdVCPortraitImageHeight));
-        self.bannerImage.frame = bannerImageFrame;
-        
-        CGRect bannerFrame = CGRectMake(kPNInterstitialAdVCBannerPadding,
-                                        bannerImageFrame.size.height+kPNInterstitialAdVCBannerPadding,
-                                        self.view.frame.size.width-(kPNInterstitialAdVCBannerPadding*2),
-                                        self.view.frame.size.height-bannerImageFrame.size.height-(kPNInterstitialAdVCBannerPadding*2));
-        self.bannerDataView.frame = bannerFrame;
         
         PNNativeAdRenderItem *renderItem = [PNNativeAdRenderItem renderItem];
         renderItem.icon = self.iconImage;
@@ -241,46 +229,7 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 - (void)didRotate:(NSNotification *)notification
 {
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if(orientation == self.currentOrientation)
-    {
-        return;
-    }
-    else
-    {
-        self.currentOrientation = orientation;
-    }
-    
-    if (UIInterfaceOrientationIsPortrait(orientation))
-    {
-        CGRect bannerImageFrame = CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.width*kPNPortraitBannerWidth/kPNPortraitBannerHeigth));
-        self.bannerImage.frame = bannerImageFrame;
-        
-        PNNativeAdRenderItem *renderItem = [PNNativeAdRenderItem renderItem];
-        renderItem.banner = self.bannerImage;
-        [PNAdRenderingManager renderNativeAdItem:renderItem withAd:self.model];
-        
-        CGRect bannerFrame = CGRectMake(kPNPadding,
-                                        bannerImageFrame.size.height+kPNPadding,
-                                        self.view.frame.size.width-(kPNPadding*2),
-                                        self.view.frame.size.height-bannerImageFrame.size.height-(kPNPadding*2));
-        self.bannerDataView.frame = bannerFrame;
-    }
-    else
-    {
-        CGRect bannerImageFrame = CGRectMake(0, 0, (self.view.frame.size.height*kPNLandscapeBannerHeigth/kPNLandscapeBannerWidth), self.view.frame.size.height);
-        self.bannerImage.frame = bannerImageFrame;
-        
-        PNNativeAdRenderItem *renderItem = [PNNativeAdRenderItem renderItem];
-        renderItem.portrait_banner = self.bannerImage;
-        [PNAdRenderingManager renderNativeAdItem:renderItem withAd:self.model];
-        
-        CGRect bannerFrame = CGRectMake(bannerImageFrame.size.width+kPNPadding,
-                                        kPNPadding,
-                                        self.view.frame.size.width-bannerImageFrame.size.width-(kPNPadding*2),
-                                        self.view.frame.size.height-(kPNPadding*2));
-        self.bannerDataView.frame = bannerFrame;
-    }
+    self.descriptionLabel.hidden = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && UIInterfaceOrientationIsLandscape(orientation);
 }
 
 

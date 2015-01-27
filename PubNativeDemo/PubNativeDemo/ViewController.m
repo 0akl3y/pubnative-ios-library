@@ -24,6 +24,7 @@
 
 #import "ViewController.h"
 #import "Pubnative.h"
+#import "FeedViewController.h"
 
 NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4c297859216dea9fa283043f8680f";
 
@@ -96,6 +97,19 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [Pubnative requestAdType:Pubnative_AdType_VideoBanner
                 withAppToken:kPubnativeTestAppToken
                  andDelegate:self];
+}
+
+- (IBAction)feedTouchUpInside:(id)sender
+{
+    [self startLoading];
+    [self.currentAdVC.view removeFromSuperview];
+    self.currentType = -1;
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"VideoFeedViewController"];
+    [self presentViewController:feedVC animated:YES completion:^{
+        [feedVC loadAdWithAppToken:kPubnativeTestAppToken];
+    }];
 }
 
 - (void)cleanContainer

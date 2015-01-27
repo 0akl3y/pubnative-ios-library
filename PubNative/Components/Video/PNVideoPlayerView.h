@@ -35,23 +35,40 @@
 
 @interface PNVideoPlayerView : UIViewController <PNVideoPlayerDelegate>
 
-@property (nonatomic, strong)   UIView                                  *videoContainer;
-@property (nonatomic, strong)   PNVideoPlayer                        	*videoPlayer;
-@property (nonatomic, strong)   VastContainer                           *vastAd;
-@property (nonatomic, strong)   PNProgressLabel                         *loadLabel;
-@property (nonatomic, strong)   UIView                                  *skipView;
-@property (nonatomic, strong)   UIButton                                *skipButton;
-@property (nonatomic, strong)   UIView                                  *muteView;
-@property (nonatomic, strong)   UIButton                                *muteButton;
-@property (nonatomic, strong)   UIView                                  *learnMoreView;
-@property (nonatomic, strong)   UIButton                                *learnMoreButton;
-@property (nonatomic, assign)   NSInteger                               skipTime;
+@property (nonatomic, weak) IBOutlet UIView                           *videoContainer;
+@property (nonatomic, weak) IBOutlet UIView                           *loadContainer;
+@property (nonatomic, strong) PNVideoPlayer                           *videoPlayer;
+@property (nonatomic, strong) VastContainer                           *vastAd;
+@property (nonatomic, strong) PNProgressLabel                         *loadLabel;
+@property (nonatomic, strong) PNVastModel                             *model;
+@property (nonatomic, weak) IBOutlet UIView                           *skipView;
+@property (nonatomic, weak) IBOutlet UIButton                         *skipButton;
+@property (nonatomic, weak) IBOutlet UIButton                         *muteButton;
+@property (nonatomic, weak) IBOutlet UIButton                         *learnMoreButton;
+@property (nonatomic, weak) IBOutlet UIButton                         *closeButton;
+@property (nonatomic, weak) IBOutlet UIButton                         *fullScreenButton;
+@property (nonatomic, assign)   NSInteger                             skipTime;
+@property (nonatomic, assign) BOOL                                    isMaximized;
+@property (nonatomic, assign) BOOL                                    isCompleted;
+
 
 - (id)initWithFrame:(CGRect)frame
               model:(PNVastModel*)model
            delegate:(id<PNVideoPlayerViewDelegate>)delegate;
+
+- (void)displayCloseButton;
+- (void)hideCloseButton;
+- (void)displayFullscreenButton;
+- (void)hideFullscreenButton;
+
 - (void)prepareAd:(VastContainer*)ad;
 - (void)showAd:(VastContainer*)ad;
 - (void)close;
+
+- (IBAction)skipAd:(id)sender;
+- (IBAction)muteAd:(id)sender;
+- (IBAction)learnMoreAd:(id)sender;
+- (IBAction)closeAd:(id)sender;
+- (IBAction)fullscreenAd:(id)sender;
 
 @end
