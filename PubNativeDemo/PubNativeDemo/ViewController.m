@@ -57,7 +57,57 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self addCurrentAdVC];
 }
 
-#pragma mark - ViewController
+#pragma mark - ViewController Methods
+
+- (void)addCurrentAdVC
+{
+    switch (self.currentType)
+    {
+        case Pubnative_AdType_Banner:
+        {
+            self.currentAdVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
+            self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
+            [self.adContainer addSubview:self.currentAdVC.view];
+            self.currentAdVC.view.alpha = 0;
+            [UIView animateWithDuration:0.3f
+                             animations:^{
+                                 self.currentAdVC.view.alpha = 1;
+                             }];
+        }
+            break;
+        case Pubnative_AdType_VideoBanner:
+        {
+            self.currentAdVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 150);
+            self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
+            [self.adContainer addSubview:self.currentAdVC.view];
+            self.currentAdVC.view.alpha = 0;
+            [UIView animateWithDuration:0.3f
+                             animations:^{
+                                 self.currentAdVC.view.alpha = 1;
+                             }];
+        }
+            break;
+        case Pubnative_AdType_Interstitial:
+        {
+            [self presentViewController:self.currentAdVC animated:YES completion:nil];
+        }
+            break;
+        case Pubnative_AdType_Icon:
+        {
+            self.currentAdVC.view.frame = CGRectMake(0, 0, 100, 100);
+            self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
+            [self.adContainer addSubview:self.currentAdVC.view];
+            self.currentAdVC.view.alpha = 0;
+            [UIView animateWithDuration:0.3f
+                             animations:^{
+                                 self.currentAdVC.view.alpha = 1;
+                             }];
+        }
+            break;
+    }
+}
+
+#pragma mark - Action Methods
 
 - (IBAction)bannerTouchUpInside:(id)sender
 {
@@ -130,9 +180,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self.adLoadingIndicator stopAnimating];
 }
 
-#pragma mark - DELEGATES -
-
-#pragma mark PubnativeAdDelegate
+#pragma mark - PubnativeAdDelegate Methods
 
 -(void)pnAdDidLoad:(UIViewController *)adVC
 {
@@ -143,57 +191,13 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 
 -(void)pnAdDidClose
 {
-    if(Pubnative_AdType_Banner != self.currentType)
+    if (Pubnative_AdType_VideoBanner == self.currentType)
+    {
+        [(PNVideoBannerViewController*)self.currentAdVC prepareVideoPlayer];
+    }
+    else if(Pubnative_AdType_Banner != self.currentType)
     {
         [self cleanContainer];
-    }
-}
-
-- (void)addCurrentAdVC
-{
-    switch (self.currentType)
-    {
-        case Pubnative_AdType_Banner:
-        {
-            self.currentAdVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
-            self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
-            [self.adContainer addSubview:self.currentAdVC.view];
-            self.currentAdVC.view.alpha = 0;
-            [UIView animateWithDuration:0.3f
-                             animations:^{
-                                 self.currentAdVC.view.alpha = 1;
-                             }];
-        }
-            break;
-        case Pubnative_AdType_VideoBanner:
-        {
-            self.currentAdVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 150);
-            self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
-            [self.adContainer addSubview:self.currentAdVC.view];
-            self.currentAdVC.view.alpha = 0;
-            [UIView animateWithDuration:0.3f
-                             animations:^{
-                                 self.currentAdVC.view.alpha = 1;
-                             }];
-        }
-            break;
-        case Pubnative_AdType_Interstitial:
-        {
-            [self presentViewController:self.currentAdVC animated:YES completion:nil];
-        }
-            break;
-        case Pubnative_AdType_Icon:
-        {
-            self.currentAdVC.view.frame = CGRectMake(0, 0, 100, 100);
-            self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
-            [self.adContainer addSubview:self.currentAdVC.view];
-            self.currentAdVC.view.alpha = 0;
-            [UIView animateWithDuration:0.3f
-                             animations:^{
-                                 self.currentAdVC.view.alpha = 1;
-                             }];
-        }
-            break;
     }
 }
 

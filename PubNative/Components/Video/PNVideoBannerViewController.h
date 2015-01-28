@@ -35,5 +35,7 @@
                          bundle:(NSBundle *)nibBundleOrNil
                           model:(PNNativeVideoAdModel*)model;
 
+- (void)prepareVideoPlayer;
+
 @end
 
