@@ -98,7 +98,7 @@ Find.find(derivedDataDir) do |gcda_file|
             shouldProcess = false
             exclusionMsg =""
 
-            if (excludedFolders.include?(path_comps[0]))
+            if(excludedFolders.any?{|excludedFolder| path_comps[0].start_with?(excludedFolder)})
               exclusionMsg = "excluded via option"
             else
               if (excludeHeaders == true && extension == 'h')

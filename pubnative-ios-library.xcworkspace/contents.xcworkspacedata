@@ -39,6 +39,9 @@
          location = "group:remove_keys.sh">
       </FileRef>
       <FileRef
+         location = "group:coveralls.sh">
+      </FileRef>
+      <FileRef
          location = "group:coveralls.rb">
       </FileRef>
    </Group>

@@ -10,4 +10,4 @@ xctool -workspace pubnative-ios-library.xcworkspace \
 	   GCC_GENERATE_TEST_COVERAGE_FILES=YES \
 	   clean test
 
-./travis/coveralls.rb --extension m --exclude-folder PubNativeDemo/PubNativeDemoTests PubNativeDemo/PubNativeDemo
+./travis/coveralls.rb --extension m --exclude-folder PubNativeDemo
