@@ -39,7 +39,10 @@
 
 - (void)dealloc
 {
-    [self close];
+    self.delegate = nil;
+    self.avPlayer = nil;
+    self.layer = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)open:(NSString*)urlString autoplay:(BOOL)autoplay

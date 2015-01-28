@@ -169,6 +169,8 @@
 
 - (void)displayFullscreenButton
 {
+    self.isMaximized = NO;
+
     [self.learnMoreButton setHidden:YES];
     [self.learnMoreButton setEnabled:NO];
     
@@ -178,6 +180,8 @@
 
 - (void)hideFullscreenButton
 {
+    self.isMaximized = YES;
+    
     [self.learnMoreButton setHidden:NO];
     [self.learnMoreButton setEnabled:YES];
     
@@ -249,7 +253,6 @@
     }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.videoPlayer close];
     self.videoPlayer = nil;
 }
 
