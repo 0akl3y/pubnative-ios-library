@@ -29,9 +29,6 @@ NSString * const kPNTrackingManagerErrorBeacon  = @"PNTrackingManager - beacon e
 
 @interface PNTrackingManager ()
 
-+ (NSMutableArray*)confirmedAds;
-+ (void)setConfirmedAds:(NSMutableArray*)confirmedAds;
-
 @end
 
 @implementation PNTrackingManager
@@ -40,7 +37,7 @@ static PNTrackingManager *sharedManager = nil;
 
 #pragma mark NSObject
 
-#pragma mark PNImpressionManager
+#pragma mark PNTrackingManager
 
 + (NSMutableArray*)confirmedAds
 {
