@@ -32,6 +32,8 @@
 NSString * const kPNTrackingManagerTestMockURL    = @"FancyURL";
 NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
 
+CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
+
 @interface PNTrackingManagerTests : XCTestCase
 
 @property (nonatomic, strong) PNNativeAdModel     *model;
@@ -40,31 +42,63 @@ NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
 
 @implementation PNTrackingManagerTests
 
-- (void)setUp {
+- (void)setUp
+{
     [super setUp];
-
-    NSArray *confirmedAds = [[NSArray alloc] init];
-    [[NSUserDefaults standardUserDefaults] setObject:confirmedAds forKey:kPNAdConstantTrackingConfirmedAdsKey];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kPNAdConstantTrackingConfirmedAdsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     self.model = [[PNNativeAdModel alloc] init];
 }
 
-- (void)tearDown {
+- (void)tearDown
+{
     [super tearDown];
 }
 
 - (void)testConfirmWithNoBeacon
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
     [PNTrackingManager trackImpressionWithAd:self.model
                             completion:^(id result, NSError *error)
     {
         XCTAssertNil(result);
+        [expectation fulfill];
     }];
+    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
+}
+
+- (void)testConfirmedAdsNotNil
+{
+    NSArray *confirmedAds = [PNTrackingManager confirmedAds];
+    XCTAssertNotNil(confirmedAds);
+}
+
+- (void)testConfirmedAdsSetWorks
+{
+    NSMutableArray *confirmedAds = [NSMutableArray arrayWithObjects:@1, @10, @100, nil];
+    [PNTrackingManager setConfirmedAds:confirmedAds];
+    NSMutableArray *retrievedConfirmedAds = [PNTrackingManager confirmedAds];
+    
+    XCTAssertEqualObjects(confirmedAds, retrievedConfirmedAds, @"Expected same object getting out");
+}
+
+- (void)testErrorWithEmptyBeacon
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
+    [PNTrackingManager trackImpressionWithAd:self.model
+                                  completion:^(id result, NSError *error)
+    {
+        XCTAssertNotNil(error, @"Expected error with empty beacon");
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
 }
 
 - (void)testConfirmedAdsSave
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
+    
     // This should NOT save the ad as we are using a fancyURL
     PNBeaconModel *impressionBeacon = [[PNBeaconModel alloc] init];
     impressionBeacon.type = kPNAdConstantTrackingBeaconImpressionTypeString;
@@ -82,11 +116,16 @@ NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
          XCTAssertNotEqualObjects(confirmedAds,
                                   [[NSUserDefaults standardUserDefaults] objectForKey:kPNAdConstantTrackingConfirmedAdsKey],
                                   @"Expected ad to be saved with good URL");
+         [expectation fulfill];
      }];
+    
+    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
 }
 
 - (void)testConfirmedAdsDontSave
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
+    
     // This should NOT save the ad as we are using a fancyURL
     PNBeaconModel *impressionBeacon = [[PNBeaconModel alloc] init];
     impressionBeacon.type = kPNAdConstantTrackingBeaconImpressionTypeString;
@@ -105,7 +144,21 @@ NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
         XCTAssertEqualObjects(confirmedAds,
                               [[NSUserDefaults standardUserDefaults] objectForKey:kPNAdConstantTrackingConfirmedAdsKey],
                               @"Expected ad not to be saved with mock URL");
+        [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
+}
+
+- (void)testTrackURLStringsWorks
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
+    [PNTrackingManager trackURLString:kPNTrackingManagerTestGoogleURL completion:^(id result, NSError *error)
+    {
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
 }
 
 @end

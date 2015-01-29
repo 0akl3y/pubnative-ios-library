@@ -138,4 +138,82 @@ NSString *  const kPNAdRequestParametersDefaultNoUserID     = @"1";
     return self;
 }
 
+- (void)fillWithDefaults
+{
+    if(!self.ad_count)
+    {
+        self.ad_count = @(kPNAdRequestParametersDefaultAdCount);
+    }
+    
+    if(!self.os)
+    {
+        self.os = [[UIDevice currentDevice] systemName];
+    }
+    
+    if(!self.os_version)
+    {
+        self.os_version = [[UIDevice currentDevice] systemVersion];
+    }
+    
+    if(!self.device_model)
+    {
+        self.device_model = [[UIDevice currentDevice] model];
+    }
+    
+    if(!self.device_type)
+    {
+        if(UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM())
+        {
+            self.device_type = kPNAdRequestParametersIpadDeviceName;
+        }
+        else if (UIUserInterfaceIdiomPhone == UI_USER_INTERFACE_IDIOM())
+        {
+            self.device_type = kPNAdRequestParametersIphoneDeviceName;
+        }
+    }
+
+    if(!self.device_resolution)
+    {
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        CGFloat screenScale = [[UIScreen mainScreen] scale];
+        CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
+        self.device_resolution = [NSString stringWithFormat:@"%ix%i",
+                                  [@(screenSize.width) intValue],
+                                  [@(screenSize.height) intValue]];
+    }
+    
+    if(!self.bundle_id)
+    {
+        self.bundle_id = [[NSBundle mainBundle] bundleIdentifier];
+    }
+    
+    if(!self.locale)
+    {
+        NSLocale *currentLocale = [NSLocale currentLocale];
+        self.locale = [currentLocale objectForKey:NSLocaleLanguageCode];
+    }
+    
+    if(!self.apple_idfa)
+    {
+        if(NSClassFromString(@"ASIdentifierManager"))
+        {
+            if([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled])
+            {
+                NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+                if(idfa)
+                {
+                    self.apple_idfa = idfa;
+                    self.apple_idfa_md5 = [self.apple_idfa md5String];
+                    self.apple_idfa_sha1 = [self.apple_idfa sha1String];
+                }
+            }
+        }
+    }
+    
+    if (!self.apple_idfa)
+    {
+        self.no_user_id = kPNAdRequestParametersDefaultNoUserID;
+    }
+}
+
 @end

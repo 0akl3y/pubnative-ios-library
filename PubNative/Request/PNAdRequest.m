@@ -106,6 +106,7 @@
     if(apiModel && apiURL)
     {
         __weak typeof(self) weakSelf = self;
+        [self.parameters fillWithDefaults];
         self.apiModel = [apiModel initWithURL:apiURL
                                        method:kPNAdConstantMethodGET
                                        params:[self.parameters dictionaryValue]
