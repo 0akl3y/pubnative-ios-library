@@ -1,8 +1,9 @@
 //
-// ViewController.h
+//  XLFormCheckCell.m
+//  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-// Created by Csongor Nagy on 11/11/14.
-// Copyright (c) 2014 PubNative
+//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +23,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "XLFormCheckCell.h"
 
-@interface ViewController : UIViewController
+@implementation XLFormCheckCell
+
+#pragma mark - XLFormDescriptorCell
+
+- (void)configure
+{
+    [super configure];
+    self.accessoryType = UITableViewCellAccessoryCheckmark;
+}
+
+- (void)update
+{
+    [super update];
+    self.textLabel.text = self.rowDescriptor.title;
+    self.accessoryType = [self.rowDescriptor.value boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+}
+
+-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
+{
+    self.rowDescriptor.value = [NSNumber numberWithBool:![self.rowDescriptor.value boolValue]];
+    [self update];
+    [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
+}
 
 @end
-

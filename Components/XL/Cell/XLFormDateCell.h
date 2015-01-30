@@ -1,8 +1,9 @@
 //
-// ViewController.h
+//  XLFormDateCell.h
+//  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-// Created by Csongor Nagy on 11/11/14.
-// Copyright (c) 2014 PubNative
+//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +23,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "XLFormBaseCell.h"
 
-@interface ViewController : UIViewController
+typedef NS_ENUM(NSUInteger, XLFormDateDatePickerMode) {
+    XLFormDateDatePickerModeGetFromRowDescriptor,
+    XLFormDateDatePickerModeDate,
+    XLFormDateDatePickerModeDateTime,
+    XLFormDateDatePickerModeTime
+};
+
+@interface XLFormDateCell : XLFormBaseCell
+
+@property (nonatomic) NSDateFormatter * dateFormatter;
+@property (nonatomic) XLFormDateDatePickerMode formDatePickerMode;
+@property (nonatomic) NSDate *minimumDate;
+@property (nonatomic) NSDate *maximumDate;
+@property (nonatomic) NSInteger minuteInterval;
 
 @end
-

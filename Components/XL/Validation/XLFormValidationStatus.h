@@ -1,8 +1,9 @@
 //
-// ViewController.h
+//  XLFormValidationStatus.h
+//  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-// Created by Csongor Nagy on 11/11/14.
-// Copyright (c) 2014 PubNative
+//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +23,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface ViewController : UIViewController
+#import "XLFormRowDescriptor.h"
+
+@interface XLFormValidationStatus : NSObject
+
+@property NSString *msg;
+@property BOOL isValid;
+@property (nonatomic, weak) XLFormRowDescriptor *rowDescriptor;
+
+//-(id)initWithMsg:(NSString*)msg andStatus:(BOOL)isValid;
+-(id)initWithMsg:(NSString*)msg status:(BOOL)isValid rowDescriptor:(XLFormRowDescriptor *)row;
+
+//+(XLFormValidationStatus *)formValidationStatusWithMsg:(NSString *)msg status:(BOOL)status;
++(XLFormValidationStatus *)formValidationStatusWithMsg:(NSString *)msg status:(BOOL)status rowDescriptor:(XLFormRowDescriptor *)row;
 
 @end
-

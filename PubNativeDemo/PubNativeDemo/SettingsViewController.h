@@ -1,7 +1,7 @@
 //
-// ViewController.h
+// SettingsViewController.h
 //
-// Created by Csongor Nagy on 11/11/14.
+// Created by Csongor Nagy on 30/01/15.
 // Copyright (c) 2014 PubNative
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,8 +23,20 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "XLFormViewController.h"
+#import "XLForm.h"
+#import "ViewController.h"
+#import "PNAdRequestParameters.h"
 
-@interface ViewController : UIViewController
+@protocol SettingsViewControllerDelegate <NSObject>
+
+- (void)willCloseWithParams:(PNAdRequestParameters*)parameters;
 
 @end
 
+@interface SettingsViewController : XLFormViewController
+
+- (instancetype)initWitParams:(PNAdRequestParameters*)parameters
+                  andDelegate:(id<SettingsViewControllerDelegate>)delegate;
+
+@end
