@@ -53,6 +53,8 @@ CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
 
 - (void)tearDown
 {
+    self.model = nil;
+    
     [super tearDown];
 }
 
@@ -63,8 +65,23 @@ CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
                             completion:^(id result, NSError *error)
     {
         XCTAssertNil(result);
+        XCTAssertNotNil(error);
         [expectation fulfill];
     }];
+    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
+}
+
+- (void)testConfirmWithoutBeacon
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
+    self.model.beacons = (NSArray<PNBeaconModel>*) [NSArray array];
+    [PNTrackingManager trackImpressionWithAd:self.model
+                                  completion:^(id result, NSError *error)
+     {
+         XCTAssertNil(result);
+         XCTAssertNotNil(error);
+         [expectation fulfill];
+     }];
     [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
 }
 

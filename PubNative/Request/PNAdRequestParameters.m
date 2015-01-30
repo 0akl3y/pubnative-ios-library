@@ -85,59 +85,6 @@ NSString *  const kPNAdRequestParametersDefaultNoUserID     = @"1";
     return result;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    
-    if (self)
-    {
-        self.ad_count = @(kPNAdRequestParametersDefaultAdCount);
-        
-        self.os = [[UIDevice currentDevice] systemName];
-        self.os_version = [[UIDevice currentDevice] systemVersion];
-        self.device_model = [[UIDevice currentDevice] model];
-        if(UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM())
-        {
-            self.device_type = kPNAdRequestParametersIpadDeviceName;
-        }
-        else if (UIUserInterfaceIdiomPhone == UI_USER_INTERFACE_IDIOM())
-        {
-            self.device_type = kPNAdRequestParametersIphoneDeviceName;
-        }
-        
-        CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        CGFloat screenScale = [[UIScreen mainScreen] scale];
-        CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
-        self.device_resolution = [NSString stringWithFormat:@"%ix%i",
-                                  [@(screenSize.width) intValue],
-                                  [@(screenSize.height) intValue]];
-
-        self.bundle_id = [[NSBundle mainBundle] bundleIdentifier];
-        NSLocale *currentLocale = [NSLocale currentLocale];
-        self.locale = [currentLocale objectForKey:NSLocaleLanguageCode];
-        if(NSClassFromString(@"ASIdentifierManager"))
-        {
-            if([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled])
-            {
-                NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-                if(idfa)
-                {
-                    self.apple_idfa = idfa;
-                    self.apple_idfa_md5 = [idfa md5String];
-                    self.apple_idfa_sha1 = [idfa sha1String];
-                }
-            }
-        }
-        
-        if (!self.apple_idfa)
-        {
-            self.no_user_id = kPNAdRequestParametersDefaultNoUserID;
-        }
-    }
-    
-    return self;
-}
-
 - (void)fillWithDefaults
 {
     if(!self.ad_count)

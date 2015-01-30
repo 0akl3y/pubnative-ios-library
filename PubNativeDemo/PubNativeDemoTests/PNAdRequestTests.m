@@ -48,6 +48,9 @@ CGFloat const kPNAdRequestTestsDefaultTimeout = 30.0f;
 
 - (void)tearDown
 {
+    self.block = nil;
+    self.request = nil;
+    self.parameters = nil;
     [super tearDown];
 }
 
