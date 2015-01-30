@@ -25,10 +25,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "PNAdRequest.h"
-
-FOUNDATION_IMPORT NSString * const kPubnativeTestAppToken;
-
-CGFloat const kPNAdRequestTestsDefaultTimeout = 30.0f;
+#import "PNTestConstants.h"
 
 @interface PNAdRequestTests : XCTestCase
 
@@ -44,14 +41,18 @@ CGFloat const kPNAdRequestTestsDefaultTimeout = 30.0f;
 {
     [super setUp];
     self.parameters = [PNAdRequestParameters requestParameters];
+    self.parameters.app_token = kPNTestConstantsAppToken;
 }
 
 - (void)tearDown
 {
+    self.block = nil;
+    self.request = nil;
+    self.parameters = nil;
     [super tearDown];
 }
 
-- (void)testInstanceCreation
+- (void)testNativeRequestCreation
 {
     PNAdRequest *nativeNotNil = [PNAdRequest request:PNAdRequest_Native
                                       withParameters:self.parameters
@@ -64,19 +65,25 @@ CGFloat const kPNAdRequestTestsDefaultTimeout = 30.0f;
                                     andCompletion:nil];
     
     XCTAssertNil(nativeNil, @"Expected Native nil request");
+}
 
+- (void)testImageRequestCreation
+{
     PNAdRequest *imageNotNil = [PNAdRequest request:PNAdRequest_Image
                                      withParameters:self.parameters
                                       andCompletion:nil];
     
     XCTAssertNotNil(imageNotNil, @"Expected request to be allocated");
-
+    
     PNAdRequest *imageNil = [PNAdRequest request:PNAdRequest_Image
                                   withParameters:nil
                                    andCompletion:nil];
     
     XCTAssertNil(imageNil, @"Expected nil request");
-    
+}
+
+- (void)testVideoRequestCreation
+{
     PNAdRequest *videoNotNil = [PNAdRequest request:PNAdRequest_Native_Video
                                      withParameters:self.parameters
                                       andCompletion:nil];
@@ -94,7 +101,6 @@ CGFloat const kPNAdRequestTestsDefaultTimeout = 30.0f;
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
     
-    self.parameters.app_token = kPubnativeTestAppToken;
     self.request = [PNAdRequest request:PNAdRequest_Native
                          withParameters:self.parameters
                           andCompletion:^(NSArray *ads, NSError *error)
@@ -103,14 +109,13 @@ CGFloat const kPNAdRequestTestsDefaultTimeout = 30.0f;
     }];
     [self.request startRequest];
     
-    [self waitForExpectationsWithTimeout:kPNAdRequestTestsDefaultTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
 - (void)testDefaultRequestImage
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
-    
-    self.parameters.app_token = kPubnativeTestAppToken;
+
     self.request = [PNAdRequest request:PNAdRequest_Image
                          withParameters:self.parameters
                           andCompletion:^(NSArray *ads, NSError *error)
@@ -119,14 +124,13 @@ CGFloat const kPNAdRequestTestsDefaultTimeout = 30.0f;
                     }];
     [self.request startRequest];
     
-    [self waitForExpectationsWithTimeout:kPNAdRequestTestsDefaultTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
 - (void)testDefaultRequestNativeVideo
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
     
-    self.parameters.app_token = kPubnativeTestAppToken;
     self.request = [PNAdRequest request:PNAdRequest_Native_Video
                          withParameters:self.parameters
                           andCompletion:^(NSArray *ads, NSError *error)
@@ -135,7 +139,7 @@ CGFloat const kPNAdRequestTestsDefaultTimeout = 30.0f;
                     }];
     [self.request startRequest];
     
-    [self waitForExpectationsWithTimeout:kPNAdRequestTestsDefaultTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
 @end

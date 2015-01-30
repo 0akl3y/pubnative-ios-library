@@ -1,8 +1,8 @@
 //
-// PNAdRenderingManagerTests.m
+// PNTestConstants.h
 //
-// Created by Csongor Nagy on 23/09/14.
-// Copyright (c) 2014 PubNative
+// Created by David Martin on 30/01/15.
+// Copyright (c) 2015 PubNative. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,46 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <XCTest/XCTest.h>
 
-#import "PNNativeAdModel.h"
-#import "PNNativeAdRenderItem.h"
-#import "PNAdRenderingManager.h"
-
-@interface PNAdRenderingManagerTests : XCTestCase
-
-@property (nonatomic, strong) PNNativeAdModel       *appModel;
-@property (nonatomic, strong) PNNativeAdRenderItem  *renderItem;
-
-@property (nonatomic, strong) UILabel       *titleLabel;
-
-@end
-
-@implementation PNAdRenderingManagerTests
-
-- (void)setUp
-{
-    [super setUp];
-    
-    self.appModel = [[PNNativeAdModel alloc] init];
-    self.appModel.title = @"Title";
-    
-    self.renderItem = [PNNativeAdRenderItem renderItem];
-    self.titleLabel = [[UILabel alloc] init];
-    
-    self.renderItem.title = self.titleLabel;
-}
-
-- (void)tearDown
-{
-    [super tearDown];
-}
-
-- (void)testRender
-{
-    [PNAdRenderingManager renderNativeAdItem:self.renderItem withAd:self.appModel];
-    XCTAssertEqualObjects(self.appModel.title, self.renderItem.title.text, @"Expected the two strings to be the same");
-}
-
-@end
+FOUNDATION_EXPORT NSString *  const kPNTestConstantsAppToken;
+FOUNDATION_EXPORT CGFloat     const kPNTestConstantsTimeout;
