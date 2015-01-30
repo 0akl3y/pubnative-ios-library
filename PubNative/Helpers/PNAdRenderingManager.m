@@ -24,6 +24,10 @@
 
 #import "PNAdRenderingManager.h"
 
+NSString *kPNAdRenderingManagerIconNotification = @"kPNAdRenderingManagerIconNotification";
+NSString *kPNAdRenderingManagerBannerNotification = @"kPNAdRenderingManagerBannerNotification";
+NSString *kPNAdRenderingManagerPortraitBannerNotification = @"kPNAdRenderingManagerPortraitBannerNotification";
+
 @interface PNAdRenderingManager ()
 
 @end
@@ -50,17 +54,19 @@
             renderItem.icon.alpha = 0;
             [PNCacheManager dataWithURLString:ad.icon_url
                                 andCompletion:^(NSData *data) {
+                                    
                                     UIImage *iconImage = [UIImage imageWithData:data];
                                     
-                                    [renderItem.icon
-                                     performSelectorOnMainThread:@selector(setImage:)
-                                     withObject:iconImage
-                                     waitUntilDone:NO];
+                                    dispatch_async(dispatch_get_main_queue(),
+                                    ^{
+                                        [renderItem.icon setImage:iconImage];
+                                        [UIView animateWithDuration:0.3f
+                                                         animations:^{
+                                                             renderItem.icon.alpha = 1;
+                                                         }];
                                     
-                                    [UIView animateWithDuration:0.3f
-                                                     animations:^{
-                                                         renderItem.icon.alpha = 1;
-                                                     }];
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:kPNAdRenderingManagerIconNotification object:renderItem.icon];
+                                    });
                                 }];
         }
 
@@ -71,15 +77,16 @@
                                 andCompletion:^(NSData *data) {
                                     UIImage *portraitBannerImage = [UIImage imageWithData:data];
                                     
-                                    [renderItem.banner
-                                     performSelectorOnMainThread:@selector(setImage:)
-                                     withObject:portraitBannerImage
-                                     waitUntilDone:NO];
+                                    dispatch_async(dispatch_get_main_queue(),
+                                    ^{
+                                        [renderItem.banner setImage:portraitBannerImage];
                                     
-                                    [UIView animateWithDuration:0.3f
-                                                     animations:^{
-                                                         renderItem.banner.alpha = 1;
-                                                     }];
+                                        [UIView animateWithDuration:0.3f
+                                                         animations:^{
+                                                             renderItem.banner.alpha = 1;
+                                                         }];
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:kPNAdRenderingManagerBannerNotification object:renderItem.banner];
+                                    });
                                 }];
         }
         
@@ -90,15 +97,17 @@
                                 andCompletion:^(NSData *data) {
                                     UIImage *portraitBannerImage = [UIImage imageWithData:data];
                                     
-                                    [renderItem.portrait_banner
-                                     performSelectorOnMainThread:@selector(setImage:)
-                                     withObject:portraitBannerImage
-                                     waitUntilDone:NO];
+                                    dispatch_async(dispatch_get_main_queue(),
+                                    ^{
+                                        [renderItem.portrait_banner setImage:portraitBannerImage];
                                     
-                                    [UIView animateWithDuration:0.3f
-                                                     animations:^{
-                                                         renderItem.portrait_banner.alpha = 1;
-                                                     }];
+                                        [UIView animateWithDuration:0.3f
+                                                         animations:^{
+                                                             renderItem.portrait_banner.alpha = 1;
+                                                         }];
+                                    
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:kPNAdRenderingManagerPortraitBannerNotification object:renderItem.portrait_banner];
+                                    });
                                 }];
         }
         

@@ -55,6 +55,7 @@ FileUtils.mkdir outputDir
 # pattern to get source file from first line of gcov file
 GCOV_SOURCE_PATTERN = Regexp.new(/Source:(.*)/)
 
+
 # enumerate all gcda files underneath derivedData
 Find.find(derivedDataDir) do |gcda_file|
 
@@ -93,12 +94,10 @@ Find.find(derivedDataDir) do |gcda_file|
             puts "#{extension}"
 
             # get the path components
-            path_comps = relative_path.split(File::SEPARATOR)
-
             shouldProcess = false
             exclusionMsg =""
 
-            if(excludedFolders.any?{|excludedFolder| path_comps[0].start_with?(excludedFolder)})
+            if(excludedFolders.any?{|excludedFolder| relative_path.start_with?(excludedFolder)})
               exclusionMsg = "excluded via option"
             else
               if (excludeHeaders == true && extension == 'h')

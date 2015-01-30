@@ -28,6 +28,10 @@
 #import "PNNativeAdRenderItem.h"
 #import "PNCacheManager.h"
 
+FOUNDATION_EXPORT NSString *kPNAdRenderingManagerIconNotification;
+FOUNDATION_EXPORT NSString *kPNAdRenderingManagerBannerNotification;
+FOUNDATION_EXPORT NSString *kPNAdRenderingManagerPortraitBannerNotification;
+
 @interface PNAdRenderingManager : NSObject
 
 + (void)renderNativeAdItem:(PNNativeAdRenderItem*)renderItem withAd:(PNNativeAdModel*)ad;
