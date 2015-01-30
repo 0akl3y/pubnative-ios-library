@@ -29,10 +29,7 @@
 #import "PNNativeAdModel.h"
 #import "PNNativeAdRenderItem.h"
 #import "PNAdRenderingManager.h"
-
-FOUNDATION_IMPORT NSString * const kPubnativeTestAppToken;
-
-CGFloat const kPNNativeAdRenderItemTestsDefaultTimeout = 30.0f;
+#import "PNTestConstants.h"
 
 @interface PNNativeAdRenderItemTests : XCTestCase
 
@@ -90,7 +87,7 @@ CGFloat const kPNNativeAdRenderItemTestsDefaultTimeout = 30.0f;
     [super tearDown];
 }
 
-- (void)testRender
+- (void)testRenderRequest
 {
     self.iconExpectation = [self expectationWithDescription:@"iconExpectation"];
     self.bannerExpectation = [self expectationWithDescription:@"iconExpectation"];
@@ -106,7 +103,7 @@ CGFloat const kPNNativeAdRenderItemTestsDefaultTimeout = 30.0f;
                                                object:nil];
     
     PNAdRequestParameters *parameters = [PNAdRequestParameters requestParameters];
-    parameters.app_token = kPubnativeTestAppToken;
+    parameters.app_token = kPNTestConstantsAppToken;
     
     self.request = [PNAdRequest request:PNAdRequest_Native
                          withParameters:parameters
@@ -123,7 +120,7 @@ CGFloat const kPNNativeAdRenderItemTestsDefaultTimeout = 30.0f;
                               XCTAssertEqualObjects(nativeAdModel.cta_text, self.renderItem.cta_text.text, @"Expected the two strings to be the same");
                           }];
     [self.request startRequest];
-    [self waitForExpectationsWithTimeout:kPNNativeAdRenderItemTestsDefaultTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
 - (void)downloadNotification:(NSNotification*)notification
