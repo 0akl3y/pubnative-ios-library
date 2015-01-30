@@ -28,11 +28,10 @@
 #import "PNTrackingManager.h"
 #import "PNNativeAdModel.h"
 #import "PNAdConstants.h"
+#import "PNTestConstants.h"
 
 NSString * const kPNTrackingManagerTestMockURL    = @"FancyURL";
 NSString * const kPNTrackingManagerTestGoogleURL  = @"http://www.google.com";
-
-CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
 
 @interface PNTrackingManagerTests : XCTestCase
 
@@ -58,20 +57,20 @@ CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
     [super tearDown];
 }
 
-- (void)testConfirmWithNoBeacon
+- (void)testNilBeaconError
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
     [PNTrackingManager trackImpressionWithAd:self.model
                             completion:^(id result, NSError *error)
     {
         XCTAssertNil(result);
-        XCTAssertNotNil(error);
+        XCTAssertNotNil(error, @"Expected error with empty beacon");
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
-- (void)testConfirmWithoutBeacon
+- (void)testEmptyBeaconError
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
     self.model.beacons = (NSArray<PNBeaconModel>*) [NSArray array];
@@ -79,19 +78,19 @@ CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
                                   completion:^(id result, NSError *error)
      {
          XCTAssertNil(result);
-         XCTAssertNotNil(error);
+         XCTAssertNotNil(error, @"Expected error with empty beacon");
          [expectation fulfill];
      }];
-    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
-- (void)testConfirmedAdsNotNil
+- (void)testNotNilConfirmedAds
 {
     NSArray *confirmedAds = [PNTrackingManager confirmedAds];
     XCTAssertNotNil(confirmedAds);
 }
 
-- (void)testConfirmedAdsSetWorks
+- (void)testSetConfirmedAdsWorks
 {
     NSMutableArray *confirmedAds = [NSMutableArray arrayWithObjects:@1, @10, @100, nil];
     [PNTrackingManager setConfirmedAds:confirmedAds];
@@ -100,19 +99,7 @@ CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
     XCTAssertEqualObjects(confirmedAds, retrievedConfirmedAds, @"Expected same object getting out");
 }
 
-- (void)testErrorWithEmptyBeacon
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
-    [PNTrackingManager trackImpressionWithAd:self.model
-                                  completion:^(id result, NSError *error)
-    {
-        XCTAssertNotNil(error, @"Expected error with empty beacon");
-        [expectation fulfill];
-    }];
-    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
-}
-
-- (void)testConfirmedAdsSave
+- (void)testURLWorkingStoreBeacon
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
     
@@ -136,10 +123,10 @@ CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
          [expectation fulfill];
      }];
     
-    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
-- (void)testConfirmedAdsDontSave
+- (void)testURLErrorDontStoreBeacon
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
     
@@ -152,6 +139,8 @@ CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
     [array addObject:impressionBeacon];
     
     self.model.beacons = (NSArray<PNBeaconModel>*) array;
+    self.model.app_details = [[PNAppModel alloc] init];
+    self.model.app_details.url_scheme = @"testURLScheme";
     
     __block NSArray *confirmedAds = [[NSUserDefaults standardUserDefaults] objectForKey:kPNAdConstantTrackingConfirmedAdsKey];
     
@@ -164,10 +153,10 @@ CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
         [expectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
-- (void)testTrackURLStringsWorks
+- (void)testTrackURLStrings
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
     [PNTrackingManager trackURLString:kPNTrackingManagerTestGoogleURL completion:^(id result, NSError *error)
@@ -175,7 +164,7 @@ CGFloat const PNTrackingManagerTestsDefaultTimeout = 30.0f;
         XCTAssertNil(error);
         [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:PNTrackingManagerTestsDefaultTimeout handler:nil];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
 @end

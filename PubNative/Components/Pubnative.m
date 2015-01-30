@@ -130,7 +130,7 @@
         case Pubnative_AdType_Banner:       result = [Pubnative createAdTypeBannerWithAd:ad andDelegate:delegate];       break;
         case Pubnative_AdType_VideoBanner:  result = [Pubnative createAdTypeVideoBannerWithAd:ad andDelegate:delegate];  break;
         case Pubnative_AdType_Interstitial: result = [Pubnative createAdTypeInterstitialWithAd:ad andDelegate:delegate]; break;
-        case Pubnative_AdType_Icon:         result = [Pubnative createAdTypeIconWithAd:ad];         break;
+        case Pubnative_AdType_Icon:         result = [Pubnative createAdTypeIconWithAd:ad andDelegate:delegate];         break;
     }
     return result;
 }
@@ -162,11 +162,12 @@
     return result;
 }
 
-+ (UIViewController*)createAdTypeIconWithAd:(PNNativeAdModel*)ad
++ (UIViewController*)createAdTypeIconWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
 {
     PNIconViewController *result = [[PNIconViewController alloc] initWithNibName:NSStringFromClass([PNIconViewController class])
                                                                           bundle:nil
                                                                            model:ad];
+    result.delegate = delegate;
     return result;
 }
 

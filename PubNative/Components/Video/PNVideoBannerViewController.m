@@ -131,6 +131,11 @@
     
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
+    
+    if ([self.delegate respondsToSelector:@selector(pnAdDidClose)])
+    {
+        [self.delegate pnAdDidClose];
+    }
 }
 
 - (BOOL)prefersStatusBarHidden

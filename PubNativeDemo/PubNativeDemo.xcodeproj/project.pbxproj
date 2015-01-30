@@ -25,6 +25,14 @@
 		D570E6391A6FF3700074EF4E /* PnUnMute@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E6311A6FF3700074EF4E /* PnUnMute@2x.png */; };
 		D57DE4701A7B9B6E0074EB8E /* PNCroissantCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE46F1A7B9B6E0074EB8E /* PNCroissantCache.m */; };
 		D57DE4731A7B9B890074EB8E /* PNCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4721A7B9B890074EB8E /* PNCacheManager.m */; };
+		D57DE4871A7BC8780074EB8E /* PNMD5Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE47A1A7BC86C0074EB8E /* PNMD5Tests.m */; };
+		D57DE4881A7BC8780074EB8E /* PNSHA1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE47B1A7BC86C0074EB8E /* PNSHA1Tests.m */; };
+		D57DE4891A7BC8780074EB8E /* PNNativeAdRenderItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE47D1A7BC86C0074EB8E /* PNNativeAdRenderItemTests.m */; };
+		D57DE48A1A7BC8780074EB8E /* PNTrackingManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE47E1A7BC86C0074EB8E /* PNTrackingManagerTests.m */; };
+		D57DE48B1A7BC8780074EB8E /* PNAdRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4811A7BC86C0074EB8E /* PNAdRequestTests.m */; };
+		D57DE4931A7BCC150074EB8E /* PNTestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4921A7BCC150074EB8E /* PNTestConstants.m */; };
+		D57DE49C1A7BCDF90074EB8E /* PNPubnativeCreationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4941A7BCDF60074EB8E /* PNPubnativeCreationTests.m */; };
+		D57DE49D1A7BCDF90074EB8E /* PNPubnativeDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4951A7BCDF60074EB8E /* PNPubnativeDelegateTests.m */; };
 		D585D6531A39E26D00423640 /* NSObject+DictionaryValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6231A39E26D00423640 /* NSObject+DictionaryValue.m */; };
 		D585D6541A39E26D00423640 /* NSString+PNMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6251A39E26D00423640 /* NSString+PNMD5.m */; };
 		D585D6551A39E26D00423640 /* NSString+PNSHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6271A39E26D00423640 /* NSString+PNSHA1.m */; };
@@ -77,11 +85,6 @@
 		D5E11A691A12177B001109A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5E11A671A12177B001109A1 /* Main.storyboard */; };
 		D5E11A6B1A12177B001109A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5E11A6A1A12177B001109A1 /* Images.xcassets */; };
 		D5E11A6E1A12177B001109A1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E11A6C1A12177B001109A1 /* LaunchScreen.xib */; };
-		D5E11AD41A12211E001109A1 /* PNNativeAdRenderItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11ACE1A12211E001109A1 /* PNNativeAdRenderItemTests.m */; };
-		D5E11AD51A12211E001109A1 /* PNAdRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11ACF1A12211E001109A1 /* PNAdRequestTests.m */; };
-		D5E11AD61A12211E001109A1 /* PNTrackingManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11AD01A12211E001109A1 /* PNTrackingManagerTests.m */; };
-		D5E11AD71A12211E001109A1 /* PNMD5Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11AD11A12211E001109A1 /* PNMD5Tests.m */; };
-		D5E11AD91A12211E001109A1 /* PNSHA1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E11AD31A12211E001109A1 /* PNSHA1Tests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +123,15 @@
 		D57DE46F1A7B9B6E0074EB8E /* PNCroissantCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCroissantCache.m; sourceTree = "<group>"; };
 		D57DE4711A7B9B890074EB8E /* PNCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCacheManager.h; sourceTree = "<group>"; };
 		D57DE4721A7B9B890074EB8E /* PNCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCacheManager.m; sourceTree = "<group>"; };
+		D57DE47A1A7BC86C0074EB8E /* PNMD5Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNMD5Tests.m; sourceTree = "<group>"; };
+		D57DE47B1A7BC86C0074EB8E /* PNSHA1Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSHA1Tests.m; sourceTree = "<group>"; };
+		D57DE47D1A7BC86C0074EB8E /* PNNativeAdRenderItemTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNNativeAdRenderItemTests.m; sourceTree = "<group>"; };
+		D57DE47E1A7BC86C0074EB8E /* PNTrackingManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNTrackingManagerTests.m; sourceTree = "<group>"; };
+		D57DE4811A7BC86C0074EB8E /* PNAdRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAdRequestTests.m; sourceTree = "<group>"; };
+		D57DE48E1A7BC9A20074EB8E /* PNTestConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNTestConstants.h; sourceTree = "<group>"; };
+		D57DE4921A7BCC150074EB8E /* PNTestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNTestConstants.m; sourceTree = "<group>"; };
+		D57DE4941A7BCDF60074EB8E /* PNPubnativeCreationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNPubnativeCreationTests.m; sourceTree = "<group>"; };
+		D57DE4951A7BCDF60074EB8E /* PNPubnativeDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNPubnativeDelegateTests.m; sourceTree = "<group>"; };
 		D585D6221A39E26D00423640 /* NSObject+DictionaryValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DictionaryValue.h"; sourceTree = "<group>"; };
 		D585D6231A39E26D00423640 /* NSObject+DictionaryValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DictionaryValue.m"; sourceTree = "<group>"; };
 		D585D6241A39E26D00423640 /* NSString+PNMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PNMD5.h"; sourceTree = "<group>"; };
@@ -218,11 +230,6 @@
 		D5E11A6D1A12177B001109A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		D5E11A731A12177B001109A1 /* PubnativeDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PubnativeDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5E11A781A12177B001109A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D5E11ACE1A12211E001109A1 /* PNNativeAdRenderItemTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNNativeAdRenderItemTests.m; sourceTree = "<group>"; };
-		D5E11ACF1A12211E001109A1 /* PNAdRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAdRequestTests.m; sourceTree = "<group>"; };
-		D5E11AD01A12211E001109A1 /* PNTrackingManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNTrackingManagerTests.m; sourceTree = "<group>"; };
-		D5E11AD11A12211E001109A1 /* PNMD5Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNMD5Tests.m; sourceTree = "<group>"; };
-		D5E11AD31A12211E001109A1 /* PNSHA1Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSHA1Tests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +280,48 @@
 				D57DE46F1A7B9B6E0074EB8E /* PNCroissantCache.m */,
 			);
 			path = Croissant;
+			sourceTree = "<group>";
+		};
+		D57DE4781A7BC86C0074EB8E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D57DE4941A7BCDF60074EB8E /* PNPubnativeCreationTests.m */,
+				D57DE4951A7BCDF60074EB8E /* PNPubnativeDelegateTests.m */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		D57DE4791A7BC86C0074EB8E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D57DE47A1A7BC86C0074EB8E /* PNMD5Tests.m */,
+				D57DE47B1A7BC86C0074EB8E /* PNSHA1Tests.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D57DE47C1A7BC86C0074EB8E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D57DE47D1A7BC86C0074EB8E /* PNNativeAdRenderItemTests.m */,
+				D57DE47E1A7BC86C0074EB8E /* PNTrackingManagerTests.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D57DE47F1A7BC86C0074EB8E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D57DE4801A7BC86C0074EB8E /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				D57DE4811A7BC86C0074EB8E /* PNAdRequestTests.m */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 		D585D6201A39E26D00423640 /* PubNative */ = {
@@ -536,11 +585,13 @@
 		D5E11A761A12177B001109A1 /* PubNativeDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				D5E11ACE1A12211E001109A1 /* PNNativeAdRenderItemTests.m */,
-				D5E11ACF1A12211E001109A1 /* PNAdRequestTests.m */,
-				D5E11AD01A12211E001109A1 /* PNTrackingManagerTests.m */,
-				D5E11AD11A12211E001109A1 /* PNMD5Tests.m */,
-				D5E11AD31A12211E001109A1 /* PNSHA1Tests.m */,
+				D57DE48E1A7BC9A20074EB8E /* PNTestConstants.h */,
+				D57DE4921A7BCC150074EB8E /* PNTestConstants.m */,
+				D57DE4781A7BC86C0074EB8E /* Components */,
+				D57DE4791A7BC86C0074EB8E /* Extensions */,
+				D57DE47C1A7BC86C0074EB8E /* Helpers */,
+				D57DE47F1A7BC86C0074EB8E /* Models */,
+				D57DE4801A7BC86C0074EB8E /* Request */,
 				D5E11A771A12177B001109A1 /* Supporting Files */,
 			);
 			path = PubNativeDemoTests;
@@ -695,6 +746,7 @@
 				D589E5F01A3B0721008C6C88 /* AMRatingControl.m in Sources */,
 				D585D6581A39E26D00423640 /* YADMApiCallResult.m in Sources */,
 				D585D6651A39E26D00423640 /* PNNativeAPIModel.m in Sources */,
+				D57DE4931A7BCC150074EB8E /* PNTestConstants.m in Sources */,
 				D589E5CC1A3B0639008C6C88 /* PNNativeVideoAdModel.m in Sources */,
 				D5E11A631A12177B001109A1 /* AppDelegate.m in Sources */,
 				D51116B71A40A70B00A0B42C /* PNIconViewController.m in Sources */,
@@ -729,11 +781,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5E11AD41A12211E001109A1 /* PNNativeAdRenderItemTests.m in Sources */,
-				D5E11AD91A12211E001109A1 /* PNSHA1Tests.m in Sources */,
-				D5E11AD71A12211E001109A1 /* PNMD5Tests.m in Sources */,
-				D5E11AD61A12211E001109A1 /* PNTrackingManagerTests.m in Sources */,
-				D5E11AD51A12211E001109A1 /* PNAdRequestTests.m in Sources */,
+				D57DE48A1A7BC8780074EB8E /* PNTrackingManagerTests.m in Sources */,
+				D57DE49D1A7BCDF90074EB8E /* PNPubnativeDelegateTests.m in Sources */,
+				D57DE4881A7BC8780074EB8E /* PNSHA1Tests.m in Sources */,
+				D57DE4891A7BC8780074EB8E /* PNNativeAdRenderItemTests.m in Sources */,
+				D57DE48B1A7BC8780074EB8E /* PNAdRequestTests.m in Sources */,
+				D57DE49C1A7BCDF90074EB8E /* PNPubnativeCreationTests.m in Sources */,
+				D57DE4871A7BC8780074EB8E /* PNMD5Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
