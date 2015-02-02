@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PNAdRequest.h"
 #import "PNVideoTableViewCell.h"
+#import "PNAdWallCell.h"
 
 @interface FeedViewController : UIViewController
 
-- (void)loadAdWithAppToken:(NSString*)appToken;
+- (void)loadAdWithParameters:(PNAdRequestParameters*)parameters
+                 requestType:(PNAdRequestType)reuqestType
+                 andFeedType:(PNFeedType)feedType;
 - (IBAction)dismiss:(id)sender;
 
 @end

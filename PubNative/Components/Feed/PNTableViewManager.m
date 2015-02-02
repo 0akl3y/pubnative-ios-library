@@ -8,6 +8,7 @@
 
 #import "PNTableViewManager.h"
 #import "PNVideoTableViewCell.h"
+#import "PNAdWallCell.h"
 
 NSString * const kPNTableViewManagerClearAllNotification = @"PNTableViewManagerClearAll";
 
@@ -118,6 +119,12 @@ NSString * const kPNTableViewManagerClearAllNotification = @"PNTableViewManagerC
         [videoCell willDisplayCell];
     }
     
+    if([cell isKindOfClass:[PNAdWallCell class]])
+    {
+        PNAdWallCell *adWallCell = (PNAdWallCell*)cell;
+        [adWallCell willDisplayCell];
+    }
+    
     if(self.originalDelegate != nil &&
        [self.originalDelegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)])
     {
@@ -131,6 +138,12 @@ NSString * const kPNTableViewManagerClearAllNotification = @"PNTableViewManagerC
     {
         PNVideoTableViewCell *videoCell = (PNVideoTableViewCell*)cell;
         [videoCell didEndDisplayingCell];
+    }
+    
+    if([cell isKindOfClass:[PNAdWallCell class]])
+    {
+        PNAdWallCell *adWallCell = (PNAdWallCell*)cell;
+        [adWallCell didEndDisplayingCell];
     }
     
     if(self.originalDelegate != nil &&

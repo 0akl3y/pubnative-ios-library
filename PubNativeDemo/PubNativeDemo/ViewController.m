@@ -55,6 +55,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 {
     [super viewDidLoad];
     self.parameters = [PNAdRequestParameters requestParameters];
+    [self.parameters fillWithDefaults];
     self.parameters.app_token = kPubnativeTestAppToken;
 }
 
@@ -172,16 +173,33 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
                  andDelegate:self];
 }
 
-- (IBAction)feedTouchUpInside:(id)sender
+- (IBAction)videoFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     [self.currentAdVC.view removeFromSuperview];
     self.currentType = -1;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"VideoFeedViewController"];
+    FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
     [self presentViewController:feedVC animated:YES completion:^{
-        [feedVC loadAdWithAppToken:kPubnativeTestAppToken];
+        [feedVC loadAdWithParameters:self.parameters
+                         requestType:PNAdRequest_Native_Video
+                         andFeedType:PNFeed_Native_Video];
+    }];
+}
+
+- (IBAction)adFeedTouchUpInside:(id)sender
+{
+    [self startLoading];
+    [self.currentAdVC.view removeFromSuperview];
+    self.currentType = -1;
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
+    [self presentViewController:feedVC animated:YES completion:^{
+        [feedVC loadAdWithParameters:self.parameters
+                         requestType:PNAdRequest_Native
+                         andFeedType:PNFeed_Native_Ad];
     }];
 }
 

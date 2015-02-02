@@ -23,6 +23,8 @@
 		D570E6371A6FF3700074EF4E /* PnMute@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E62F1A6FF3700074EF4E /* PnMute@2x.png */; };
 		D570E6381A6FF3700074EF4E /* PnUnMute.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E6301A6FF3700074EF4E /* PnUnMute.png */; };
 		D570E6391A6FF3700074EF4E /* PnUnMute@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D570E6311A6FF3700074EF4E /* PnUnMute@2x.png */; };
+		D574EA321A7FD91500BA611B /* PNAdWallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D574EA2D1A7FD91500BA611B /* PNAdWallCell.m */; };
+		D574EA331A7FD91500BA611B /* PNAdWallCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D574EA2E1A7FD91500BA611B /* PNAdWallCell.xib */; };
 		D57DE4701A7B9B6E0074EB8E /* PNCroissantCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE46F1A7B9B6E0074EB8E /* PNCroissantCache.m */; };
 		D57DE4731A7B9B890074EB8E /* PNCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4721A7B9B890074EB8E /* PNCacheManager.m */; };
 		D57DE4871A7BC8780074EB8E /* PNMD5Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE47A1A7BC86C0074EB8E /* PNMD5Tests.m */; };
@@ -151,6 +153,9 @@
 		D570E62F1A6FF3700074EF4E /* PnMute@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PnMute@2x.png"; sourceTree = "<group>"; };
 		D570E6301A6FF3700074EF4E /* PnUnMute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnUnMute.png; sourceTree = "<group>"; };
 		D570E6311A6FF3700074EF4E /* PnUnMute@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PnUnMute@2x.png"; sourceTree = "<group>"; };
+		D574EA2C1A7FD91500BA611B /* PNAdWallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNAdWallCell.h; sourceTree = "<group>"; };
+		D574EA2D1A7FD91500BA611B /* PNAdWallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAdWallCell.m; sourceTree = "<group>"; };
+		D574EA2E1A7FD91500BA611B /* PNAdWallCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNAdWallCell.xib; sourceTree = "<group>"; };
 		D57DE46E1A7B9B6E0074EB8E /* PNCroissantCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCroissantCache.h; sourceTree = "<group>"; };
 		D57DE46F1A7B9B6E0074EB8E /* PNCroissantCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCroissantCache.m; sourceTree = "<group>"; };
 		D57DE4711A7B9B890074EB8E /* PNCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCacheManager.h; sourceTree = "<group>"; };
@@ -372,6 +377,16 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
+		D574EA2B1A7FD91500BA611B /* AdWall */ = {
+			isa = PBXGroup;
+			children = (
+				D574EA2C1A7FD91500BA611B /* PNAdWallCell.h */,
+				D574EA2D1A7FD91500BA611B /* PNAdWallCell.m */,
+				D574EA2E1A7FD91500BA611B /* PNAdWallCell.xib */,
+			);
+			path = AdWall;
+			sourceTree = "<group>";
+		};
 		D57DE46D1A7B9B6E0074EB8E /* Croissant */ = {
 			isa = PBXGroup;
 			children = (
@@ -543,6 +558,7 @@
 		D589E5CD1A3B0721008C6C88 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D574EA2B1A7FD91500BA611B /* AdWall */,
 				D589E5D21A3B0721008C6C88 /* Common */,
 				D589E5CE1A3B0721008C6C88 /* Banner */,
 				D51116B31A40A70B00A0B42C /* Icon */,
@@ -934,6 +950,7 @@
 				D570E6341A6FF3700074EF4E /* PnFullScreen.png in Resources */,
 				D570E6371A6FF3700074EF4E /* PnMute@2x.png in Resources */,
 				D570E6291A6FF2BA0074EF4E /* PNVideoPlayerView.xib in Resources */,
+				D574EA331A7FD91500BA611B /* PNAdWallCell.xib in Resources */,
 				D570E6381A6FF3700074EF4E /* PnUnMute.png in Resources */,
 				D570E6391A6FF3700074EF4E /* PnUnMute@2x.png in Resources */,
 				D5E11A6E1A12177B001109A1 /* LaunchScreen.xib in Resources */,
@@ -965,7 +982,6 @@
 				D585D6561A39E26D00423640 /* YADMJSONApiModel.m in Sources */,
 				D585D6621A39E26D00423640 /* PNImageAdModel.m in Sources */,
 				D5B9C9E01A7B8E870042E53A /* XLFormValidator.m in Sources */,
-				D58E0A911A4318CB00C96F2E /* PNCacheManager.m in Sources */,
 				D5B9C9C31A7B8E870042E53A /* XLFormBaseCell.m in Sources */,
 				D5B9C9C51A7B8E870042E53A /* XLFormCheckCell.m in Sources */,
 				D5B9C9D71A7B8E870042E53A /* XLFormSectionDescriptor.m in Sources */,
@@ -975,6 +991,7 @@
 				D585D65D1A39E26D00423640 /* PNTrackingManager.m in Sources */,
 				D5B9C9CC1A7B8E870042E53A /* XLFormSelectorCell.m in Sources */,
 				D585D6661A39E26D00423640 /* PNAdRequest.m in Sources */,
+				D574EA321A7FD91500BA611B /* PNAdWallCell.m in Sources */,
 				D589E5FC1A3B0721008C6C88 /* VastXMLParser.m in Sources */,
 				D5E11A661A12177B001109A1 /* ViewController.m in Sources */,
 				D5B9C9DA1A7B8E870042E53A /* UIView+XLFormAdditions.m in Sources */,
