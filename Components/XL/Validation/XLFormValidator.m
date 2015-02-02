@@ -1,8 +1,9 @@
 //
-// ViewController.h
+//  XLFormValidator.h
+//  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-// Created by Csongor Nagy on 11/11/14.
-// Copyright (c) 2014 PubNative
+//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +23,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "XLFormValidationStatus.h"
+#import "XLFormRegexValidator.h"
 
-@interface ViewController : UIViewController
+#import "XLFormValidator.h"
+
+@implementation XLFormValidator
+
+-(XLFormValidationStatus *)isValid:(XLFormRowDescriptor *)row
+{
+    return [XLFormValidationStatus formValidationStatusWithMsg:nil status:YES rowDescriptor:row];
+}
+
+#pragma mark - Validators
+
+
++(XLFormValidator *)emailValidator
+{
+    return [XLFormRegexValidator formRegexValidatorWithMsg:NSLocalizedString(@"Invalid email address", nil) regex:@"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"];
+}
 
 @end
-

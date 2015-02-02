@@ -1,8 +1,9 @@
 //
-// ViewController.h
+//  XLFormDatePickerCell.m
+//  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-// Created by Csongor Nagy on 11/11/14.
-// Copyright (c) 2014 PubNative
+//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +23,46 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "UIView+XLFormAdditions.h"
 
-@interface ViewController : UIViewController
+#import "XLFormDatePickerCell.h"
+
+@implementation XLFormDatePickerCell
+
+@synthesize datePicker = _datePicker;
+
+-(BOOL)canResignFirstResponder
+{
+    return YES;
+}
+
+#pragma mark - Properties
+
+-(UIDatePicker *)datePicker
+{
+    if (_datePicker) return _datePicker;
+    _datePicker = [UIDatePicker autolayoutView];
+    return _datePicker;
+}
+
+#pragma mark - XLFormDescriptorCell
+
+-(void)configure
+{
+    [super configure];
+    [self.contentView addSubview:self.datePicker];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.datePicker attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+}
+
+-(void)update
+{
+    [super update];
+}
+
+
++(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
+{
+    return 216.0f;
+}
 
 @end
-

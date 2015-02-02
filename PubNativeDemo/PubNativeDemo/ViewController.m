@@ -25,16 +25,20 @@
 #import "ViewController.h"
 #import "Pubnative.h"
 #import "FeedViewController.h"
+#import "SettingsViewController.h"
 
 NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4c297859216dea9fa283043f8680f";
 
-@interface ViewController ()<PubnativeAdDelegate>
+@interface ViewController ()<PubnativeAdDelegate, SettingsViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView                     *adContainer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView    *adLoadingIndicator;
+@property (strong, nonatomic) PNAdRequestParameters             *parameters;
 
 @property (nonatomic, assign) Pubnative_AdType  currentType;
 @property (nonatomic, strong) UIViewController  *currentAdVC;
+
+- (IBAction)settingsPressed:(id)sender;
 
 @end
 
@@ -47,6 +51,13 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self cleanContainer];
 }
 
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.parameters = [PNAdRequestParameters requestParameters];
+    self.parameters.app_token = kPubnativeTestAppToken;
+}
+
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [self.currentAdVC.view removeFromSuperview];
@@ -55,6 +66,11 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [self addCurrentAdVC];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 #pragma mark - ViewController Methods
@@ -109,13 +125,20 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 
 #pragma mark - Action Methods
 
+- (IBAction)settingsPressed:(id)sender
+{
+    SettingsViewController *settings = [[SettingsViewController alloc] initWitParams:self.parameters
+                                                                         andDelegate:self];
+    [self presentViewController:settings animated:YES completion:nil];
+}
+
 - (IBAction)bannerTouchUpInside:(id)sender
 {
     [self startLoading];
     [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_Banner;
     [Pubnative requestAdType:Pubnative_AdType_Banner
-                withAppToken:kPubnativeTestAppToken
+              withParameters:self.parameters
                  andDelegate:self];
 }
 
@@ -125,7 +148,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_Interstitial;
     [Pubnative requestAdType:Pubnative_AdType_Interstitial
-                withAppToken:kPubnativeTestAppToken
+              withParameters:self.parameters
                  andDelegate:self];
 }
 
@@ -135,7 +158,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_Icon;
     [Pubnative requestAdType:Pubnative_AdType_Icon
-                withAppToken:kPubnativeTestAppToken
+              withParameters:self.parameters
                  andDelegate:self];
 }
 
@@ -145,7 +168,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_VideoBanner;
     [Pubnative requestAdType:Pubnative_AdType_VideoBanner
-                withAppToken:kPubnativeTestAppToken
+              withParameters:self.parameters
                  andDelegate:self];
 }
 
@@ -178,6 +201,13 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (void)stopLoading
 {
     [self.adLoadingIndicator stopAnimating];
+}
+
+#pragma mark - SettingsViewControllerDelegate Methods
+
+- (void)willCloseWithParams:(PNAdRequestParameters*)parameters
+{
+    self.parameters = parameters;
 }
 
 #pragma mark - PubnativeAdDelegate Methods

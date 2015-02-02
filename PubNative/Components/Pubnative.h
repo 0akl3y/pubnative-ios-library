@@ -29,6 +29,7 @@
 #import "PNInterstitialAdViewController.h"
 #import "PNVideoBannerViewController.h"
 #import "PubnativeAdDelegate.h"
+#import "PNAdRequestParameters.h"
 
 // Types and Contstants
 //================================
@@ -46,6 +47,10 @@ typedef NS_ENUM(NSInteger, Pubnative_AdType) {
 
 + (void)requestAdType:(Pubnative_AdType)type
          withAppToken:(NSString *)appToken
+          andDelegate:(NSObject<PubnativeAdDelegate>*)delegate;
+
++ (void)requestAdType:(Pubnative_AdType)type
+       withParameters:(PNAdRequestParameters*)parameters
           andDelegate:(NSObject<PubnativeAdDelegate>*)delegate;
 
 @end
