@@ -7,17 +7,20 @@
 //
 
 #import "FeedViewController.h"
-#import "PNAdRequest.h"
 #import "PNTableViewManager.h"
 
 NSString * const videoCellID    = @"videoCellID";
+NSString * const wallCellID     = @"wallCellID";
 NSString * const textCellID     = @"textCellID";
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView  *tableView;
-@property (strong, nonatomic) PNNativeAdModel       *model;
-@property (strong, nonatomic) PNAdRequest           *request;
+@property (strong, nonatomic) IBOutlet UITableView      *tableView;
+@property (strong, nonatomic) PNNativeAdModel           *model;
+@property (strong, nonatomic) NSMutableArray            *ads;
+@property (strong, nonatomic) PNAdRequest               *request;
+@property (assign, nonatomic) PNFeedType                type;
+@property (weak, nonatomic) IBOutlet UINavigationItem   *navItem;
 
 @end
 
@@ -46,13 +49,25 @@ NSString * const textCellID     = @"textCellID";
 
 #pragma mark FeedViewController
 
-- (void)loadAdWithAppToken:(NSString *)appToken
+- (void)loadAdWithParameters:(PNAdRequestParameters*)parameters
+                 requestType:(PNAdRequestType)reuqestType
+                 andFeedType:(PNFeedType)feedType
 {
-    PNAdRequestParameters *parameters = [PNAdRequestParameters requestParameters];
-    parameters.app_token = appToken;
+    self.type = feedType;
+    
+    if (self.type == PNFeed_Native_Ad)
+    {
+        parameters.ad_count = @10;
+        self.navItem.title = @"AdFeed";
+    }
+    else if (self.type == PNFeed_Native_Video)
+    {
+        parameters.ad_count = @1;
+        self.navItem.title = @"VideoFeed";
+    }
     
     __weak typeof(self) weakSelf = self;
-    self.request = [PNAdRequest request:PNAdRequest_Native_Video
+    self.request = [PNAdRequest request:reuqestType
                                  withParameters:parameters
                                   andCompletion:^(NSArray *ads, NSError *error)
     {
@@ -63,6 +78,7 @@ NSString * const textCellID     = @"textCellID";
         else
         {
             NSLog(@"Pubnative - Request end");
+            weakSelf.ads = [[NSMutableArray alloc] initWithArray:ads];
             weakSelf.model = [ads firstObject];
             [self.tableView reloadData];
         }
@@ -78,7 +94,7 @@ NSString * const textCellID     = @"textCellID";
 - (BOOL)isAdCell:(NSIndexPath*)indexPath
 {
     BOOL result = NO;
-    if(indexPath.row % 15 == 5)
+    if(indexPath.row % 10 == 5)
     {
         result = YES;
     }
@@ -105,13 +121,36 @@ NSString * const textCellID     = @"textCellID";
     if (self.model &&
         [self isAdCell:indexPath])
     {
-        PNVideoTableViewCell *videoCell = [tableView dequeueReusableCellWithIdentifier:videoCellID];
-        if (!videoCell)
+        if (self.type == PNFeed_Native_Video)
         {
-            videoCell = [[PNVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellID];
+            PNVideoTableViewCell *videoCell = [tableView dequeueReusableCellWithIdentifier:videoCellID];
+            if (!videoCell)
+            {
+                videoCell = [[PNVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellID];
+            }
+            videoCell.model = (PNNativeVideoAdModel*)self.model;
+            result = videoCell;
         }
-        videoCell.model = (PNNativeVideoAdModel*)self.model;
-        result = videoCell;
+        else if (self.type == PNFeed_Native_Ad)
+        {
+            result = [tableView dequeueReusableCellWithIdentifier:wallCellID];
+            if(!result)
+            {
+                NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PNAdWallCell" owner:self options:nil];
+                result = [topLevelObjects objectAtIndex:0];
+            }
+
+            if ((indexPath.row-5)/10 < self.ads.count)
+            {
+                PNNativeAdModel *model = [self.ads objectAtIndex:(indexPath.row-5)/10];
+                [(PNAdWallCell*)result setModel:model];
+            }
+            else
+            {
+                PNNativeAdModel *model = [self.ads objectAtIndex:(indexPath.row-5)/10-self.ads.count];
+                [(PNAdWallCell*)result setModel:model];
+            }
+        }
     }
     else
     {
@@ -133,7 +172,14 @@ NSString * const textCellID     = @"textCellID";
     if(self.model &&
        [self isAdCell:indexPath])
     {
-        result = 150;
+        if (self.type == PNFeed_Native_Video)
+        {
+            result = 150;
+        }
+        else if (self.type == PNFeed_Native_Ad)
+        {
+            result = 60;
+        }
     }
     return result;
 }

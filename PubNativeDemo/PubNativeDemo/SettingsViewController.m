@@ -134,7 +134,7 @@
     [section addFormRow:cancelButtonRow];
     
     // reset Button
-    XLFormRowDescriptor * resetButtonRow = [XLFormRowDescriptor formRowDescriptorWithTag:@"resetButton" rowType:XLFormRowDescriptorTypeButton title:@"Reset"];
+    XLFormRowDescriptor * resetButtonRow = [XLFormRowDescriptor formRowDescriptorWithTag:@"resetButton" rowType:XLFormRowDescriptorTypeButton title:@"Reset to defaults"];
     [resetButtonRow.cellConfigAtConfigure setObject:self.view.tintColor forKey:@"textLabel.textColor"];
     [section addFormRow:resetButtonRow];
     
@@ -205,7 +205,7 @@
     {
         self.parameters = nil;
         self.parameters = [PNAdRequestParameters requestParameters];
-        self.parameters.ad_count = @1;
+        [self.parameters fillWithDefaults];
         [self initializeForm];
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }

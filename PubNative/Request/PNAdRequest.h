@@ -34,6 +34,12 @@ typedef NS_ENUM(NSInteger, PNAdRequestType)
     PNAdRequest_Image
 };
 
+typedef NS_ENUM(NSInteger, PNFeedType)
+{
+    PNFeed_Native_Ad,
+    PNFeed_Native_Video
+};
+
 @interface PNAdRequest : NSObject
 
 + (instancetype)request:(PNAdRequestType)type
