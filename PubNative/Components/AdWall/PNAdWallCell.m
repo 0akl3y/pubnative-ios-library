@@ -112,7 +112,6 @@
     PNNativeAdRenderItem *renderItem = [PNNativeAdRenderItem renderItem];
     renderItem.icon = self.iconImage;
     renderItem.title = self.titleLabel;
-    renderItem.descriptionField = self.descriptionLabel;
     [PNAdRenderingManager renderNativeAdItem:renderItem
                                       withAd:self.model];
     

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -28,7 +28,7 @@
                                             <constraint firstAttribute="width" constant="70" id="8kH-Xo-zUN"/>
                                             <constraint firstAttribute="height" constant="40" id="pkM-A0-fSU"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                         <state key="normal" title="Banner">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -44,7 +44,7 @@
                                             <constraint firstAttribute="width" constant="70" id="SCb-xf-cIb"/>
                                             <constraint firstAttribute="height" constant="40" id="ytA-ye-ZyY"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                         <state key="normal" title="Icon">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -60,7 +60,7 @@
                                             <constraint firstAttribute="height" constant="40" id="Fc8-a2-6zm"/>
                                             <constraint firstAttribute="width" constant="70" id="rEb-gh-a2U"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                         <state key="normal" title="Interstitial">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -76,13 +76,13 @@
                                             <constraint firstAttribute="height" constant="40" id="IYJ-X3-Mqb"/>
                                             <constraint firstAttribute="width" constant="70" id="nb9-GZ-iGu"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                        <state key="normal" title="Video">
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <state key="normal" title="ScrollFeed">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="videoTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="maa-Hn-s6n"/>
+                                            <action selector="scrollFeedTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ecf-ww-vdX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="eQS-Jv-gjk">
@@ -92,7 +92,7 @@
                                             <constraint firstAttribute="height" constant="40" id="DdW-dT-keJ"/>
                                             <constraint firstAttribute="width" constant="71" id="Jzs-IC-kUJ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                         <state key="normal" title="VideoFeed">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -108,7 +108,7 @@
                                             <constraint firstAttribute="height" constant="40" id="AE7-gJ-tkP"/>
                                             <constraint firstAttribute="width" constant="71" id="yyV-1I-U5Q"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                         <state key="normal" title="AdFeed">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -118,13 +118,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnR-GU-8qq">
-                                        <rect key="frame" x="234" y="0.0" width="70" height="88"/>
+                                        <rect key="frame" x="234" y="0.0" width="70" height="40"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="88" id="eMg-YP-zTU"/>
+                                            <constraint firstAttribute="height" constant="40" id="eMg-YP-zTU"/>
                                             <constraint firstAttribute="width" constant="70" id="o1s-FH-9Hy"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                         <state key="normal" title="Settings">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -133,14 +133,32 @@
                                             <action selector="settingsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="owf-E5-aMN"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ibA-fr-xBh">
+                                        <rect key="frame" x="234" y="48" width="70" height="40"/>
+                                        <color key="backgroundColor" red="0.40000000000000002" green="0.0" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="u7Z-9a-ZQ0"/>
+                                            <constraint firstAttribute="width" constant="70" id="wVX-hm-IcM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <state key="normal" title="Video">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="videoTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RQ4-K8-0rI"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="bnR-GU-8qq" firstAttribute="leading" secondItem="fhB-rC-D5R" secondAttribute="trailing" constant="8" id="1Xx-gy-QkW"/>
                                     <constraint firstItem="cXx-70-kbv" firstAttribute="top" secondItem="As4-XH-zoJ" secondAttribute="top" id="4Aq-O6-vZ6"/>
                                     <constraint firstItem="tCD-YM-Kcl" firstAttribute="leading" secondItem="cXx-70-kbv" secondAttribute="trailing" constant="8" id="6BQ-fU-O3C"/>
+                                    <constraint firstItem="ibA-fr-xBh" firstAttribute="leading" secondItem="fhB-rC-D5R" secondAttribute="trailing" constant="8" id="8ZB-4I-Ug4"/>
                                     <constraint firstItem="DgE-6K-MPX" firstAttribute="top" secondItem="As4-XH-zoJ" secondAttribute="top" id="9Xw-1y-kcX"/>
                                     <constraint firstItem="eQS-Jv-gjk" firstAttribute="leading" secondItem="As4-XH-zoJ" secondAttribute="leading" id="HLr-Sc-NZw"/>
+                                    <constraint firstItem="ibA-fr-xBh" firstAttribute="top" secondItem="bnR-GU-8qq" secondAttribute="bottom" constant="8" id="IzX-Oy-xNN"/>
                                     <constraint firstItem="zCH-G2-fWz" firstAttribute="leading" secondItem="eQS-Jv-gjk" secondAttribute="trailing" constant="6" id="T5w-L6-cd9"/>
                                     <constraint firstItem="bnR-GU-8qq" firstAttribute="top" secondItem="As4-XH-zoJ" secondAttribute="top" id="cRZ-fZ-g7F"/>
                                     <constraint firstItem="fhB-rC-D5R" firstAttribute="top" secondItem="tCD-YM-Kcl" secondAttribute="bottom" constant="8" id="eIR-d6-NcX"/>

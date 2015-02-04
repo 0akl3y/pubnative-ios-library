@@ -11,6 +11,7 @@
 
 NSString * const videoCellID    = @"videoCellID";
 NSString * const wallCellID     = @"wallCellID";
+NSString * const scrollCellID   = @"scrollCellID";
 NSString * const textCellID     = @"textCellID";
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -64,6 +65,11 @@ NSString * const textCellID     = @"textCellID";
     {
         parameters.ad_count = @1;
         self.navItem.title = @"VideoFeed";
+    }
+    else if (self.type == PNFeed_Native_Scroller)
+    {
+        parameters.ad_count = @3;
+        self.navItem.title = @"ScrollFeed";
     }
     
     __weak typeof(self) weakSelf = self;
@@ -151,6 +157,15 @@ NSString * const textCellID     = @"textCellID";
                 [(PNAdWallCell*)result setModel:model];
             }
         }
+        else if (self.type == PNFeed_Native_Scroller)
+        {
+            result = [tableView dequeueReusableCellWithIdentifier:scrollCellID];
+            if (!result)
+            {
+                result = [[PNScrollerContainerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellID];
+            }
+            [(PNScrollerContainerCell*)result setCollectionData:self.ads];
+        }
     }
     else
     {
@@ -179,6 +194,11 @@ NSString * const textCellID     = @"textCellID";
         else if (self.type == PNFeed_Native_Ad)
         {
             result = 60;
+        }
+        else if (self.type == PNFeed_Native_Scroller)
+        {
+            CGSize scrollerItemSize = [PNScrollerContainerCell itemSize];
+            return scrollerItemSize.height;
         }
     }
     return result;

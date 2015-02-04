@@ -50,7 +50,8 @@ NSString * const kPNAdConstantRequestParametersDefaultNoUserID      = @"1";
 NSString * const kPNAdConstantTrackingConfirmedAdsKey               = @"com.pubnative.ImpressionManager:confirmedAds";
 NSString * const kPNAdConstantTrackingBeaconImpressionTypeString    = @"impression";
 
-
+// Strings
+NSString * const kPNAdConstantSponsoredContentString                = @"Sponsored by Pubnative";
 
 @implementation PNAdConstants
 
