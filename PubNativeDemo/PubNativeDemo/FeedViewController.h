@@ -10,6 +10,7 @@
 #import "PNAdRequest.h"
 #import "PNVideoTableViewCell.h"
 #import "PNAdWallCell.h"
+#import "PNScrollerContainerCell.h"
 
 @interface FeedViewController : UIViewController
 

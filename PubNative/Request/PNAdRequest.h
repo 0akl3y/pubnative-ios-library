@@ -37,7 +37,8 @@ typedef NS_ENUM(NSInteger, PNAdRequestType)
 typedef NS_ENUM(NSInteger, PNFeedType)
 {
     PNFeed_Native_Ad,
-    PNFeed_Native_Video
+    PNFeed_Native_Video,
+    PNFeed_Native_Scroller
 };
 
 @interface PNAdRequest : NSObject

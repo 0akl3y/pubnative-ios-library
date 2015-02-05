@@ -119,6 +119,12 @@
 		D5E11A691A12177B001109A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5E11A671A12177B001109A1 /* Main.storyboard */; };
 		D5E11A6B1A12177B001109A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5E11A6A1A12177B001109A1 /* Images.xcassets */; };
 		D5E11A6E1A12177B001109A1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E11A6C1A12177B001109A1 /* LaunchScreen.xib */; };
+		D5E824271A82610A00F5FD0B /* PNScrollerContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E8241F1A82610A00F5FD0B /* PNScrollerContainerCell.m */; };
+		D5E824281A82610A00F5FD0B /* PNScrollerContainerCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E824211A82610A00F5FD0B /* PNScrollerContainerCellView.m */; };
+		D5E824291A82610A00F5FD0B /* PNScrollerContainerCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E824221A82610A00F5FD0B /* PNScrollerContainerCellView.xib */; };
+		D5E8242A1A82610A00F5FD0B /* PNScrollerViewCell-landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E824231A82610A00F5FD0B /* PNScrollerViewCell-landscape.xib */; };
+		D5E8242B1A82610A00F5FD0B /* PNScrollerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E824251A82610A00F5FD0B /* PNScrollerViewCell.m */; };
+		D5E8242C1A82610A00F5FD0B /* PNScrollerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5E824261A82610A00F5FD0B /* PNScrollerViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -336,6 +342,15 @@
 		D5E11A6D1A12177B001109A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		D5E11A731A12177B001109A1 /* PubnativeDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PubnativeDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5E11A781A12177B001109A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5E8241E1A82610A00F5FD0B /* PNScrollerContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScrollerContainerCell.h; sourceTree = "<group>"; };
+		D5E8241F1A82610A00F5FD0B /* PNScrollerContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScrollerContainerCell.m; sourceTree = "<group>"; };
+		D5E824201A82610A00F5FD0B /* PNScrollerContainerCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScrollerContainerCellView.h; sourceTree = "<group>"; };
+		D5E824211A82610A00F5FD0B /* PNScrollerContainerCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScrollerContainerCellView.m; sourceTree = "<group>"; };
+		D5E824221A82610A00F5FD0B /* PNScrollerContainerCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNScrollerContainerCellView.xib; sourceTree = "<group>"; };
+		D5E824231A82610A00F5FD0B /* PNScrollerViewCell-landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "PNScrollerViewCell-landscape.xib"; sourceTree = "<group>"; };
+		D5E824241A82610A00F5FD0B /* PNScrollerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScrollerViewCell.h; sourceTree = "<group>"; };
+		D5E824251A82610A00F5FD0B /* PNScrollerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScrollerViewCell.m; sourceTree = "<group>"; };
+		D5E824261A82610A00F5FD0B /* PNScrollerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNScrollerViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -558,6 +573,7 @@
 		D589E5CD1A3B0721008C6C88 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D5E8241D1A82610A00F5FD0B /* PNScroller */,
 				D574EA2B1A7FD91500BA611B /* AdWall */,
 				D589E5D21A3B0721008C6C88 /* Common */,
 				D589E5CE1A3B0721008C6C88 /* Banner */,
@@ -855,6 +871,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D5E8241D1A82610A00F5FD0B /* PNScroller */ = {
+			isa = PBXGroup;
+			children = (
+				D5E8241E1A82610A00F5FD0B /* PNScrollerContainerCell.h */,
+				D5E8241F1A82610A00F5FD0B /* PNScrollerContainerCell.m */,
+				D5E824201A82610A00F5FD0B /* PNScrollerContainerCellView.h */,
+				D5E824211A82610A00F5FD0B /* PNScrollerContainerCellView.m */,
+				D5E824221A82610A00F5FD0B /* PNScrollerContainerCellView.xib */,
+				D5E824231A82610A00F5FD0B /* PNScrollerViewCell-landscape.xib */,
+				D5E824241A82610A00F5FD0B /* PNScrollerViewCell.h */,
+				D5E824251A82610A00F5FD0B /* PNScrollerViewCell.m */,
+				D5E824261A82610A00F5FD0B /* PNScrollerViewCell.xib */,
+			);
+			path = PNScroller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -946,8 +978,11 @@
 				D51116B81A40A70B00A0B42C /* PNIconViewController.xib in Resources */,
 				D5E11A691A12177B001109A1 /* Main.storyboard in Resources */,
 				D570E6351A6FF3700074EF4E /* PnFullScreen@2x.png in Resources */,
+				D5E824291A82610A00F5FD0B /* PNScrollerContainerCellView.xib in Resources */,
 				D570E6341A6FF3700074EF4E /* PnFullScreen.png in Resources */,
 				D570E6371A6FF3700074EF4E /* PnMute@2x.png in Resources */,
+				D5E8242A1A82610A00F5FD0B /* PNScrollerViewCell-landscape.xib in Resources */,
+				D5E8242C1A82610A00F5FD0B /* PNScrollerViewCell.xib in Resources */,
 				D570E6291A6FF2BA0074EF4E /* PNVideoPlayerView.xib in Resources */,
 				D574EA331A7FD91500BA611B /* PNAdWallCell.xib in Resources */,
 				D570E6381A6FF3700074EF4E /* PnUnMute.png in Resources */,
@@ -980,6 +1015,7 @@
 			files = (
 				D585D6561A39E26D00423640 /* YADMJSONApiModel.m in Sources */,
 				D585D6621A39E26D00423640 /* PNImageAdModel.m in Sources */,
+				D5E8242B1A82610A00F5FD0B /* PNScrollerViewCell.m in Sources */,
 				D5DD2D591A80D5B600FB31A0 /* XLFormPickerCell.m in Sources */,
 				D5DD2D6D1A80D5B600FB31A0 /* XLFormRegexValidator.m in Sources */,
 				D5DD2D5D1A80D5B600FB31A0 /* XLFormStepCounterCell.m in Sources */,
@@ -992,6 +1028,7 @@
 				D589E5FC1A3B0721008C6C88 /* VastXMLParser.m in Sources */,
 				D5E11A661A12177B001109A1 /* ViewController.m in Sources */,
 				D5DD2D631A80D5B600FB31A0 /* XLFormViewController.m in Sources */,
+				D5E824271A82610A00F5FD0B /* PNScrollerContainerCell.m in Sources */,
 				D585D6551A39E26D00423640 /* NSString+PNSHA1.m in Sources */,
 				D5DD2D6B1A80D5B600FB31A0 /* XLFormRightImageButton.m in Sources */,
 				D585D65F1A39E26D00423640 /* PNAppModel.m in Sources */,
@@ -1043,6 +1080,7 @@
 				D589E5FB1A3B0721008C6C88 /* VastContainer.m in Sources */,
 				D5E11A601A12177B001109A1 /* main.m in Sources */,
 				D5DD2D601A80D5B600FB31A0 /* XLFormTextViewCell.m in Sources */,
+				D5E824281A82610A00F5FD0B /* PNScrollerContainerCellView.m in Sources */,
 				D5DD2D521A80D5B600FB31A0 /* XLFormBaseCell.m in Sources */,
 				D57DE4701A7B9B6E0074EB8E /* PNCroissantCache.m in Sources */,
 				D589E5FA1A3B0721008C6C88 /* PNVideoPlayerView.m in Sources */,

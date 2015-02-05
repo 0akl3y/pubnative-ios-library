@@ -48,6 +48,8 @@ FOUNDATION_EXPORT NSString * const kPNAdConstantRequestParametersDefaultNoUserID
 FOUNDATION_EXPORT NSString * const kPNAdConstantTrackingConfirmedAdsKey;
 FOUNDATION_EXPORT NSString * const kPNAdConstantTrackingBeaconImpressionTypeString;
 
+FOUNDATION_EXPORT NSString * const kPNAdConstantSponsoredContentString;
+
 @interface PNAdConstants : NSObject
 
 + (NSString*)version;
