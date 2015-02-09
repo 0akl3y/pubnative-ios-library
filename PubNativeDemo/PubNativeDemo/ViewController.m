@@ -26,17 +26,16 @@
 #import "Pubnative.h"
 #import "FeedViewController.h"
 #import "SettingsViewController.h"
+#import "AdViewController.h"
 
 NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4c297859216dea9fa283043f8680f";
 
 @interface ViewController ()<PubnativeAdDelegate, SettingsViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView                     *adContainer;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView    *adLoadingIndicator;
-@property (strong, nonatomic) PNAdRequestParameters             *parameters;
-
-@property (nonatomic, assign) Pubnative_AdType  currentType;
-@property (nonatomic, strong) UIViewController  *currentAdVC;
+@property (weak, nonatomic)     IBOutlet    UIActivityIndicatorView *adLoadingIndicator;
+@property (strong, nonatomic)   IBOutlet    UIScrollView            *optionsScrollView;
+@property (strong, nonatomic)               PNAdRequestParameters   *parameters;
+@property (assign, nonatomic)               Pubnative_AdType        currentType;
 
 - (IBAction)settingsPressed:(id)sender;
 
@@ -48,80 +47,22 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 
 - (void)dealloc
 {
-    [self cleanContainer];
 }
 
--(void)viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.optionsScrollView.contentSize = CGSizeMake(300, 344);
+    
     self.parameters = [PNAdRequestParameters requestParameters];
     [self.parameters fillWithDefaults];
     self.parameters.app_token = kPubnativeTestAppToken;
 }
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [self.currentAdVC.view removeFromSuperview];
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [self addCurrentAdVC];
-}
-
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
-}
-
-#pragma mark - ViewController Methods
-
-- (void)addCurrentAdVC
-{
-    switch (self.currentType)
-    {
-        case Pubnative_AdType_Banner:
-        {
-            self.currentAdVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 100);
-            self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
-            [self.adContainer addSubview:self.currentAdVC.view];
-            self.currentAdVC.view.alpha = 0;
-            [UIView animateWithDuration:0.3f
-                             animations:^{
-                                 self.currentAdVC.view.alpha = 1;
-                             }];
-        }
-            break;
-        case Pubnative_AdType_VideoBanner:
-        {
-            self.currentAdVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 150);
-            self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
-            [self.adContainer addSubview:self.currentAdVC.view];
-            self.currentAdVC.view.alpha = 0;
-            [UIView animateWithDuration:0.3f
-                             animations:^{
-                                 self.currentAdVC.view.alpha = 1;
-                             }];
-        }
-            break;
-        case Pubnative_AdType_Interstitial:
-        {
-            [self presentViewController:self.currentAdVC animated:YES completion:nil];
-        }
-            break;
-        case Pubnative_AdType_Icon:
-        {
-            self.currentAdVC.view.frame = CGRectMake(0, 0, 100, 100);
-            self.currentAdVC.view.center = [self.adContainer convertPoint:self.adContainer.center fromView:self.view];
-            [self.adContainer addSubview:self.currentAdVC.view];
-            self.currentAdVC.view.alpha = 0;
-            [UIView animateWithDuration:0.3f
-                             animations:^{
-                                 self.currentAdVC.view.alpha = 1;
-                             }];
-        }
-            break;
-    }
 }
 
 #pragma mark - Action Methods
@@ -136,8 +77,8 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)bannerTouchUpInside:(id)sender
 {
     [self startLoading];
-    [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_Banner;
+    
     [Pubnative requestAdType:Pubnative_AdType_Banner
               withParameters:self.parameters
                  andDelegate:self];
@@ -146,8 +87,8 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)interstitialTouchUpInside:(id)sender
 {
     [self startLoading];
-    [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_Interstitial;
+    
     [Pubnative requestAdType:Pubnative_AdType_Interstitial
               withParameters:self.parameters
                  andDelegate:self];
@@ -156,8 +97,8 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)iconTouchUpInside:(id)sender
 {
     [self startLoading];
-    [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_Icon;
+    
     [Pubnative requestAdType:Pubnative_AdType_Icon
               withParameters:self.parameters
                  andDelegate:self];
@@ -166,8 +107,8 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)videoTouchUpInside:(id)sender
 {
     [self startLoading];
-    [self.currentAdVC.view removeFromSuperview];
     self.currentType = Pubnative_AdType_VideoBanner;
+    
     [Pubnative requestAdType:Pubnative_AdType_VideoBanner
               withParameters:self.parameters
                  andDelegate:self];
@@ -176,12 +117,12 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)videoFeedTouchUpInside:(id)sender
 {
     [self startLoading];
-    [self.currentAdVC.view removeFromSuperview];
     self.currentType = -1;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
     [self presentViewController:feedVC animated:YES completion:^{
+        [self stopLoading];
         [feedVC loadAdWithParameters:self.parameters
                          requestType:PNAdRequest_Native_Video
                          andFeedType:PNFeed_Native_Video];
@@ -191,12 +132,12 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)adFeedTouchUpInside:(id)sender
 {
     [self startLoading];
-    [self.currentAdVC.view removeFromSuperview];
     self.currentType = -1;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
     [self presentViewController:feedVC animated:YES completion:^{
+        [self stopLoading];
         [feedVC loadAdWithParameters:self.parameters
                          requestType:PNAdRequest_Native
                          andFeedType:PNFeed_Native_Ad];
@@ -206,28 +147,20 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)scrollFeedTouchUpInside:(id)sender
 {
     [self startLoading];
-    [self.currentAdVC.view removeFromSuperview];
     self.currentType = -1;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
     [self presentViewController:feedVC animated:YES completion:^{
+        [self stopLoading];
         [feedVC loadAdWithParameters:self.parameters
                          requestType:PNAdRequest_Native
                          andFeedType:PNFeed_Native_Scroller];
     }];
 }
 
-- (void)cleanContainer
-{
-    [self.currentAdVC.view removeFromSuperview];
-    self.currentAdVC = nil;
-    self.currentType = -1;
-}
-
 - (void)startLoading
 {
-    [self cleanContainer];
     [self.adLoadingIndicator startAnimating];
 }
 
@@ -236,38 +169,54 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self.adLoadingIndicator stopAnimating];
 }
 
-#pragma mark - SettingsViewControllerDelegate Methods
-
-- (void)willCloseWithParams:(PNAdRequestParameters*)parameters
-{
-    self.parameters = parameters;
-}
-
 #pragma mark - PubnativeAdDelegate Methods
 
--(void)pnAdDidLoad:(UIViewController *)adVC
+- (void)pnAdDidLoad:(UIViewController *)adVC
 {
     [self stopLoading];
-    self.currentAdVC = adVC;
-    [self addCurrentAdVC];
+    switch (self.currentType)
+    {
+        case Pubnative_AdType_Interstitial:
+        {
+            [self presentViewController:adVC animated:YES completion:nil];
+        }
+        break;
+        
+        case Pubnative_AdType_Banner:
+        case Pubnative_AdType_Icon:
+        case Pubnative_AdType_VideoBanner:
+        {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            AdViewController *adContainerVC = [storyboard instantiateViewControllerWithIdentifier:@"AdViewController"];
+            [self presentViewController:adContainerVC
+                               animated:YES
+                             completion:^{
+                                 [adContainerVC presentAdWithViewController:adVC type:self.currentType];
+                             }];
+        }
+        break;
+            
+        default:
+        break;
+    }
 }
 
--(void)pnAdDidClose
+- (void)pnAdDidClose
 {
-    if (Pubnative_AdType_VideoBanner == self.currentType)
-    {
-        [(PNVideoBannerViewController*)self.currentAdVC prepareVideoPlayer];
-    }
-    else if(Pubnative_AdType_Banner != self.currentType)
-    {
-        [self cleanContainer];
-    }
 }
 
 - (void)pnAdDidFail:(NSError *)error
 {
     [self stopLoading];
+    
     NSLog(@"Error loading ad - %@", [error description]);
+}
+
+#pragma mark - SettingsViewControllerDelegate Methods
+
+- (void)willCloseWithParams:(PNAdRequestParameters*)parameters
+{
+    self.parameters = parameters;
 }
 
 @end
