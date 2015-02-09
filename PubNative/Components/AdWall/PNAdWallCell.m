@@ -29,7 +29,15 @@
 
 @interface PNAdWallCell ()
 
-@property (nonatomic, strong) NSTimer           *impressionTimer;
+@property (nonatomic, weak) IBOutlet UIImageView        *iconImage;
+@property (nonatomic, weak) IBOutlet UILabel            *titleLabel;
+@property (nonatomic, weak) IBOutlet UIView             *ratingContainer;
+@property (nonatomic, strong) AMRatingControl           *ratingControl;
+@property (nonatomic, weak) IBOutlet UILabel            *totalRatings;
+@property (nonatomic, weak) IBOutlet UIButton           *downloadButton;
+
+@property (nonatomic, strong) NSTimer               *cellViewTimer;
+@property (nonatomic, strong) NSTimer               *impressionTimer;
 
 @end
 
