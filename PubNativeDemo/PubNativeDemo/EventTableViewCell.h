@@ -1,7 +1,7 @@
 //
-// EFImageLargeModel.h
+// EventTableViewCell.h
 //
-// Created by Csongor Nagy on 06/02/15.
+// Created by Csongor Nagy on 10/02/15.
 // Copyright (c) 2015 PubNative. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,16 +22,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "YADMJSONApiModel.h"
+#import <UIKit/UIKit.h>
+#import "EFApiModel.h"
+#import "PNCacheManager.h"
 
-@protocol EFImageLargeModel
+@interface EventTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) NSString                  *width;
-@property (strong, nonatomic) NSString                  *url;
-@property (strong, nonatomic) NSString                  *height;
+@property (weak, nonatomic) IBOutlet UIImageView        *eventImageView;
+@property (weak, nonatomic) IBOutlet UILabel            *eventTitle;
+@property (weak, nonatomic) IBOutlet UILabel            *eventLocation;
+@property (weak, nonatomic) IBOutlet UILabel            *eventDate;
 
-@end
-
-@interface EFImageLargeModel : YADMJSONApiModel <EFImageLargeModel>
+- (void)setModel:(EFEventModel*)eventModel;
 
 @end

@@ -18,6 +18,10 @@
 		D552A9AA1A84E1F9001AD194 /* EFPerformerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D552A9A91A84E1F9001AD194 /* EFPerformerModel.m */; };
 		D552A9AD1A84E3DF001AD194 /* EFImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D552A9AC1A84E3DF001AD194 /* EFImageModel.m */; };
 		D552A9B01A84E509001AD194 /* EFImageLargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D552A9AF1A84E509001AD194 /* EFImageLargeModel.m */; };
+		D56CCBF31A8A27450036EBDA /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D56CCBF11A8A27450036EBDA /* EventTableViewCell.m */; };
+		D56CCBF41A8A27450036EBDA /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D56CCBF21A8A27450036EBDA /* EventTableViewCell.xib */; };
+		D56CCBF71A8A54F00036EBDA /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = D56CCBF51A8A54F00036EBDA /* camera.png */; };
+		D56CCBF81A8A54F00036EBDA /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D56CCBF61A8A54F00036EBDA /* camera@2x.png */; };
 		D570E6231A6FF25F0074EF4E /* PNTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D570E6201A6FF25F0074EF4E /* PNTableViewManager.m */; };
 		D570E6241A6FF25F0074EF4E /* PNVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D570E6221A6FF25F0074EF4E /* PNVideoTableViewCell.m */; };
 		D570E6271A6FF29B0074EF4E /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D570E6261A6FF29B0074EF4E /* FeedViewController.m */; };
@@ -166,6 +170,11 @@
 		D552A9AE1A84E509001AD194 /* EFImageLargeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EFImageLargeModel.h; sourceTree = "<group>"; };
 		D552A9AF1A84E509001AD194 /* EFImageLargeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EFImageLargeModel.m; sourceTree = "<group>"; };
 		D55C98491A3B736D002CA128 /* PubnativeAdDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubnativeAdDelegate.h; sourceTree = "<group>"; };
+		D56CCBF01A8A27450036EBDA /* EventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableViewCell.h; sourceTree = "<group>"; };
+		D56CCBF11A8A27450036EBDA /* EventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
+		D56CCBF21A8A27450036EBDA /* EventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
+		D56CCBF51A8A54F00036EBDA /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		D56CCBF61A8A54F00036EBDA /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
 		D570E61F1A6FF25F0074EF4E /* PNTableViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNTableViewManager.h; sourceTree = "<group>"; };
 		D570E6201A6FF25F0074EF4E /* PNTableViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNTableViewManager.m; sourceTree = "<group>"; };
 		D570E6211A6FF25F0074EF4E /* PNVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNVideoTableViewCell.h; sourceTree = "<group>"; };
@@ -883,6 +892,9 @@
 				D5E11A651A12177B001109A1 /* ViewController.m */,
 				D5CC85811A83D25C00A392CF /* AdViewController.h */,
 				D5CC85821A83D25C00A392CF /* AdViewController.m */,
+				D56CCBF01A8A27450036EBDA /* EventTableViewCell.h */,
+				D56CCBF11A8A27450036EBDA /* EventTableViewCell.m */,
+				D56CCBF21A8A27450036EBDA /* EventTableViewCell.xib */,
 			);
 			path = PubNativeDemo;
 			sourceTree = "<group>";
@@ -890,6 +902,8 @@
 		D5E11A5D1A12177B001109A1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D56CCBF51A8A54F00036EBDA /* camera.png */,
+				D56CCBF61A8A54F00036EBDA /* camera@2x.png */,
 				D5E11A5E1A12177B001109A1 /* Info.plist */,
 				D5E11A5F1A12177B001109A1 /* main.m */,
 			);
@@ -1020,7 +1034,9 @@
 				D570E6331A6FF3700074EF4E /* PNExternalLink@2x.png in Resources */,
 				D589E5F71A3B0721008C6C88 /* PNVideoBannerViewController.xib in Resources */,
 				D589E60E1A3B21B1008C6C88 /* PNVersion.plist in Resources */,
+				D56CCBF71A8A54F00036EBDA /* camera.png in Resources */,
 				D589E60B1A3B21B1008C6C88 /* PNCloseIcon@2x.png in Resources */,
+				D56CCBF41A8A27450036EBDA /* EventTableViewCell.xib in Resources */,
 				D589E5EE1A3B0721008C6C88 /* PNBannerViewController.xib in Resources */,
 				D589E60D1A3B21B1008C6C88 /* PNLogoGrey@2x.png in Resources */,
 				D51116B81A40A70B00A0B42C /* PNIconViewController.xib in Resources */,
@@ -1037,6 +1053,7 @@
 				D570E6391A6FF3700074EF4E /* PnUnMute@2x.png in Resources */,
 				D5E11A6E1A12177B001109A1 /* LaunchScreen.xib in Resources */,
 				D5E11A6B1A12177B001109A1 /* Images.xcassets in Resources */,
+				D56CCBF81A8A54F00036EBDA /* camera@2x.png in Resources */,
 				D54DD1C61A7013EC0044E149 /* PnClose.png in Resources */,
 				D589E60C1A3B21B1008C6C88 /* PNLogoGrey.png in Resources */,
 				D589E60A1A3B21B1008C6C88 /* PNCloseIcon.png in Resources */,
@@ -1085,6 +1102,7 @@
 				D585D65F1A39E26D00423640 /* PNAppModel.m in Sources */,
 				D589E5EF1A3B0721008C6C88 /* PNBannerViewController.m in Sources */,
 				D5DD2D6E1A80D5B600FB31A0 /* XLFormValidationStatus.m in Sources */,
+				D56CCBF31A8A27450036EBDA /* EventTableViewCell.m in Sources */,
 				D5DD2D5A1A80D5B600FB31A0 /* XLFormSegmentedCell.m in Sources */,
 				D585D65A1A39E26D00423640 /* YADMJSONToDomainModelParser.m in Sources */,
 				D570E6271A6FF29B0074EF4E /* FeedViewController.m in Sources */,

@@ -33,12 +33,13 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 
 @interface ViewController ()<PubnativeAdDelegate, SettingsViewControllerDelegate>
 
+@property (weak, nonatomic)     IBOutlet    UIView                  *eventLoader;
 @property (weak, nonatomic)     IBOutlet    UIActivityIndicatorView *adLoadingIndicator;
 @property (strong, nonatomic)   IBOutlet    UIScrollView            *optionsScrollView;
 @property (strong, nonatomic)               PNAdRequestParameters   *parameters;
 @property (assign, nonatomic)               Pubnative_AdType        currentType;
 
-@property (strong, nonatomic) EFApiModel                        *eventModel;
+@property (strong, nonatomic) EFApiModel                            *eventModel;
 
 @property (nonatomic, strong) UIViewController  *currentAdVC;
 
@@ -70,8 +71,8 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
                                                params:@{@"app_key"     : @"pd5PdshD44wckpD7",
                                                         @"location"    : @"Berlin",
                                                         @"date"        : @"Today",
-                                                        @"categories"  : @"music",
-                                                        @"image_sizes" : @"block100,large",
+                                                        @"categories"  : @"singles_social,music",
+                                                        @"image_sizes" : @"block250,large",
                                                         @"page_size"   : @"100"}
                                               headers:nil
                                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
@@ -84,8 +85,13 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 
 - (void)processEventsWithError:(NSError*)error
 {
-    NSLog(@"%@", [error localizedDescription]);
-    NSLog(@"%@", self.eventModel.events);
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         self.eventLoader.alpha = 0;
+                     }
+                     completion:^(BOOL finished) {
+                         self.eventLoader.hidden = YES;
+                     }];
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -156,9 +162,19 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
     [self presentViewController:feedVC animated:YES completion:^{
         [self stopLoading];
-        [feedVC loadAdWithParameters:self.parameters
-                         requestType:PNAdRequest_Native_Video
-                         andFeedType:PNFeed_Native_Video];
+        if ([self.eventModel.events.event count])
+        {
+            [feedVC loadAdWithParameters:self.parameters
+                             requestType:PNAdRequest_Native_Video
+                                feedData:self.eventModel
+                             andFeedType:PNFeed_Native_Video];
+        }
+        else
+        {
+            [feedVC loadAdWithParameters:self.parameters
+                             requestType:PNAdRequest_Native_Video
+                             andFeedType:PNFeed_Native_Video];
+        }
     }];
 }
 
@@ -171,9 +187,19 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
     [self presentViewController:feedVC animated:YES completion:^{
         [self stopLoading];
-        [feedVC loadAdWithParameters:self.parameters
-                         requestType:PNAdRequest_Native
-                         andFeedType:PNFeed_Native_Ad];
+        if ([self.eventModel.events.event count])
+        {
+            [feedVC loadAdWithParameters:self.parameters
+                             requestType:PNAdRequest_Native
+                                feedData:self.eventModel
+                             andFeedType:PNFeed_Native_Ad];
+        }
+        else
+        {
+            [feedVC loadAdWithParameters:self.parameters
+                             requestType:PNAdRequest_Native
+                             andFeedType:PNFeed_Native_Ad];
+        }
     }];
 }
 
@@ -186,9 +212,19 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
     [self presentViewController:feedVC animated:YES completion:^{
         [self stopLoading];
-        [feedVC loadAdWithParameters:self.parameters
-                         requestType:PNAdRequest_Native
-                         andFeedType:PNFeed_Native_Scroller];
+        if ([self.eventModel.events.event count])
+        {
+            [feedVC loadAdWithParameters:self.parameters
+                             requestType:PNAdRequest_Native
+                                feedData:self.eventModel
+                             andFeedType:PNFeed_Native_Scroller];
+        }
+        else
+        {
+            [feedVC loadAdWithParameters:self.parameters
+                             requestType:PNAdRequest_Native
+                             andFeedType:PNFeed_Native_Scroller];
+        }
     }];
 }
 
