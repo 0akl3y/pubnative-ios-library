@@ -27,6 +27,7 @@
 #import "FeedViewController.h"
 #import "SettingsViewController.h"
 #import "AdViewController.h"
+#import "EFApiModel.h"
 
 NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4c297859216dea9fa283043f8680f";
 
@@ -36,6 +37,10 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 @property (strong, nonatomic)   IBOutlet    UIScrollView            *optionsScrollView;
 @property (strong, nonatomic)               PNAdRequestParameters   *parameters;
 @property (assign, nonatomic)               Pubnative_AdType        currentType;
+
+@property (strong, nonatomic) EFApiModel                        *eventModel;
+
+@property (nonatomic, strong) UIViewController  *currentAdVC;
 
 - (IBAction)settingsPressed:(id)sender;
 
@@ -58,6 +63,34 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     self.parameters = [PNAdRequestParameters requestParameters];
     [self.parameters fillWithDefaults];
     self.parameters.app_token = kPubnativeTestAppToken;
+    
+    __weak typeof(self) weakSelf = self;
+    self.eventModel = [[EFApiModel alloc] initWithURL:[NSURL URLWithString:@"http://api.eventful.com/json/events/search"]
+                                               method:@"GET"
+                                               params:@{@"app_key"     : @"pd5PdshD44wckpD7",
+                                                        @"location"    : @"Berlin",
+                                                        @"date"        : @"Today",
+                                                        @"categories"  : @"music",
+                                                        @"image_sizes" : @"block100,large",
+                                                        @"page_size"   : @"100"}
+                                              headers:nil
+                                          cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                              timeout:30
+                                   andCompletionBlock:^(NSError *error) {
+                                        __strong typeof(self) strongSelf = weakSelf;
+                                        [strongSelf processEventsWithError:error];
+                                   }];
+}
+
+- (void)processEventsWithError:(NSError*)error
+{
+    NSLog(@"%@", [error localizedDescription]);
+    NSLog(@"%@", self.eventModel.events);
+}
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.currentAdVC.view removeFromSuperview];
 }
 
 - (BOOL)prefersStatusBarHidden
