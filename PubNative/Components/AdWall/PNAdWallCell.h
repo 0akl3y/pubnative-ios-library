@@ -32,18 +32,6 @@
 
 @property (nonatomic, strong) PNNativeAdModel           *model;
 
-@property (nonatomic, weak) IBOutlet UIImageView        *iconImage;
-@property (nonatomic, weak) IBOutlet UILabel            *titleLabel;
-@property (nonatomic, weak) IBOutlet UILabel            *descriptionLabel;
-
-@property (nonatomic, weak) IBOutlet UIView             *ratingContainer;
-@property (nonatomic, strong) AMRatingControl           *ratingControl;
-@property (nonatomic, weak) IBOutlet UILabel            *totalRatings;
-
-@property (nonatomic, weak) IBOutlet UIButton           *downloadButton;
-
-@property (nonatomic, strong) NSTimer                   *cellViewTimer;
-
 - (void)willDisplayCell;
 - (void)didEndDisplayingCell;
 
