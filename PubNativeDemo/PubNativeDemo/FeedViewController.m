@@ -1,10 +1,26 @@
 //
-//  FeedViewController.m
-//  PubNativeDemo
+// FeedViewController.m
 //
-//  Created by David Martin on 08/01/15.
-//  Copyright (c) 2015 PubNative. All rights reserved.
+// Created by David Martin on 08/01/15.
+// Copyright (c) 2015 PubNative. All rights reserved.
 //
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 #import "FeedViewController.h"
 #import "PNTableViewManager.h"
@@ -22,6 +38,7 @@ NSString * const textCellID     = @"textCellID";
 @property (strong, nonatomic) PNAdRequest               *request;
 @property (assign, nonatomic) PNFeedType                type;
 @property (weak, nonatomic) IBOutlet UINavigationItem   *navItem;
+@property (strong, nonatomic) EFApiModel                *eventModel;
 
 @end
 
@@ -32,6 +49,7 @@ NSString * const textCellID     = @"textCellID";
 - (void)dealloc
 {
     self.model = nil;
+    self.eventModel = nil;
 }
 
 #pragma UIViewController
@@ -74,8 +92,8 @@ NSString * const textCellID     = @"textCellID";
     
     __weak typeof(self) weakSelf = self;
     self.request = [PNAdRequest request:reuqestType
-                                 withParameters:parameters
-                                  andCompletion:^(NSArray *ads, NSError *error)
+                         withParameters:parameters
+                          andCompletion:^(NSArray *ads, NSError *error)
     {
         if(error)
         {
@@ -90,6 +108,15 @@ NSString * const textCellID     = @"textCellID";
         }
     }];
     [self.request startRequest];
+}
+
+- (void)loadAdWithParameters:(PNAdRequestParameters*)parameters
+                 requestType:(PNAdRequestType)reuqestType
+                    feedData:(EFApiModel*)data
+                 andFeedType:(PNFeedType)feedType
+{
+    self.eventModel = data;
+    [self loadAdWithParameters:parameters requestType:reuqestType andFeedType:feedType];
 }
 
 - (IBAction)dismiss:(id)sender
@@ -114,7 +141,11 @@ NSString * const textCellID     = @"textCellID";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
     NSInteger result = 4;
-    if(self.model)
+    if(self.model && self.eventModel)
+    {
+        result = [self.eventModel.events.event count];
+    }
+    else if (self.model)
     {
         result = 100;
     }
@@ -172,9 +203,15 @@ NSString * const textCellID     = @"textCellID";
         result = [tableView dequeueReusableCellWithIdentifier:textCellID];
         if(!result)
         {
-            result = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:textCellID];
+            NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"EventTableViewCell" owner:self options:nil];
+            result = [topLevelObjects objectAtIndex:0];
         }
-        result.textLabel.text = [NSString stringWithFormat:@"Item %ld", (long)indexPath.row];
+        
+        if(self.model && self.eventModel)
+        {
+            EFEventModel *e = [self.eventModel.events.event objectAtIndex:indexPath.row];
+            [(EventTableViewCell*)result setModel:e];
+        }
     }
     return result;
 }
@@ -183,7 +220,7 @@ NSString * const textCellID     = @"textCellID";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat result = tableView.rowHeight;
+    CGFloat result = 150;
     if(self.model &&
        [self isAdCell:indexPath])
     {
