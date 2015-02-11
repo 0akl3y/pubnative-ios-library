@@ -957,10 +957,10 @@
 				D5E824201A82610A00F5FD0B /* PNScrollerContainerCellView.h */,
 				D5E824211A82610A00F5FD0B /* PNScrollerContainerCellView.m */,
 				D5E824221A82610A00F5FD0B /* PNScrollerContainerCellView.xib */,
-				D5E824231A82610A00F5FD0B /* PNScrollerViewCell-landscape.xib */,
 				D5E824241A82610A00F5FD0B /* PNScrollerViewCell.h */,
 				D5E824251A82610A00F5FD0B /* PNScrollerViewCell.m */,
 				D5E824261A82610A00F5FD0B /* PNScrollerViewCell.xib */,
+				D5E824231A82610A00F5FD0B /* PNScrollerViewCell-landscape.xib */,
 			);
 			path = PNScroller;
 			sourceTree = "<group>";

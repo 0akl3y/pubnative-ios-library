@@ -26,6 +26,7 @@
 #import "PNNativeAdRenderItem.h"
 #import "PNAdRenderingManager.h"
 #import "PNTrackingManager.h"
+#import "PNAdConstants.h"
 
 @interface PNAdWallCell ()
 
@@ -57,6 +58,8 @@
                           andMaxRating:(NSInteger)5];
     [self.ratingControl setUserInteractionEnabled:NO];
     [self.ratingContainer addSubview:self.ratingControl];
+    
+    [self addSponsorLabel];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -113,6 +116,18 @@
 {
     _model = model;
     [self loadAd];
+}
+
+- (void)addSponsorLabel
+{
+    UILabel *sponsorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 115, 15)];
+    sponsorLabel.font = [UIFont systemFontOfSize:9.0f];
+    sponsorLabel.text = kPNAdConstantSponsoredContentString;
+    sponsorLabel.textAlignment = NSTextAlignmentCenter;
+    sponsorLabel.backgroundColor = [UIColor purpleColor];
+    sponsorLabel.textColor = [UIColor whiteColor];
+    sponsorLabel.alpha = 0.75f;
+    [self addSubview:sponsorLabel];
 }
 
 - (void)loadAd
