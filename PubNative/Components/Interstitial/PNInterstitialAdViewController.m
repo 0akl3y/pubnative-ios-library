@@ -215,6 +215,11 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
     {
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }
+    
+    if ([self.delegate respondsToSelector:@selector(pnAdWillClose)])
+    {
+        [self.delegate pnAdWillClose];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -299,11 +304,6 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 
 - (IBAction)closePressed:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(pnAdWillClose)])
-    {
-        [self.delegate pnAdWillClose];
-    }
-    
     if([self isModal])
     {
         [self dismissViewControllerAnimated:YES completion:nil];

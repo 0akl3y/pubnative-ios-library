@@ -93,6 +93,11 @@
             [[VastXMLParser sharedParser] parseString:vast.ad andDelegate:self];
         }
     }
+    
+    if([self.delegate respondsToSelector:@selector(pnAdDidLoad:)])
+    {
+        [self.delegate pnAdDidLoad:self];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -175,9 +180,9 @@
 
 - (void)bannerDidLoad:(NSNotification*)notification
 {
-    if([self.delegate respondsToSelector:@selector(pnAdDidLoad:)])
+    if([self.delegate respondsToSelector:@selector(pnAdReady:)])
     {
-        [self.delegate pnAdDidLoad:self];
+        [self.delegate pnAdReady:self];
     }
 }
 
