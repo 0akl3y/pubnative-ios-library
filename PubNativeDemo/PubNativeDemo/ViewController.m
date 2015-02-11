@@ -35,6 +35,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 
 @property (weak, nonatomic)     IBOutlet    UIView                  *eventLoader;
 @property (weak, nonatomic)     IBOutlet    UIActivityIndicatorView *adLoadingIndicator;
+@property (weak, nonatomic)     IBOutlet    UILabel                 *versionLabel;
 @property (strong, nonatomic)   IBOutlet    UIScrollView            *optionsScrollView;
 @property (strong, nonatomic)               PNAdRequestParameters   *parameters;
 @property (assign, nonatomic)               Pubnative_AdType        currentType;
@@ -81,6 +82,9 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
                                         __strong typeof(self) strongSelf = weakSelf;
                                         [strongSelf processEventsWithError:error];
                                    }];
+    NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString *version = [info objectForKey:@"CFBundleShortVersionString"];
+    self.versionLabel.text = [NSString stringWithFormat:@"Pubnative Library %@", version];
 }
 
 - (void)processEventsWithError:(NSError*)error

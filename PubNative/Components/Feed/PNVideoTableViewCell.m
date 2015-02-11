@@ -28,6 +28,29 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 
 #pragma mark NSObject
 
+- (void)dealloc
+{
+    self.model = nil;
+    self.vastModel = nil;
+    
+    [self.banner removeFromSuperview];
+    self.banner = nil;
+    
+    if(self.playerContainer)
+    {
+        [self.playerContainer.videoPlayer stop];
+        [self.playerContainer.view removeFromSuperview];
+    }
+    self.playerContainer = nil;
+    
+    [self.impressionTimer invalidate];
+    self.impressionTimer = nil;
+    
+    self.vastModel = nil;
+}
+
+#pragma mark UITableViewCell
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -66,6 +89,9 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     }
     return self;
 }
+
+
+#pragma mark PNTableViewCell
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -108,31 +134,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     }
 }
 
-- (void)dealloc
-{
-    self.model = nil;
-    self.vastModel = nil;
-    
-    [self.banner removeFromSuperview];
-    self.banner = nil;
-    
-    if(self.playerContainer)
-    {
-        [self.playerContainer.videoPlayer stop];
-        [self.playerContainer.view removeFromSuperview];
-    }
-    self.playerContainer = nil;
-    
-    [self.impressionTimer invalidate];
-    self.impressionTimer = nil;
-    
-    self.vastModel = nil;
-}
-
-
-
-#pragma mark - PNTableViewCell Public Methods
-
 - (void)willDisplayCell
 {
     self.banner.hidden = YES;
@@ -171,8 +172,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     self.impressionTimer = nil;
 }
 
-
-
 #pragma mark - Private Methods
 
 - (void)clearCell:(NSNotification*)notification
@@ -196,6 +195,12 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
                                       withAd:self.model];
     
     PNVastModel *vast = [self.model.vast firstObject];
+    
+    if(self.model)
+    {
+        [self.playerContainer.skipButton setTitle:vast.skip_video_button forState:UIControlStateNormal];
+    }
+    
     if (vast.ad)
     {
         [[VastXMLParser sharedParser] parseString:vast.ad andDelegate:self];
