@@ -80,12 +80,6 @@
     section = [XLFormSectionDescriptor formSectionWithTitle:@""];
     [formDescriptor addFormSection:section];
     
-    // Ad Count
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"ad_count" rowType:XLFormRowDescriptorTypeText title:@"Ad Count"];
-    row.required = YES;
-    row.value = [NSString stringWithFormat:@"%@", self.parameters.ad_count];
-    [section addFormRow:row];
-    
     // App Token
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"app_token" rowType:XLFormRowDescriptorTypeText title:@"App Token"];
     row.required = YES;
@@ -177,18 +171,7 @@
                 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                    if ([(NSString*)key isEqualToString:@"ad_count"])
-                    {
-                        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-                        formatter.numberStyle = NSNumberFormatterDecimalStyle;
-                        NSNumber *adCount = [formatter numberFromString:[self.formValues objectForKey:key]];
-                        
-                        [self.parameters performSelector:setSelector withObject:adCount];
-                    }
-                    else
-                    {
-                        [self.parameters performSelector:setSelector withObject:[self.formValues objectForKey:key]];
-                    }
+                    [self.parameters performSelector:setSelector withObject:[self.formValues objectForKey:key]];
 #pragma clang diagnostic pop
                 }
             }
