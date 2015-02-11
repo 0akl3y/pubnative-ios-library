@@ -54,6 +54,7 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.delegate = nil;
     
     [self.impressionTimer invalidate];
@@ -101,6 +102,11 @@
         renderItem.icon = self.iconView;
         renderItem.cta_text = self.ctaLabel;
         [PNAdRenderingManager renderNativeAdItem:renderItem withAd:self.model];
+    }
+    
+    if([self.delegate respondsToSelector:@selector(pnAdDidLoad:)])
+    {
+        [self.delegate pnAdDidLoad:self];
     }
 }
 
@@ -161,11 +167,24 @@
     if (self)
     {
         self.model = model;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(iconDidLoad:)
+                                                     name:kPNAdRenderingManagerIconNotification
+                                                   object:nil];
     }
     return self;
 }
 
 #pragma mark private
+
+- (void)iconDidLoad:(NSNotification*)notification
+{
+    if([self.delegate respondsToSelector:@selector(pnAdReady:)])
+    {
+        [self.delegate pnAdReady:self];
+    }
+}
 
 - (void)startImpressionTimer
 {

@@ -103,7 +103,7 @@
                                      NSStringFromProgressLabelColorTableKey(ProgressLabelTrackColor):[UIColor clearColor],
                                      NSStringFromProgressLabelColorTableKey(ProgressLabelProgressColor):[UIColor whiteColor],
                                      NSStringFromProgressLabelColorTableKey(ProgressLabelFillColor):[UIColor clearColor]
-                                     }];
+                                    }];
     [self.loadLabel setTextColor:[UIColor whiteColor]];
     [self.loadLabel setShadowColor:[UIColor darkGrayColor]];
     self.loadLabel.shadowOffset = CGSizeMake(1, 1);
@@ -201,6 +201,8 @@
 
 - (void)close
 {
+    [self.videoPlayer stop];
+    
     if([self isModal])
     {
         [self dismissViewControllerAnimated:NO completion:^{

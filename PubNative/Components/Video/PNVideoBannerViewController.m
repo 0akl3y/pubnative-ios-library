@@ -58,6 +58,8 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     self.delegate = nil;
     
     [self.impressionTimer invalidate];
@@ -157,6 +159,11 @@
         self.model = model;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(bannerDidLoad:)
+                                                     name:kPNAdRenderingManagerBannerNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didRotate:)
                                                      name:UIApplicationDidChangeStatusBarOrientationNotification
                                                    object:nil];
@@ -165,6 +172,14 @@
 }
 
 #pragma mark private
+
+- (void)bannerDidLoad:(NSNotification*)notification
+{
+    if([self.delegate respondsToSelector:@selector(pnAdDidLoad:)])
+    {
+        [self.delegate pnAdDidLoad:self];
+    }
+}
 
 - (void)didRotate:(NSNotification*)notification
 {
