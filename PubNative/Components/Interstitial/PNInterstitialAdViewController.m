@@ -53,6 +53,7 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
 @property (nonatomic, strong)               PNNativeAdModel         *model;
 @property (nonatomic, assign)               BOOL                    wasStatusBarHidden;
 @property (nonatomic, strong)               NSTimer                 *impressionTimer;
+@property (nonatomic, assign)               BOOL                    isLoaded;
 
 @end
 
@@ -67,17 +68,31 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
     self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        self.isLoaded = NO;
         self.model = model;
-        
         self.wasStatusBarHidden = [UIApplication sharedApplication].statusBarHidden;
+        
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(closePressed:)
                                                      name:UIApplicationWillResignActiveNotification
-                                                   object:NULL];
-        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+                                                   object:nil];
+        
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didRotate:)
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(iconDidLoad:)
+                                                     name:kPNAdRenderingManagerIconNotification
+                                                   object:nil];
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(bannerDidLoad:)
+                                                     name:kPNAdRenderingManagerBannerNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -152,6 +167,10 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
          {
              self.bannerDataView.alpha = 1.0f;
          }];
+    }
+    if([self.delegate respondsToSelector:@selector(pnAdDidLoad:)])
+    {
+        [self.delegate pnAdDidLoad:self];
     }
 }
 
@@ -232,7 +251,6 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
     self.descriptionLabel.hidden = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && UIInterfaceOrientationIsLandscape(orientation);
 }
 
-
 #pragma mark private methods
 
 - (void)startImpressionTimer
@@ -267,6 +285,21 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
     return NO;
 }
 
+- (void)checkLoaded
+{
+    if(!self.isLoaded)
+    {
+        self.isLoaded = YES;
+    }
+    else
+    {
+        if([self.delegate respondsToSelector:@selector(pnAdReady:)])
+        {
+            [self.delegate pnAdReady:self];
+        }
+    }
+}
+
 #pragma mark IBActions
 
 - (IBAction)closePressed:(id)sender
@@ -290,6 +323,20 @@ NSInteger   const kPNInterstitialAdVCPortraitImageHeight    = 1200;
         [self closePressed:self];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.model.click_url]];
     }
+}
+
+#pragma mark - NOTIFICATIONS -
+
+#pragma mark PNAdRenderingManager
+
+- (void)iconDidLoad:(NSNotification*)notification
+{
+    [self checkLoaded];
+}
+
+- (void)bannerDidLoad:(NSNotification*)notification
+{
+    [self checkLoaded];
 }
 
 @end

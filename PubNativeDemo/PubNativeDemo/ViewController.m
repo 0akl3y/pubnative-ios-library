@@ -153,6 +153,16 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
                  andDelegate:self];
 }
 
+- (IBAction)videoInterstitialTouchUpInside:(id)sender
+{
+    [self startLoading];
+    self.currentType = Pubnative_AdType_VideoInterstitial;
+    
+    [Pubnative requestAdType:Pubnative_AdType_VideoInterstitial
+              withParameters:self.parameters
+                 andDelegate:self];
+}
+
 - (IBAction)videoFeedTouchUpInside:(id)sender
 {
     [self startLoading];
@@ -245,6 +255,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self stopLoading];
     switch (self.currentType)
     {
+        case Pubnative_AdType_VideoInterstitial:
         case Pubnative_AdType_Interstitial:
         {
             [self presentViewController:adVC animated:YES completion:nil];

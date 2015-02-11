@@ -84,6 +84,15 @@
     [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
+- (void)testVideoInterstitial
+{
+    self.expectation = [self expectationWithDescription:@"expectation"];
+    [Pubnative requestAdType:Pubnative_AdType_VideoInterstitial
+                withAppToken:kPNTestConstantsAppToken
+                 andDelegate:self];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
+}
+
 #pragma mark - DELEGATE -
 #pragma mark PubnativeAdDelegate
 

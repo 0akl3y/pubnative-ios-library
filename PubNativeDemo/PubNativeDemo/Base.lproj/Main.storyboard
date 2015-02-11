@@ -177,6 +177,22 @@
                                             <action selector="videoTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RQ4-K8-0rI"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOl-vl-OC4">
+                                        <rect key="frame" x="90" y="190" width="120" height="30"/>
+                                        <color key="backgroundColor" red="0.40000000000000002" green="0.0" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="ImL-5K-wsN"/>
+                                            <constraint firstAttribute="width" constant="120" id="L7K-o9-kRl"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <state key="normal" title="Video Interstitial">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="videoInterstitialTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uOZ-co-g1z"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -188,8 +204,10 @@
                                     <constraint firstAttribute="centerX" secondItem="DgE-6K-MPX" secondAttribute="centerX" id="Z0G-ri-f5z"/>
                                     <constraint firstAttribute="centerX" secondItem="tCD-YM-Kcl" secondAttribute="centerX" id="Zlq-yZ-Szn"/>
                                     <constraint firstItem="DgE-6K-MPX" firstAttribute="top" secondItem="exH-7a-8CK" secondAttribute="bottom" constant="8" id="c4J-eh-F0I"/>
+                                    <constraint firstItem="ZOl-vl-OC4" firstAttribute="top" secondItem="tCD-YM-Kcl" secondAttribute="bottom" constant="8" id="drw-jE-Rzl"/>
                                     <constraint firstItem="cXx-70-kbv" firstAttribute="top" secondItem="ibA-fr-xBh" secondAttribute="bottom" constant="8" id="evb-cM-CG0"/>
                                     <constraint firstItem="exH-7a-8CK" firstAttribute="leading" secondItem="PJH-JK-xdP" secondAttribute="leading" id="jjl-wQ-Ef6"/>
+                                    <constraint firstAttribute="centerX" secondItem="ZOl-vl-OC4" secondAttribute="centerX" id="piH-Qg-cMw"/>
                                     <constraint firstItem="ibA-fr-xBh" firstAttribute="top" secondItem="DgE-6K-MPX" secondAttribute="bottom" constant="8" id="zle-Z2-IOc"/>
                                 </constraints>
                             </view>

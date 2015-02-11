@@ -94,6 +94,12 @@
     [self requestAd];
 }
 
+- (void)testVideoInterstitial
+{
+    self.currentAdType = Pubnative_AdType_VideoInterstitial;
+    [self requestAd];
+}
+
 - (void)requestAd
 {
     [Pubnative requestAdType:self.currentAdType

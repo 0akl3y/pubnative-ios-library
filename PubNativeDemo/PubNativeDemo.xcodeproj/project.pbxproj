@@ -11,6 +11,8 @@
 		D51116B81A40A70B00A0B42C /* PNIconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D51116B61A40A70B00A0B42C /* PNIconViewController.xib */; };
 		D54DD1C61A7013EC0044E149 /* PnClose.png in Resources */ = {isa = PBXBuildFile; fileRef = D54DD1C41A7013EC0044E149 /* PnClose.png */; };
 		D54DD1C71A7013EC0044E149 /* PnClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D54DD1C51A7013EC0044E149 /* PnClose@2x.png */; };
+		D550C1991A8A430900780532 /* PNVideoInterstitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D550C1971A8A430900780532 /* PNVideoInterstitialViewController.m */; };
+		D550C19A1A8A430900780532 /* PNVideoInterstitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D550C1981A8A430900780532 /* PNVideoInterstitialViewController.xib */; };
 		D552A99E1A84D8CD001AD194 /* EFApiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D552A99D1A84D8CD001AD194 /* EFApiModel.m */; };
 		D552A9A11A84DAC7001AD194 /* EFEventModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D552A9A01A84DAC7001AD194 /* EFEventModel.m */; };
 		D552A9A41A84DBE5001AD194 /* EFEventsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D552A9A31A84DBE5001AD194 /* EFEventsModel.m */; };
@@ -155,6 +157,9 @@
 		D51116B61A40A70B00A0B42C /* PNIconViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNIconViewController.xib; sourceTree = "<group>"; };
 		D54DD1C41A7013EC0044E149 /* PnClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnClose.png; sourceTree = "<group>"; };
 		D54DD1C51A7013EC0044E149 /* PnClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PnClose@2x.png"; sourceTree = "<group>"; };
+		D550C1961A8A430900780532 /* PNVideoInterstitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNVideoInterstitialViewController.h; sourceTree = "<group>"; };
+		D550C1971A8A430900780532 /* PNVideoInterstitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNVideoInterstitialViewController.m; sourceTree = "<group>"; };
+		D550C1981A8A430900780532 /* PNVideoInterstitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNVideoInterstitialViewController.xib; sourceTree = "<group>"; };
 		D552A99C1A84D8CD001AD194 /* EFApiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EFApiModel.h; sourceTree = "<group>"; };
 		D552A99D1A84D8CD001AD194 /* EFApiModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EFApiModel.m; sourceTree = "<group>"; };
 		D552A99F1A84DAC7001AD194 /* EFEventModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EFEventModel.h; sourceTree = "<group>"; };
@@ -414,6 +419,16 @@
 			path = Icon;
 			sourceTree = "<group>";
 		};
+		D550C1951A8A430900780532 /* VideoInterstitial */ = {
+			isa = PBXGroup;
+			children = (
+				D550C1961A8A430900780532 /* PNVideoInterstitialViewController.h */,
+				D550C1971A8A430900780532 /* PNVideoInterstitialViewController.m */,
+				D550C1981A8A430900780532 /* PNVideoInterstitialViewController.xib */,
+			);
+			path = VideoInterstitial;
+			sourceTree = "<group>";
+		};
 		D552A99B1A84D876001AD194 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -627,6 +642,7 @@
 		D589E5CD1A3B0721008C6C88 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D550C1951A8A430900780532 /* VideoInterstitial */,
 				D5E8241D1A82610A00F5FD0B /* PNScroller */,
 				D574EA2B1A7FD91500BA611B /* AdWall */,
 				D589E5D21A3B0721008C6C88 /* Common */,
@@ -1045,6 +1061,7 @@
 				D5E824291A82610A00F5FD0B /* PNScrollerContainerCellView.xib in Resources */,
 				D570E6341A6FF3700074EF4E /* PnFullScreen.png in Resources */,
 				D570E6371A6FF3700074EF4E /* PnMute@2x.png in Resources */,
+				D550C19A1A8A430900780532 /* PNVideoInterstitialViewController.xib in Resources */,
 				D5E8242A1A82610A00F5FD0B /* PNScrollerViewCell-landscape.xib in Resources */,
 				D5E8242C1A82610A00F5FD0B /* PNScrollerViewCell.xib in Resources */,
 				D570E6291A6FF2BA0074EF4E /* PNVideoPlayerView.xib in Resources */,
@@ -1100,6 +1117,7 @@
 				D5DD2D6B1A80D5B600FB31A0 /* XLFormRightImageButton.m in Sources */,
 				D552A9A41A84DBE5001AD194 /* EFEventsModel.m in Sources */,
 				D585D65F1A39E26D00423640 /* PNAppModel.m in Sources */,
+				D550C1991A8A430900780532 /* PNVideoInterstitialViewController.m in Sources */,
 				D589E5EF1A3B0721008C6C88 /* PNBannerViewController.m in Sources */,
 				D5DD2D6E1A80D5B600FB31A0 /* XLFormValidationStatus.m in Sources */,
 				D56CCBF31A8A27450036EBDA /* EventTableViewCell.m in Sources */,
