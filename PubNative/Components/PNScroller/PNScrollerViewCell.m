@@ -111,6 +111,7 @@ CGFloat const kPNScrollerViewCellTimeToConfirm      = 1.0f;
                                       withAd:self.model];
     
     [self.descriptionTextView sizeToFit];
+    [self.downloadButton setTitle:self.model.cta_text forState:UIControlStateNormal];
     
     AMRatingControl *ratingControl = [[AMRatingControl alloc] initWithLocation:CGPointZero
                                                                     emptyColor:[UIColor lightGrayColor]
