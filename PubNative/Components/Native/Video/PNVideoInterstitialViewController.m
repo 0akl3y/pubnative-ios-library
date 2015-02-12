@@ -38,6 +38,12 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
     self.vastModel = nil;
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
+    
+    if (self.playerContainer)
+    {
+        [self.playerContainer.view removeFromSuperview];
+        [self.playerContainer.videoPlayer stop];
+    }
     self.playerContainer = nil;
     self.interstitialVC = nil;
 }
@@ -47,6 +53,8 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self.playerContainer.videoPlayer play];
     
     if ([self.delegate respondsToSelector:@selector(pnAdWillShow)])
     {
@@ -203,10 +211,6 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
     {
         [self.delegate pnAdDidLoad:self];
     }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.playerContainer.videoPlayer play];
-    });
     
     if([self.delegate respondsToSelector:@selector(pnAdReady:)])
     {
