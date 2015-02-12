@@ -37,6 +37,7 @@ NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownl
 
 - (void)invokeCacherDidCache:(NSString*)file;
 - (void)invokeCacherDidFail:(NSError*)error;
++ (NSString*)cacheFolder;
 
 @end
 
@@ -67,7 +68,7 @@ NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownl
 {
     if ([self hasCachedDataWithName:self.videoUrl])
     {
-        [self invokeCacherDidCache:[NSString stringWithFormat:@"%@/%@", [self cacheFolder], [self getCachedNameFromURL:self.videoUrl]]];
+        [self invokeCacherDidCache:[NSString stringWithFormat:@"%@/%@", [PNVideoCacher cacheFolder], [self getCachedNameFromURL:self.videoUrl]]];
         return;
     }
     
@@ -107,17 +108,17 @@ NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownl
     self.delegate = nil;
 }
 
-- (BOOL)cleanCache
++ (BOOL)cleanCache
 {
     NSFileManager *fileManager = [NSFileManager new];
-    return [fileManager removeItemAtPath:[self cacheFolder]
+    return [fileManager removeItemAtPath:[PNVideoCacher cacheFolder]
                                    error:nil];
 }
 
 
 #pragma mark - Private Methods
 
-- (NSString*)cacheFolder
++ (NSString*)cacheFolder
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *diskCachePath = [paths[0] stringByAppendingPathComponent:kVideoCacherNamespace];
@@ -135,7 +136,7 @@ NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownl
 - (NSString*)cacheData:(NSData*)data witName:(NSString*)name
 {
     NSFileManager *fileManager = [NSFileManager new];
-    NSString *newName = [[self cacheFolder] stringByAppendingPathComponent:[self getCachedNameFromURL:self.videoUrl]];
+    NSString *newName = [[PNVideoCacher cacheFolder] stringByAppendingPathComponent:[self getCachedNameFromURL:self.videoUrl]];
     [fileManager createFileAtPath:newName
                          contents:data
                        attributes:nil];
@@ -145,7 +146,7 @@ NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownl
 - (BOOL)hasCachedDataWithName:(NSString*)name
 {
     NSFileManager *fileManager = [NSFileManager new];
-    return [fileManager fileExistsAtPath:[[self cacheFolder] stringByAppendingPathComponent:[self getCachedNameFromURL:self.videoUrl]]];
+    return [fileManager fileExistsAtPath:[[PNVideoCacher cacheFolder] stringByAppendingPathComponent:[self getCachedNameFromURL:self.videoUrl]]];
 }
 
 - (NSData*)cachedDataWithName:(NSString*)name
@@ -154,7 +155,7 @@ NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownl
     
     if ([self hasCachedDataWithName:name])
     {
-        data = [NSData dataWithContentsOfFile:[[self cacheFolder] stringByAppendingPathComponent:[self getCachedNameFromURL:self.videoUrl]]];
+        data = [NSData dataWithContentsOfFile:[[PNVideoCacher cacheFolder] stringByAppendingPathComponent:[self getCachedNameFromURL:self.videoUrl]]];
     }
     
     return data;

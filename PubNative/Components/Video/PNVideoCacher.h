@@ -38,6 +38,6 @@
 - (id)initWithURL:(NSString*)url;
 - (void)startCaching;
 - (void)cancelCaching;
-- (BOOL)cleanCache;
++ (BOOL)cleanCache;
 
 @end
