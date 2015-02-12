@@ -151,28 +151,28 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 {
     [self startLoading];
     self.currentType = -1;
-    [self loadFeedWithType:PNFeed_Native_Video];
+    [self loadFeedWithType:PNFeed_Native_Video requestType:PNAdRequest_Native_Video];
 }
 
 - (IBAction)adFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     self.currentType = -1;
-    [self loadFeedWithType:PNFeed_Native_Banner];
+    [self loadFeedWithType:PNFeed_Native_Banner requestType:PNAdRequest_Native];
 }
 
 - (IBAction)scrollFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     self.currentType = -1;
-    [self loadFeedWithType:PNFeed_Native_Carousel];
+    [self loadFeedWithType:PNFeed_Native_Carousel requestType:PNAdRequest_Native];
 }
 
 - (IBAction)iconFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     self.currentType = -1;
-    [self loadFeedWithType:PNFeed_Native_Icon];
+    [self loadFeedWithType:PNFeed_Native_Icon requestType:PNAdRequest_Native];
 }
 
 - (void)requestAdWithType:(Pubnative_AdType)type
@@ -183,7 +183,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
                  andDelegate:self];
 }
 
-- (void)loadFeedWithType:(PNFeedType)type
+- (void)loadFeedWithType:(PNFeedType)feedType requestType:(PNAdRequestType)requestType
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
@@ -195,15 +195,15 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
         if ([self.eventModel.events.event count])
         {
             [feedVC loadAdWithParameters:self.parameters
-                             requestType:PNAdRequest_Native
+                             requestType:requestType
                                 feedData:self.eventModel
-                             andFeedType:type];
+                             andFeedType:feedType];
         }
         else
         {
             [feedVC loadAdWithParameters:self.parameters
-                             requestType:PNAdRequest_Native
-                             andFeedType:type];
+                             requestType:requestType
+                             andFeedType:feedType];
         }
     }];
 }

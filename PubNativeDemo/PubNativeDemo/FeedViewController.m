@@ -71,7 +71,7 @@ NSString * const iconCellID     = @"iconCellID";
 #pragma mark FeedViewController
 
 - (void)loadAdWithParameters:(PNAdRequestParameters*)parameters
-                 requestType:(PNAdRequestType)reuqestType
+                 requestType:(PNAdRequestType)requestType
                  andFeedType:(PNFeedType)feedType
 {
     self.type = feedType;
@@ -99,7 +99,7 @@ NSString * const iconCellID     = @"iconCellID";
     }
     
     __weak typeof(self) weakSelf = self;
-    self.request = [PNAdRequest request:reuqestType
+    self.request = [PNAdRequest request:requestType
                          withParameters:parameters
                           andCompletion:^(NSArray *ads, NSError *error)
     {
