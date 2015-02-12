@@ -25,8 +25,8 @@
 #import <UIKit/UIKit.h>
 #import "PNAdRequest.h"
 #import "PNVideoTableViewCell.h"
-#import "PNAdWallCell.h"
-#import "PNScrollerContainerCell.h"
+#import "PNBannerTableViewCell.h"
+#import "PNCarouselTableViewCell.h"
 #import "EFApiModel.h"
 #import "EventTableViewCell.h"
 

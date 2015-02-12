@@ -8,7 +8,8 @@
 
 #import "PNTableViewManager.h"
 #import "PNVideoTableViewCell.h"
-#import "PNAdWallCell.h"
+#import "PNBannerTableViewCell.h"
+#import "PNIconTableViewCell.h"
 
 NSString * const kPNTableViewManagerClearAllNotification = @"PNTableViewManagerClearAll";
 
@@ -119,10 +120,16 @@ NSString * const kPNTableViewManagerClearAllNotification = @"PNTableViewManagerC
         [videoCell willDisplayCell];
     }
     
-    if([cell isKindOfClass:[PNAdWallCell class]])
+    if([cell isKindOfClass:[PNBannerTableViewCell class]])
     {
-        PNAdWallCell *adWallCell = (PNAdWallCell*)cell;
-        [adWallCell willDisplayCell];
+        PNBannerTableViewCell *bannerCell = (PNBannerTableViewCell*)cell;
+        [bannerCell willDisplayCell];
+    }
+    
+    if([cell isKindOfClass:[PNIconTableViewCell class]])
+    {
+        PNIconTableViewCell *iconCell = (PNIconTableViewCell*)cell;
+        [iconCell willDisplayCell];
     }
     
     if(self.originalDelegate != nil &&
@@ -140,10 +147,16 @@ NSString * const kPNTableViewManagerClearAllNotification = @"PNTableViewManagerC
         [videoCell didEndDisplayingCell];
     }
     
-    if([cell isKindOfClass:[PNAdWallCell class]])
+    if([cell isKindOfClass:[PNBannerTableViewCell class]])
     {
-        PNAdWallCell *adWallCell = (PNAdWallCell*)cell;
-        [adWallCell didEndDisplayingCell];
+        PNBannerTableViewCell *bannerCell = (PNBannerTableViewCell*)cell;
+        [bannerCell didEndDisplayingCell];
+    }
+    
+    if([cell isKindOfClass:[PNIconTableViewCell class]])
+    {
+        PNIconTableViewCell *iconCell = (PNIconTableViewCell*)cell;
+        [iconCell didEndDisplayingCell];
     }
     
     if(self.originalDelegate != nil &&
