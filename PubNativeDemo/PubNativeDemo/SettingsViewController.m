@@ -137,8 +137,15 @@
     [buttonRow.cellConfigAtConfigure setObject:self.view.tintColor forKey:@"textLabel.textColor"];
     [section addFormRow:buttonRow];
     
+    // Clean Cache
+    XLFormRowDescriptor * cleanCacheRow = [XLFormRowDescriptor formRowDescriptorWithTag:@"cleanCacheButton"
+                                                                                rowType:XLFormRowDescriptorTypeButton
+                                                                                  title:@"Clean Cache"];
+    [section addFormRow:cleanCacheRow];
+    
     section = [XLFormSectionDescriptor formSection];
     [formDescriptor addFormSection:section];
+    
     
     self.form = formDescriptor;
 }
@@ -194,6 +201,12 @@
     }
     else if ([formRow.tag isEqual:@"cancelButton"])
     {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else if ([formRow.tag isEqual:@"cleanCacheButton"])
+    {
+        [PNCroissantCache cleanCache];
+        [PNVideoCacher cleanCache];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
