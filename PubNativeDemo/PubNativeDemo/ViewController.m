@@ -120,124 +120,90 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 - (IBAction)bannerTouchUpInside:(id)sender
 {
     [self startLoading];
-    self.currentType = Pubnative_AdType_Banner;
-    
-    [Pubnative requestAdType:Pubnative_AdType_Banner
-              withParameters:self.parameters
-                 andDelegate:self];
+    [self requestAdWithType:Pubnative_AdType_Banner];
 }
 
 - (IBAction)interstitialTouchUpInside:(id)sender
 {
     [self startLoading];
-    self.currentType = Pubnative_AdType_Interstitial;
-    
-    [Pubnative requestAdType:Pubnative_AdType_Interstitial
-              withParameters:self.parameters
-                 andDelegate:self];
+    [self requestAdWithType:Pubnative_AdType_Interstitial];
 }
 
 - (IBAction)iconTouchUpInside:(id)sender
 {
     [self startLoading];
-    self.currentType = Pubnative_AdType_Icon;
-    
-    [Pubnative requestAdType:Pubnative_AdType_Icon
-              withParameters:self.parameters
-                 andDelegate:self];
+    [self requestAdWithType:Pubnative_AdType_Icon];
 }
 
 - (IBAction)videoTouchUpInside:(id)sender
 {
     [self startLoading];
-    self.currentType = Pubnative_AdType_VideoBanner;
-    
-    [Pubnative requestAdType:Pubnative_AdType_VideoBanner
-              withParameters:self.parameters
-                 andDelegate:self];
+    [self requestAdWithType:Pubnative_AdType_VideoBanner];
 }
 
 - (IBAction)videoInterstitialTouchUpInside:(id)sender
 {
     [self startLoading];
-    self.currentType = Pubnative_AdType_VideoInterstitial;
-    
-    [Pubnative requestAdType:Pubnative_AdType_VideoInterstitial
-              withParameters:self.parameters
-                 andDelegate:self];
+    [self requestAdWithType:Pubnative_AdType_VideoInterstitial];
 }
 
 - (IBAction)videoFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     self.currentType = -1;
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
-    [self presentViewController:feedVC animated:YES completion:^{
-        [self stopLoading];
-        if ([self.eventModel.events.event count])
-        {
-            [feedVC loadAdWithParameters:self.parameters
-                             requestType:PNAdRequest_Native_Video
-                                feedData:self.eventModel
-                             andFeedType:PNFeed_Native_Video];
-        }
-        else
-        {
-            [feedVC loadAdWithParameters:self.parameters
-                             requestType:PNAdRequest_Native_Video
-                             andFeedType:PNFeed_Native_Video];
-        }
-    }];
+    [self loadFeedWithType:PNFeed_Native_Video];
 }
 
 - (IBAction)adFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     self.currentType = -1;
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
-    [self presentViewController:feedVC animated:YES completion:^{
-        [self stopLoading];
-        if ([self.eventModel.events.event count])
-        {
-            [feedVC loadAdWithParameters:self.parameters
-                             requestType:PNAdRequest_Native
-                                feedData:self.eventModel
-                             andFeedType:PNFeed_Native_Ad];
-        }
-        else
-        {
-            [feedVC loadAdWithParameters:self.parameters
-                             requestType:PNAdRequest_Native
-                             andFeedType:PNFeed_Native_Ad];
-        }
-    }];
+    [self loadFeedWithType:PNFeed_Native_Banner];
 }
 
 - (IBAction)scrollFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     self.currentType = -1;
-    
+    [self loadFeedWithType:PNFeed_Native_Carousel];
+}
+
+- (IBAction)iconFeedTouchUpInside:(id)sender
+{
+    [self startLoading];
+    self.currentType = -1;
+    [self loadFeedWithType:PNFeed_Native_Icon];
+}
+
+- (void)requestAdWithType:(Pubnative_AdType)type
+{
+    self.currentType = type;
+    [Pubnative requestAdType:type
+              withParameters:self.parameters
+                 andDelegate:self];
+}
+
+- (void)loadFeedWithType:(PNFeedType)type
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
-    [self presentViewController:feedVC animated:YES completion:^{
+    [self presentViewController:feedVC
+                       animated:YES
+                     completion:^{
+                         
         [self stopLoading];
         if ([self.eventModel.events.event count])
         {
             [feedVC loadAdWithParameters:self.parameters
                              requestType:PNAdRequest_Native
                                 feedData:self.eventModel
-                             andFeedType:PNFeed_Native_Scroller];
+                             andFeedType:type];
         }
         else
         {
             [feedVC loadAdWithParameters:self.parameters
                              requestType:PNAdRequest_Native
-                             andFeedType:PNFeed_Native_Scroller];
+                             andFeedType:type];
         }
     }];
 }

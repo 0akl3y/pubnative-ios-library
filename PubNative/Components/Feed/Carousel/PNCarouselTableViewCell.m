@@ -1,5 +1,5 @@
 //
-// PNScrollerContainerCell.h
+// PNCarouselTableViewCell.m
 //
 // Created by David Martin on 24/10/14.
 // Copyright (c) 2014 PubNative.
@@ -23,13 +23,41 @@
 // THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "PNCarouselTableViewCell.h"
+#import "PNCarouselContainerView.h"
 
-@interface PNScrollerContainerCell : UITableViewCell
+@interface PNCarouselTableViewCell ()
 
-@property (weak, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) PNCarouselContainerView *collectionView;
 
-- (void)setCollectionData:(NSArray *)collectionData;
-+ (CGSize)itemSize;
+
+@end
+
+@implementation PNCarouselTableViewCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self)
+    {
+        NSString *className = NSStringFromClass([PNCarouselContainerView class]);
+        _collectionView = [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil][0];
+        _collectionView.frame = self.bounds;
+        [self.contentView addSubview:_collectionView];
+    }
+    return self;
+}
+
++ (CGSize)itemSize
+{
+    return [PNCarouselContainerView itemSize];
+}
+
+- (void)setCollectionData:(NSArray *)collectionData
+{
+    [_collectionView setCollectionData:collectionData];
+}
+
+
 
 @end

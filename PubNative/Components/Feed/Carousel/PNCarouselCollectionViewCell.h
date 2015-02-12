@@ -1,5 +1,5 @@
 //
-// PNScrollerViewCell.h
+// PNCarouselCollectionViewCell.h
 //
 // Created by David Martin on 24/10/14.
 // Copyright (c) 2014 PubNative.
@@ -26,7 +26,7 @@
 #import <UIKit/UIKit.h>
 #import "PNNativeAdModel.h"
 
-@interface PNScrollerViewCell : UICollectionViewCell
+@interface PNCarouselCollectionViewCell : UICollectionViewCell
 
 - (void)setData:(PNNativeAdModel*)data;
 - (void)didEndDisplayingCell;

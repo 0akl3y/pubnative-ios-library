@@ -40,7 +40,7 @@
                                     <constraint firstAttribute="height" constant="40" id="8Pg-X1-TGq"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rCE-9m-aLX">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rCE-9m-aLX" userLabel="inFeedView">
                                 <rect key="frame" x="300" y="88" width="300" height="497"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="In-feed ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93F-Sc-MsO">
@@ -101,6 +101,22 @@
                                             <action selector="adFeedTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kei-0D-VfL"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="krO-do-pjF">
+                                        <rect key="frame" x="90" y="152" width="120" height="30"/>
+                                        <color key="backgroundColor" red="0.40000000000000002" green="0.0" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="Dq4-cc-QMd"/>
+                                            <constraint firstAttribute="height" constant="30" id="aYZ-7C-Uat"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <state key="normal" title="Icon">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="iconFeedTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZpC-Go-HbR"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -108,13 +124,15 @@
                                     <constraint firstAttribute="centerX" secondItem="zCH-G2-fWz" secondAttribute="centerX" id="HMy-iN-lfX"/>
                                     <constraint firstItem="zCH-G2-fWz" firstAttribute="top" secondItem="fhB-rC-D5R" secondAttribute="bottom" constant="8" id="I2c-Sa-CJQ"/>
                                     <constraint firstAttribute="centerX" secondItem="fhB-rC-D5R" secondAttribute="centerX" id="ZUi-nt-Uuo"/>
+                                    <constraint firstAttribute="centerX" secondItem="krO-do-pjF" secondAttribute="centerX" id="a4G-5j-42C"/>
                                     <constraint firstAttribute="centerX" secondItem="eQS-Jv-gjk" secondAttribute="centerX" id="axk-7A-Lwg"/>
                                     <constraint firstItem="eQS-Jv-gjk" firstAttribute="top" secondItem="93F-Sc-MsO" secondAttribute="bottom" constant="8" id="cxy-Vk-foQ"/>
                                     <constraint firstAttribute="trailing" secondItem="93F-Sc-MsO" secondAttribute="trailing" id="hMm-mj-69B"/>
+                                    <constraint firstItem="krO-do-pjF" firstAttribute="top" secondItem="zCH-G2-fWz" secondAttribute="bottom" constant="8" id="rtQ-gN-jWs"/>
                                     <constraint firstItem="93F-Sc-MsO" firstAttribute="leading" secondItem="rCE-9m-aLX" secondAttribute="leading" id="zMR-0w-1oe"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PJH-JK-xdP">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PJH-JK-xdP" userLabel="natieView">
                                 <rect key="frame" x="0.0" y="88" width="300" height="497"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Native ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exH-7a-8CK">
@@ -225,8 +243,17 @@
                                     <constraint firstItem="ibA-fr-xBh" firstAttribute="top" secondItem="DgE-6K-MPX" secondAttribute="bottom" constant="8" id="zle-Z2-IOc"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" alpha="0.89999999999999991" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJw-qf-26i">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2N-cd-W5L">
+                                <rect key="frame" x="0.0" y="585" width="600" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="IDb-D0-TYz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view alpha="0.89999999999999991" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mJw-qf-26i">
+                                <rect key="frame" x="0.0" y="-1" width="600" height="600"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ddc-1p-34N">
                                         <rect key="frame" x="290" y="290" width="20" height="20"/>
@@ -242,15 +269,6 @@
                                     <constraint firstAttribute="centerX" secondItem="Ddc-1p-34N" secondAttribute="centerX" id="r2y-Nq-v3F"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2N-cd-W5L">
-                                <rect key="frame" x="0.0" y="585" width="600" height="15"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="IDb-D0-TYz"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>

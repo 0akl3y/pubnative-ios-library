@@ -1,5 +1,5 @@
 //
-// PNScrollerContainerCellView.h
+// PNCarouselTableViewCell.h
 //
 // Created by David Martin on 24/10/14.
 // Copyright (c) 2014 PubNative.
@@ -25,7 +25,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PNScrollerContainerCellView : UIView
+@interface PNCarouselTableViewCell : UITableViewCell
+
+@property (weak, nonatomic) UITableView *tableView;
 
 - (void)setCollectionData:(NSArray *)collectionData;
 + (CGSize)itemSize;

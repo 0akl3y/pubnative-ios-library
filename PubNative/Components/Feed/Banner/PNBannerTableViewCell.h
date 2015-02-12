@@ -1,5 +1,5 @@
 //
-// PNAdWallCell.h
+// PNBannerTableViewCell.h
 //
 // Created by Csongor Nagy on 30/10/14.
 // Copyright (c) 2014 PubNative
@@ -28,7 +28,7 @@
 #import "PNAPIModel.h"
 #import "PNNativeAdModel.h"
 
-@interface PNAdWallCell : UITableViewCell
+@interface PNBannerTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) PNNativeAdModel           *model;
 

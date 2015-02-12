@@ -1,5 +1,5 @@
 //
-// PNScrollerViewCell.m
+// PNCarouselCollectionViewCell.m
 //
 // Created by David Martin on 24/10/14.
 // Copyright (c) 2014 PubNative.
@@ -23,16 +23,16 @@
 // THE SOFTWARE.
 //
 
-#import "PNScrollerViewCell.h"
+#import "PNCarouselCollectionViewCell.h"
 #import "PNNativeAdRenderItem.h"
 #import "PNAdRenderingManager.h"
 #import "PNTrackingManager.h"
 #include "AMRatingControl.h"
 
-CGFloat const kPNScrollerViewCellVisibilityTimer    = 0.1f;
-CGFloat const kPNScrollerViewCellTimeToConfirm      = 1.0f;
+CGFloat const kPNCarouselCollectionViewCellVisibilityTimer  = 0.1f;
+CGFloat const kPNCarouselCollectionViewCellTimeToConfirm    = 1.0f;
 
-@interface PNScrollerViewCell ()
+@interface PNCarouselCollectionViewCell ()
 
 @property (weak, nonatomic) IBOutlet    UILabel         *titleLabel;
 @property (weak, nonatomic) IBOutlet    UITextView      *descriptionTextView;
@@ -51,7 +51,7 @@ CGFloat const kPNScrollerViewCellTimeToConfirm      = 1.0f;
 
 @end
 
-@implementation PNScrollerViewCell
+@implementation PNCarouselCollectionViewCell
 
 #pragma mark NSObject
 
@@ -93,7 +93,7 @@ CGFloat const kPNScrollerViewCellTimeToConfirm      = 1.0f;
 - (void)initConfirmTimer
 {
     self.initTimeStamp = [[NSDate date] timeIntervalSince1970];
-    self.displayTimer = [NSTimer scheduledTimerWithTimeInterval:kPNScrollerViewCellVisibilityTimer
+    self.displayTimer = [NSTimer scheduledTimerWithTimeInterval:kPNCarouselCollectionViewCellVisibilityTimer
                                                          target:self
                                                        selector:@selector(checkAdVisibility)
                                                        userInfo:nil
@@ -146,7 +146,7 @@ CGFloat const kPNScrollerViewCellTimeToConfirm      = 1.0f;
         self.elapsedTime += ([[NSDate date] timeIntervalSince1970] - self.initTimeStamp);
         self.initTimeStamp = [[NSDate date] timeIntervalSince1970];
         
-        if(kPNScrollerViewCellTimeToConfirm <= self.elapsedTime && !self.adConfirmed)
+        if(kPNCarouselCollectionViewCellTimeToConfirm <= self.elapsedTime && !self.adConfirmed)
         {
             [self invalidateDisplayTimer];
             self.adConfirmed = YES;

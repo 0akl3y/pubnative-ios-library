@@ -1,5 +1,5 @@
 //
-// PNScrollerContainerCellView.m
+// PNCarouselContainerView.m
 //
 // Created by David Martin on 24/10/14.
 // Copyright (c) 2014 PubNative.
@@ -23,13 +23,13 @@
 // THE SOFTWARE.
 //
 
-#import "PNScrollerContainerCellView.h"
+#import "PNCarouselContainerView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "PNScrollerViewCell.h"
+#import "PNCarouselCollectionViewCell.h"
 #import "PNNativeAdModel.h"
 #import "PNAdConstants.h"
 
-@interface PNScrollerContainerCellView () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface PNCarouselContainerView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic)     IBOutlet    UICollectionView        *collectionView;
 @property (strong, nonatomic)               NSArray                 *collectionData;
@@ -38,7 +38,7 @@
 
 @end
 
-@implementation PNScrollerContainerCellView
+@implementation PNCarouselContainerView
 
 #pragma NSObject
 
@@ -61,7 +61,7 @@
 
     [self updateCollectionViewLayout];
     
-    NSString *classname = NSStringFromClass([PNScrollerViewCell class]);
+    NSString *classname = NSStringFromClass([PNCarouselCollectionViewCell class]);
     
     // Register Portrait cells (ID=PNSCrollerViewCell)
     NSString *portraitCellName = classname;
@@ -78,7 +78,7 @@
     [self addSponsorLabel];
 }
 
-#pragma PNScrollerContainerCellView
+#pragma PNCarouselTableViewCellView
 
 - (void)didRotateNotification:(NSNotification*)notification
 {
@@ -90,7 +90,7 @@
 {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flowLayout.itemSize = [PNScrollerContainerCellView itemSize];
+    flowLayout.itemSize = [PNCarouselContainerView itemSize];
     
     CGFloat margin = (([UIScreen mainScreen].bounds.size.width/2) - (flowLayout.itemSize.width/2));
 
@@ -135,7 +135,7 @@
 {
     CGSize result = CGSizeZero;
     
-    NSString *cellNibName = NSStringFromClass([PNScrollerViewCell class]);
+    NSString *cellNibName = NSStringFromClass([PNCarouselCollectionViewCell class]);
     if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
     {
         cellNibName = [NSString stringWithFormat:@"%@-landscape", cellNibName];
@@ -164,12 +164,12 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellID = NSStringFromClass([PNScrollerViewCell class]);
+    NSString *cellID = NSStringFromClass([PNCarouselCollectionViewCell class]);
     if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
     {
         cellID = [NSString stringWithFormat:@"%@-landscape", cellID];
     }
-    PNScrollerViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
+    PNCarouselCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
     PNNativeAdModel *cellData = [self.collectionData objectAtIndex:[indexPath row]];
     [cell setData:cellData];
     return cell;
@@ -179,7 +179,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [((PNScrollerViewCell*)cell) didEndDisplayingCell];
+    [((PNCarouselCollectionViewCell*)cell) didEndDisplayingCell];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -208,7 +208,7 @@
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
-    CGSize scrollerItemSize = [PNScrollerContainerCellView itemSize];
+    CGSize scrollerItemSize = [PNCarouselContainerView itemSize];
     
     // Get target index following scroller
     NSInteger targetIndex = lroundf(targetContentOffset->x / scrollerItemSize.width);
@@ -231,3 +231,4 @@
 }
 
 @end
+

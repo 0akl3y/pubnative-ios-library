@@ -1,5 +1,5 @@
 //
-// PNAdWallCell.m
+// PNBannerTableViewCell.m
 //
 // Created by Csongor Nagy on 30/10/14.
 // Copyright (c) 2014 PubNative
@@ -22,13 +22,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "PNAdWallCell.h"
+#import "PNBannerTableViewCell.h"
 #import "PNNativeAdRenderItem.h"
 #import "PNAdRenderingManager.h"
 #import "PNTrackingManager.h"
 #import "PNAdConstants.h"
 
-@interface PNAdWallCell ()
+@interface PNBannerTableViewCell ()
 
 @property (nonatomic, weak) IBOutlet UIImageView        *iconImage;
 @property (nonatomic, weak) IBOutlet UILabel            *titleLabel;
@@ -42,7 +42,7 @@
 
 @end
 
-@implementation PNAdWallCell
+@implementation PNBannerTableViewCell
 
 - (void)awakeFromNib
 {
