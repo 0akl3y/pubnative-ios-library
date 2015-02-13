@@ -74,6 +74,7 @@
             
         case Pubnative_AdType_VideoInterstitial:
         {
+            parameters.icon_size = @"200x200";
             requestType = PNAdRequest_Native_Video;
         }
             

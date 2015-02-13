@@ -496,9 +496,9 @@
 				D550C31F1A8CC53200780532 /* Carousel */,
 				D550C3291A8CC53200780532 /* Icon */,
 				D5DCFB891A8E05F800C91621 /* Native */,
+				D550C32C1A8CC53200780532 /* Video */,
 				D550C3781A8CC54D00780532 /* PNTableViewManager.h */,
 				D550C3791A8CC54D00780532 /* PNTableViewManager.m */,
-				D550C32C1A8CC53200780532 /* Video */,
 			);
 			path = Feed;
 			sourceTree = "<group>";

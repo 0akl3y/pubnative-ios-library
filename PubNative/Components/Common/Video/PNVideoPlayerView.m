@@ -206,11 +206,7 @@
     if([self isModal])
     {
         [self dismissViewControllerAnimated:NO completion:^{
-            if(self.delegate && [self.delegate respondsToSelector:@selector(videoCompleted)])
-            {
-                [self.delegate videoCompleted];
-                self.delegate = nil;
-            }
+            [self invokeVideoCompleted];
         }];
     }
     else
@@ -219,43 +215,85 @@
         {
             [self hideCloseButton];
             
-            [self willMoveToParentViewController:nil];
-            [self.view removeFromSuperview];
-            [self removeFromParentViewController];
-            
-            if (self.isCompleted)
+            if (!self.isCompleted)
             {
-                if(self.delegate && [self.delegate respondsToSelector:@selector(videoCompleted)])
-                {
-                    [self.delegate videoCompleted];
-                    self.delegate = nil;
-                }
+                [self invokeVideoDismissedFullscreen];
             }
-            else
-            {
-                if (self.delegate && [self.delegate respondsToSelector:@selector(videoDismissedFullscreen)])
-                {
-                    [self.delegate videoDismissedFullscreen];
-                }
-            }
-            
-            return;
         }
         
-        if(self.delegate && [self.delegate respondsToSelector:@selector(videoCompleted)])
-        {
-            [self.delegate videoCompleted];
-            self.delegate = nil;
-        }
+        [self invokeVideoCompleted];
         
         [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
-        
     }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.videoPlayer = nil;
+}
+
+- (void)invokeVideoDismissedFullscreen
+{
+    if ([self.delegate respondsToSelector:@selector(videoDismissedFullscreen)])
+    {
+        [self.delegate videoDismissedFullscreen];
+    }
+}
+
+- (void)invokeVideoCompleted
+{
+    if([self.delegate respondsToSelector:@selector(videoCompleted)])
+    {
+        [self.delegate videoCompleted];
+    }
+}
+
+- (void)invokeVideoClicked
+{
+    if([self.delegate respondsToSelector:@selector(videoClicked:)])
+    {
+        [self.delegate videoClicked:self.vastAd.mediaFile];
+    }
+}
+
+- (void)invokeVideoReady
+{
+    if([self.delegate respondsToSelector:@selector(videoReady)])
+    {
+        [self.delegate videoReady];
+    }
+}
+
+- (void)invokeVideoError:(NSInteger)errorCode withDetails:(NSString*)details
+{
+    if([self.delegate respondsToSelector:@selector(videoError:details:)])
+    {
+        [self.delegate videoError:errorCode details:details];
+    }
+}
+
+- (void)invokeVideoPreparing
+{
+    if([self.delegate respondsToSelector:@selector(videoPreparing)])
+    {
+        [self.delegate videoPreparing];
+    }
+}
+
+- (void)invokeVideoStartedWithDuration:(NSTimeInterval)duration
+{
+    if([self.delegate respondsToSelector:@selector(videoStartedWithDuration:)])
+    {
+        [self.delegate videoStartedWithDuration:duration];
+    }
+}
+
+- (void)invokeVideoProgress:(NSTimeInterval)progress duration:(NSTimeInterval)duration
+{
+    if([self.delegate respondsToSelector:@selector(invokeVideoProgress:duration:)])
+    {
+        [self.delegate videoProgress:progress duration:duration];
+    }
 }
 
 - (BOOL)isModal
@@ -269,8 +307,6 @@
     
     return NO;
 }
-
-
 
 #pragma mark - IBAction Methods
 
@@ -340,10 +376,8 @@
     {
         [PNTrackingManager trackURLString:self.vastAd.clickThrough completion:nil];
     }
-    if(self.delegate)
-    {
-        [self.delegate videoClicked:self.vastAd.mediaFile];
-    }
+    
+    [self invokeVideoClicked];
 }
 
 #pragma mark - DELEGATES -
@@ -355,18 +389,12 @@
     self.videoPlayer = [[PNVideoPlayer alloc] initWithDelegate:self];
     
     [self.videoPlayer open:videoFile autoplay:self.autoStart];
-    if(self.delegate)
-    {
-        [self.delegate videoReady];
-    }
+    [self invokeVideoReady];
 }
 
 - (void)videoCacherDidFail:(NSError *)error
 {
-    if(self.delegate)
-    {
-        [self.delegate videoError:0 details:@"Ad video URL null"];
-    }
+    [self invokeVideoError:0 withDetails:@"Ad video URL null"];
 }
 
 #pragma mark PNVideoPlayerDelegate
@@ -387,10 +415,7 @@
 
 - (void)playbackPreparing
 {
-    if(self.delegate)
-    {
-        [self.delegate videoPreparing];
-    }
+    [self invokeVideoPreparing];
     [self.videoPlayer pause];
 }
 
@@ -402,10 +427,7 @@
         [PNTrackingManager trackURLString:self.vastAd.trackingStart completion:nil];
     }
     
-    if(self.delegate)
-    {
-        [self.delegate videoStartedWithDuration:duration];
-    }
+    [self invokeVideoStartedWithDuration:duration];
 }
 
 - (void)playbackCompleted
@@ -465,20 +487,13 @@
         
         self.loadLabel.text = [NSString stringWithFormat:@"%.f", duration - currentTime];
         
-        if(self.delegate)
-        {
-            [self.delegate videoProgress:currentTime duration:duration];
-        }
+        [self invokeVideoProgress:currentTime duration:duration];
     }
 }
 
 - (void)playbackError:(NSInteger)errorCode
 {
-    if(self.delegate)
-    {
-        [self.delegate videoError:errorCode
-                          details:[NSString stringWithFormat:@"Ad video playback failed %li", (long)errorCode]];
-    }
+    [self invokeVideoError:errorCode withDetails:[NSString stringWithFormat:@"Ad video playback failed %li", (long)errorCode]];
 }
 
 @end

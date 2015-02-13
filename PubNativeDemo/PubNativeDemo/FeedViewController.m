@@ -29,6 +29,7 @@
 
 NSString * const videoCellID    = @"videoCellID";
 NSString * const bannerCellID   = @"bannerCellID";
+NSString * const nativeCellID   = @"nativeCellID";
 NSString * const carouselCellID = @"carouselCellID";
 NSString * const textCellID     = @"textCellID";
 NSString * const iconCellID     = @"iconCellID";
@@ -76,31 +77,26 @@ NSString * const iconCellID     = @"iconCellID";
                  andFeedType:(PNFeedType)feedType
 {
     self.type = feedType;
-    
+    parameters.ad_count = @5;
     if (self.type == PNFeed_Native_Banner)
     {
-        parameters.ad_count = @10;
         self.navItem.title = @"Banner";
     }
     else if (self.type == PNFeed_Native_Video)
     {
-        parameters.ad_count = @1;
         self.navItem.title = @"Video";
     }
     else if (self.type == PNFeed_Native_Carousel)
     {
-        parameters.ad_count = @3;
         self.navItem.title = @"Carousel";
     }
     else if (self.type == PNFeed_Native_Icon)
     {
-        parameters.ad_count = @5;
         parameters.icon_size = @"400x400";
         self.navItem.title = @"Icon";
     }
     else if (self.type == PNFeed_Native_InFeed)
     {
-        parameters.ad_count = @10;
         self.navItem.title = @"In Feed";
     }
     
@@ -179,57 +175,45 @@ NSString * const iconCellID     = @"iconCellID";
             {
                 videoCell = [[PNVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellID];
             }
-            videoCell.model = (PNNativeVideoAdModel*)self.model;
+            PNNativeVideoAdModel *model = [self.ads objectAtIndex:((indexPath.row-5)/10)%[self.ads count]];
+            videoCell.model = model;
             result = videoCell;
         }
         else if (self.type == PNFeed_Native_Banner)
         {
-            result = [tableView dequeueReusableCellWithIdentifier:bannerCellID];
-            if(!result)
+            PNBannerTableViewCell *bannerCell = [tableView dequeueReusableCellWithIdentifier:bannerCellID];
+            if(!bannerCell)
             {
                 NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PNBannerTableViewCell" owner:self options:nil];
-                result = [topLevelObjects objectAtIndex:0];
+                bannerCell = [topLevelObjects objectAtIndex:0];
             }
-
-            if ((indexPath.row-5)/10 < self.ads.count)
-            {
-                PNNativeAdModel *model = [self.ads objectAtIndex:(indexPath.row-5)/10];
-                [(PNBannerTableViewCell*)result setModel:model];
-            }
-            else
-            {
-                PNNativeAdModel *model = [self.ads objectAtIndex:(indexPath.row-5)/10-self.ads.count];
-                [(PNBannerTableViewCell*)result setModel:model];
-            }
+            
+            PNNativeAdModel *model = [self.ads objectAtIndex:((indexPath.row-5)/10)%[self.ads count]];
+            bannerCell.model = model;
+            result = bannerCell;
         }
         else if (self.type == PNFeed_Native_InFeed)
         {
-            result = [tableView dequeueReusableCellWithIdentifier:bannerCellID];
-            if(!result)
+            PNNativeTableViewCell *nativeCell = [tableView dequeueReusableCellWithIdentifier:nativeCellID];
+            if(!nativeCell)
             {
                 NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PNNativeTableViewCell" owner:self options:nil];
-                result = [topLevelObjects objectAtIndex:0];
+                nativeCell = [topLevelObjects objectAtIndex:0];
             }
             
-            if ((indexPath.row-5)/10 < self.ads.count)
-            {
-                PNNativeAdModel *model = [self.ads objectAtIndex:(indexPath.row-5)/10];
-                [(PNNativeTableViewCell*)result setModel:model];
-            }
-            else
-            {
-                PNNativeAdModel *model = [self.ads objectAtIndex:(indexPath.row-5)/10-self.ads.count];
-                [(PNNativeTableViewCell*)result setModel:model];
-            }
+            PNNativeAdModel *model = [self.ads objectAtIndex:((indexPath.row-5)/10)%[self.ads count]];
+            nativeCell.model = model;
+            result = nativeCell;
         }
         else if (self.type == PNFeed_Native_Carousel)
         {
-            result = [tableView dequeueReusableCellWithIdentifier:carouselCellID];
-            if (!result)
+            PNCarouselTableViewCell *carouselCell = [tableView dequeueReusableCellWithIdentifier:carouselCellID];
+            if (!carouselCell)
             {
-                result = [[PNCarouselTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellID];
+                carouselCell = [[PNCarouselTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellID];
             }
-            [(PNCarouselTableViewCell*)result setCollectionData:self.ads];
+            [carouselCell setCollectionData:self.ads];
+            result = carouselCell;
         }
         else if (self.type == PNFeed_Native_Icon)
         {
