@@ -25,6 +25,7 @@
 #import "FeedViewController.h"
 #import "PNTableViewManager.h"
 #import "PNIconTableViewCell.h"
+#import "PNNativeTableViewCell.h"
 
 NSString * const videoCellID    = @"videoCellID";
 NSString * const bannerCellID   = @"bannerCellID";
@@ -96,6 +97,11 @@ NSString * const iconCellID     = @"iconCellID";
         parameters.ad_count = @5;
         parameters.icon_size = @"400x400";
         self.navItem.title = @"Icon";
+    }
+    else if (self.type == PNFeed_Native_InFeed)
+    {
+        parameters.ad_count = @10;
+        self.navItem.title = @"In Feed";
     }
     
     __weak typeof(self) weakSelf = self;
@@ -196,6 +202,26 @@ NSString * const iconCellID     = @"iconCellID";
                 [(PNBannerTableViewCell*)result setModel:model];
             }
         }
+        else if (self.type == PNFeed_Native_InFeed)
+        {
+            result = [tableView dequeueReusableCellWithIdentifier:bannerCellID];
+            if(!result)
+            {
+                NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PNNativeTableViewCell" owner:self options:nil];
+                result = [topLevelObjects objectAtIndex:0];
+            }
+            
+            if ((indexPath.row-5)/10 < self.ads.count)
+            {
+                PNNativeAdModel *model = [self.ads objectAtIndex:(indexPath.row-5)/10];
+                [(PNNativeTableViewCell*)result setModel:model];
+            }
+            else
+            {
+                PNNativeAdModel *model = [self.ads objectAtIndex:(indexPath.row-5)/10-self.ads.count];
+                [(PNNativeTableViewCell*)result setModel:model];
+            }
+        }
         else if (self.type == PNFeed_Native_Carousel)
         {
             result = [tableView dequeueReusableCellWithIdentifier:carouselCellID];
@@ -251,6 +277,10 @@ NSString * const iconCellID     = @"iconCellID";
         else if (self.type == PNFeed_Native_Banner)
         {
             result = 60;
+        }
+        else if (self.type == PNFeed_Native_InFeed)
+        {
+            result = 300;
         }
         else if (self.type == PNFeed_Native_Carousel)
         {

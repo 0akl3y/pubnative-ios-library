@@ -175,6 +175,13 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self loadFeedWithType:PNFeed_Native_Icon requestType:PNAdRequest_Native];
 }
 
+- (IBAction)nativeFeedTouchUpInside:(id)sender
+{
+    [self startLoading];
+    self.currentType = -1;
+    [self loadFeedWithType:PNFeed_Native_InFeed requestType:PNAdRequest_Native];
+}
+
 - (void)requestAdWithType:(Pubnative_AdType)type
 {
     self.currentType = type;
