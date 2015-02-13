@@ -195,12 +195,11 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
                                       withAd:self.model];
     
     PNVastModel *vast = [self.model.vast firstObject];
-    
     if(self.model)
     {
         [self.playerContainer.skipButton setTitle:vast.skip_video_button forState:UIControlStateNormal];
     }
-    
+        
     if (vast.ad)
     {
         [[VastXMLParser sharedParser] parseString:vast.ad andDelegate:self];
@@ -233,8 +232,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     self.vastModel = ad;
     [self.playerContainer prepareAd:self.vastModel];
 }
-
-
 
 #pragma mark - PNVideoPlayerViewDelegate Methods
 
