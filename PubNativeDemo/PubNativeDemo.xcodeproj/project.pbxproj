@@ -103,6 +103,8 @@
 		D589E6141A3B3263008C6C88 /* PNNativeVideoAPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D589E6131A3B3263008C6C88 /* PNNativeVideoAPIModel.m */; };
 		D5B9C9E41A7B8EC30042E53A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B9C9E31A7B8EC30042E53A /* SettingsViewController.m */; };
 		D5CC85831A83D25C00A392CF /* AdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5CC85821A83D25C00A392CF /* AdViewController.m */; };
+		D5DCFB8D1A8E05F800C91621 /* PNNativeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DCFB8B1A8E05F800C91621 /* PNNativeTableViewCell.m */; };
+		D5DCFB8E1A8E05F800C91621 /* PNNativeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5DCFB8C1A8E05F800C91621 /* PNNativeTableViewCell.xib */; };
 		D5DD2D521A80D5B600FB31A0 /* XLFormBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DD2D0B1A80D5B600FB31A0 /* XLFormBaseCell.m */; };
 		D5DD2D531A80D5B600FB31A0 /* XLFormButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DD2D0D1A80D5B600FB31A0 /* XLFormButtonCell.m */; };
 		D5DD2D541A80D5B600FB31A0 /* XLFormCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DD2D0F1A80D5B600FB31A0 /* XLFormCheckCell.m */; };
@@ -313,6 +315,9 @@
 		D5B9C9E31A7B8EC30042E53A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		D5CC85811A83D25C00A392CF /* AdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdViewController.h; sourceTree = "<group>"; };
 		D5CC85821A83D25C00A392CF /* AdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdViewController.m; sourceTree = "<group>"; };
+		D5DCFB8A1A8E05F800C91621 /* PNNativeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNNativeTableViewCell.h; sourceTree = "<group>"; };
+		D5DCFB8B1A8E05F800C91621 /* PNNativeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNNativeTableViewCell.m; sourceTree = "<group>"; };
+		D5DCFB8C1A8E05F800C91621 /* PNNativeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNNativeTableViewCell.xib; sourceTree = "<group>"; };
 		D5DD2D0A1A80D5B600FB31A0 /* XLFormBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormBaseCell.h; sourceTree = "<group>"; };
 		D5DD2D0B1A80D5B600FB31A0 /* XLFormBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormBaseCell.m; sourceTree = "<group>"; };
 		D5DD2D0C1A80D5B600FB31A0 /* XLFormButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormButtonCell.h; sourceTree = "<group>"; };
@@ -490,9 +495,10 @@
 				D550C31B1A8CC53200780532 /* Banner */,
 				D550C31F1A8CC53200780532 /* Carousel */,
 				D550C3291A8CC53200780532 /* Icon */,
-				D550C32C1A8CC53200780532 /* Video */,
+				D5DCFB891A8E05F800C91621 /* Native */,
 				D550C3781A8CC54D00780532 /* PNTableViewManager.h */,
 				D550C3791A8CC54D00780532 /* PNTableViewManager.m */,
+				D550C32C1A8CC53200780532 /* Video */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -791,6 +797,16 @@
 				D585D6521A39E26D00423640 /* PNAdRequestParameters.m */,
 			);
 			path = Request;
+			sourceTree = "<group>";
+		};
+		D5DCFB891A8E05F800C91621 /* Native */ = {
+			isa = PBXGroup;
+			children = (
+				D5DCFB8A1A8E05F800C91621 /* PNNativeTableViewCell.h */,
+				D5DCFB8B1A8E05F800C91621 /* PNNativeTableViewCell.m */,
+				D5DCFB8C1A8E05F800C91621 /* PNNativeTableViewCell.xib */,
+			);
+			path = Native;
 			sourceTree = "<group>";
 		};
 		D5DD2D071A80D5B600FB31A0 /* Components */ = {
@@ -1096,6 +1112,7 @@
 				D550C3521A8CC53200780532 /* PnFullScreen@2x.png in Resources */,
 				D550C3551A8CC53200780532 /* PnMute.png in Resources */,
 				D550C3641A8CC53200780532 /* PNCarouselCollectionViewCell-landscape.xib in Resources */,
+				D5DCFB8E1A8E05F800C91621 /* PNNativeTableViewCell.xib in Resources */,
 				D550C3571A8CC53200780532 /* PnUnMute.png in Resources */,
 				D56CCBF71A8A54F00036EBDA /* camera.png in Resources */,
 				D550C3741A8CC53200780532 /* PNVideoInterstitialViewController.xib in Resources */,
@@ -1145,6 +1162,7 @@
 				D585D6661A39E26D00423640 /* PNAdRequest.m in Sources */,
 				D5E11A661A12177B001109A1 /* ViewController.m in Sources */,
 				D5DD2D631A80D5B600FB31A0 /* XLFormViewController.m in Sources */,
+				D5DCFB8D1A8E05F800C91621 /* PNNativeTableViewCell.m in Sources */,
 				D550C36A1A8CC53200780532 /* PNIconTableViewCell.m in Sources */,
 				D550C3751A8CC53200780532 /* PNVideoBannerViewController.m in Sources */,
 				D585D6551A39E26D00423640 /* NSString+PNSHA1.m in Sources */,
