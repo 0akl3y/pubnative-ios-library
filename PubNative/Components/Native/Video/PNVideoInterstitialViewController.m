@@ -231,7 +231,11 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
 - (void)videoDismissedFullscreen{}
 - (void)videoPreparing {}
 - (void)videoStartedWithDuration:(NSTimeInterval)duration {}
-- (void)videoError:(NSInteger)errorCode details:(NSString*)description {}
+- (void)videoError:(NSInteger)errorCode details:(NSString*)description
+{
+    NSLog(@"Video error: %@", description);
+}
+
 - (void)videoProgress:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration {}
 - (void)videoTrackingEvent:(NSString*)event {}
 

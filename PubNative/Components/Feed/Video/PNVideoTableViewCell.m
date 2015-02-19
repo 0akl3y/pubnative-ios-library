@@ -261,9 +261,13 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     [self.contentView addSubview:self.playerContainer.view];
 }
 
+- (void)videoError:(NSInteger)errorCode details:(NSString*)description
+{
+    NSLog(@"Video error: %@", description);
+}
+
 - (void)videoPreparing {}
 - (void)videoStartedWithDuration:(NSTimeInterval)duration {}
-- (void)videoError:(NSInteger)errorCode details:(NSString*)description {}
 - (void)videoProgress:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration {}
 - (void)videoTrackingEvent:(NSString*)event {}
 

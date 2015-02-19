@@ -292,16 +292,6 @@
     self.playButton.hidden = NO;
 }
 
-- (void)videoPreparing
-{
-    
-}
-
-- (void)videoStartedWithDuration:(NSTimeInterval)duration
-{
-    
-}
-
 - (void)videoCompleted
 {
     UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -321,24 +311,14 @@
 
 - (void)videoError:(NSInteger)errorCode details:(NSString*)description
 {
+    NSLog(@"Video error: %@", description);
 }
 
-- (void)videoProgress:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration
-{
-    
-}
-
-- (void)videoTrackingEvent:(NSString*)event
-{
-    
-}
-
-- (void)videoDismissedFullscreen
-{
-    
-}
-
-
+- (void)videoPreparing{}
+- (void)videoStartedWithDuration:(NSTimeInterval)duration{}
+- (void)videoProgress:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration{}
+- (void)videoTrackingEvent:(NSString*)event{}
+- (void)videoDismissedFullscreen{}
 
 #pragma mark PNAdViewControllerDelegate
 
