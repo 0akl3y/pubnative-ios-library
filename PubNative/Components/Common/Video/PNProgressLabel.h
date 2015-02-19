@@ -32,8 +32,8 @@ typedef NS_ENUM(NSUInteger, ProgressLabelColorTable) {
 @property (nonatomic, assign) BOOL clockWise;
 
 
-NSString *NSStringFromProgressLabelColorTableKey(ProgressLabelColorTable tableColor);
-UIColor *UIColorDefaultForColorInProgressLabelColorTableKey(ProgressLabelColorTable tableColor);
+NSString *PNStringFromProgressLabelColorTableKey(ProgressLabelColorTable tableColor);
+UIColor *PNColorDefaultForColorInProgressLabelColorTableKey(ProgressLabelColorTable tableColor);
 
 // Progress is a float between 0.0 and 1.0
 -(void)setProgress:(CGFloat)progress;

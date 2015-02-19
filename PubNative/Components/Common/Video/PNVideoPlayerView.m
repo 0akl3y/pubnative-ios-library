@@ -100,9 +100,9 @@
     self.loadLabel = [[PNProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [self.loadLabel setBorderWidth: 6.0];
     [self.loadLabel setColorTable: @{
-                                     NSStringFromProgressLabelColorTableKey(ProgressLabelTrackColor):[UIColor clearColor],
-                                     NSStringFromProgressLabelColorTableKey(ProgressLabelProgressColor):[UIColor whiteColor],
-                                     NSStringFromProgressLabelColorTableKey(ProgressLabelFillColor):[UIColor clearColor]
+                                     PNStringFromProgressLabelColorTableKey(ProgressLabelTrackColor):[UIColor clearColor],
+                                     PNStringFromProgressLabelColorTableKey(ProgressLabelProgressColor):[UIColor whiteColor],
+                                     PNStringFromProgressLabelColorTableKey(ProgressLabelFillColor):[UIColor clearColor]
                                     }];
     [self.loadLabel setTextColor:[UIColor whiteColor]];
     [self.loadLabel setShadowColor:[UIColor darkGrayColor]];
