@@ -25,8 +25,8 @@
 #import "PNVideoCacher.h"
 #import <CommonCrypto/CommonDigest.h>
 
-NSString * const kVideoErrorFileOperationError      = @"VideoFileOperationError";
-NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownloader";
+NSString * const kPNVideoErrorFileOperationError      = @"VideoFileOperationError";
+NSString * const kPNVideoCacherNamespace              = @"com.pubnative.VideoDownloader";
 
 @interface PNVideoCacher () <NSURLConnectionDelegate>
 
@@ -121,7 +121,7 @@ NSString * const kVideoCacherNamespace              = @"com.pubnative.VideoDownl
 + (NSString*)cacheFolder
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *diskCachePath = [paths[0] stringByAppendingPathComponent:kVideoCacherNamespace];
+    NSString *diskCachePath = [paths[0] stringByAppendingPathComponent:kPNVideoCacherNamespace];
     
     NSFileManager *fileManager = [NSFileManager new];
     

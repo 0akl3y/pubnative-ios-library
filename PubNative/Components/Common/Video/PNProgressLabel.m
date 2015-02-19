@@ -145,7 +145,7 @@
 }
 
 
-NSString *NSStringFromProgressLabelColorTableKey(ProgressLabelColorTable tableColor) {
+NSString *PNStringFromProgressLabelColorTableKey(ProgressLabelColorTable tableColor) {
     switch(tableColor) {
         case ProgressLabelFillColor: return @"fillColor";
         case ProgressLabelTrackColor: return @"trackColor";
@@ -155,7 +155,7 @@ NSString *NSStringFromProgressLabelColorTableKey(ProgressLabelColorTable tableCo
 }
 
 
-UIColor *UIColorDefaultForColorInProgressLabelColorTableKey(ProgressLabelColorTable tableColor) {
+UIColor *PNColorDefaultForColorInProgressLabelColorTableKey(ProgressLabelColorTable tableColor) {
     switch(tableColor) {
         case ProgressLabelFillColor: return [UIColor clearColor];
         case ProgressLabelTrackColor: return [UIColor lightGrayColor];
