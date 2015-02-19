@@ -25,14 +25,15 @@
 #import "PNVideoCacher.h"
 #import <CommonCrypto/CommonDigest.h>
 
-NSString * const kPNVideoErrorFileOperationError      = @"VideoFileOperationError";
-NSString * const kPNVideoCacherNamespace              = @"com.pubnative.VideoDownloader";
+NSString * const kPNVideoCacherServerNotAvailable   = @"Pubnative server not available";
+NSString * const kPNVideoCacherNamespace            = @"com.pubnative.VideoDownloader";
 
 @interface PNVideoCacher () <NSURLConnectionDelegate>
 
-@property (strong)  NSMutableData    *mutableData;
-@property (strong)  NSURLConnection  *connection;
-@property (strong)  NSString         *videoUrl;
+@property (strong)  NSMutableData       *responseData;
+@property (strong)  NSURLConnection     *connection;
+@property (strong)  NSHTTPURLResponse   *httpResponse;
+@property (strong)  NSString            *videoUrl;
 @property (nonatomic, strong)  dispatch_queue_t videoCacheQueue;
 
 - (void)invokeCacherDidCache:(NSString*)file;
@@ -50,7 +51,7 @@ NSString * const kPNVideoCacherNamespace              = @"com.pubnative.VideoDow
     if (self)
     {
         self.videoUrl = url;
-        self.mutableData = nil;
+        self.responseData = nil;
     }
     
     return self;
@@ -60,7 +61,7 @@ NSString * const kPNVideoCacherNamespace              = @"com.pubnative.VideoDow
 {
     [self cancelCaching];
     
-    self.mutableData = nil;
+    self.responseData = nil;
     self.videoUrl = nil;
 }
 
@@ -76,14 +77,14 @@ NSString * const kPNVideoCacherNamespace              = @"com.pubnative.VideoDow
                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
                                          timeoutInterval:60];
     
-    self.mutableData = [NSMutableData dataWithCapacity:0];
+    self.responseData = [NSMutableData dataWithCapacity:0];
     
     self.connection = [NSURLConnection connectionWithRequest:request
                                                     delegate:self];
     
     if (!self.connection)
     {
-        self.mutableData = nil;
+        self.responseData = nil;
         
         NSError *result = nil;
         NSString *domain = @"ResourceNotAvailable";
@@ -205,23 +206,48 @@ NSString * const kPNVideoCacherNamespace              = @"com.pubnative.VideoDow
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    [self.mutableData setLength:0];
+    self.httpResponse = (NSHTTPURLResponse*)response;
+    self.responseData = [[NSMutableData alloc] init];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    [self.mutableData appendData:data];
+    [self.responseData appendData:data];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    [self invokeCacherDidCache:[self cacheData:self.mutableData witName:self.videoUrl]];
-    self.mutableData = nil;
+    if(self.httpResponse.statusCode != 304)
+    {
+        NSDictionary *headers = [self.httpResponse allHeaderFields];
+        NSString *contentType = [headers objectForKey:@"Content-Type"];
+        if(contentType && [contentType containsString:@"video/"])
+        {
+            [self invokeCacherDidCache:[self cacheData:self.responseData witName:self.videoUrl]];
+            
+        }
+        else
+        {
+            NSError *error = [NSError errorWithDomain:kPNVideoCacherServerNotAvailable
+                                                 code:0
+                                             userInfo:nil];
+            [self invokeCacherDidFail:error];
+        }
+    }
+    else
+    {
+        NSError *error = [NSError errorWithDomain:kPNVideoCacherServerNotAvailable
+                                             code:0
+                                         userInfo:nil];
+        [self invokeCacherDidFail:error];
+    }
+    
+    self.responseData = nil;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    self.mutableData = nil;
+    self.responseData = nil;
     [self invokeCacherDidFail:error];
 }
 

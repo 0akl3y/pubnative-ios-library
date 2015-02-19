@@ -394,7 +394,7 @@
 
 - (void)videoCacherDidFail:(NSError *)error
 {
-    [self invokeVideoError:0 withDetails:@"Ad video URL null"];
+    [self invokeVideoError:0 withDetails:[error description]];
 }
 
 #pragma mark PNVideoPlayerDelegate
