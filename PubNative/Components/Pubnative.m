@@ -106,24 +106,46 @@
     [Pubnative sharedInstance].currentRequest = [PNAdRequest request:requestType
                                                       withParameters:parameters
                                                        andCompletion:^(NSArray *ads, NSError *error)
-                                                 {
-                                                     if(error)
-                                                     {
-                                                         if(weakDelegate && [weakDelegate respondsToSelector:@selector(pnAdDidFail:)])
-                                                         {
-                                                             [weakDelegate pnAdDidFail:error];
-                                                         }
-                                                     }
-                                                     else
-                                                     {
-                                                         PNNativeAdModel *adModel = [ads firstObject];
-                                                         [Pubnative sharedInstance].currentAdVC = [Pubnative createType:adType withAd:adModel andDelegate:weakDelegate];
-                                                         UIView *adView = [Pubnative sharedInstance].currentAdVC.view;
-                                                         #pragma unused(adView)
-                                                     }
-                                                 }];
+    {
+        if(error)
+        {
+            [self invokeDidFailWithError:error
+                                delegate:weakDelegate];
+        }
+        else
+        {
+            PNNativeAdModel *adModel = [ads firstObject];
+
+            UIViewController *adVC = [Pubnative createType:adType
+                                                    withAd:adModel
+                                               andDelegate:weakDelegate];
+            if(adVC)
+            {
+                [Pubnative sharedInstance].currentAdVC = adVC;
+                UIView *adView = [Pubnative sharedInstance].currentAdVC.view;
+                #pragma unused(adView)
+            }
+            else
+            {
+                NSString *errorString = [NSString stringWithFormat:@"Pubnative error creating the selected type %d", adType];
+                NSError *creationError = [NSError errorWithDomain:errorString
+                                                             code:0
+                                                         userInfo:nil];
+                [self invokeDidFailWithError:creationError
+                                    delegate:weakDelegate];
+            }
+        }
+    }];
     
     [[Pubnative sharedInstance].currentRequest startRequest];
+}
+
++ (void)invokeDidFailWithError:(NSError*)error delegate:(NSObject<PubnativeAdDelegate>*)delegate
+{
+    if(delegate && [delegate respondsToSelector:@selector(pnAdDidFail:)])
+    {
+        [delegate pnAdDidFail:error];
+    }
 }
 
 #pragma mark private
