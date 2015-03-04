@@ -71,7 +71,7 @@
 		D57DE4731A7B9B890074EB8E /* PNCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4721A7B9B890074EB8E /* PNCacheManager.m */; };
 		D57DE4871A7BC8780074EB8E /* PNMD5Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE47A1A7BC86C0074EB8E /* PNMD5Tests.m */; };
 		D57DE4881A7BC8780074EB8E /* PNSHA1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE47B1A7BC86C0074EB8E /* PNSHA1Tests.m */; };
-		D57DE4891A7BC8780074EB8E /* PNNativeAdRenderItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE47D1A7BC86C0074EB8E /* PNNativeAdRenderItemTests.m */; };
+		D57DE4891A7BC8780074EB8E /* PNAdRenderingManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE47D1A7BC86C0074EB8E /* PNAdRenderingManagerTests.m */; };
 		D57DE48A1A7BC8780074EB8E /* PNTrackingManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE47E1A7BC86C0074EB8E /* PNTrackingManagerTests.m */; };
 		D57DE48B1A7BC8780074EB8E /* PNAdRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4811A7BC86C0074EB8E /* PNAdRequestTests.m */; };
 		D57DE4931A7BCC150074EB8E /* PNTestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4921A7BCC150074EB8E /* PNTestConstants.m */; };
@@ -255,7 +255,7 @@
 		D57DE4721A7B9B890074EB8E /* PNCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCacheManager.m; sourceTree = "<group>"; };
 		D57DE47A1A7BC86C0074EB8E /* PNMD5Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNMD5Tests.m; sourceTree = "<group>"; };
 		D57DE47B1A7BC86C0074EB8E /* PNSHA1Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSHA1Tests.m; sourceTree = "<group>"; };
-		D57DE47D1A7BC86C0074EB8E /* PNNativeAdRenderItemTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNNativeAdRenderItemTests.m; sourceTree = "<group>"; };
+		D57DE47D1A7BC86C0074EB8E /* PNAdRenderingManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAdRenderingManagerTests.m; sourceTree = "<group>"; };
 		D57DE47E1A7BC86C0074EB8E /* PNTrackingManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNTrackingManagerTests.m; sourceTree = "<group>"; };
 		D57DE4811A7BC86C0074EB8E /* PNAdRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAdRequestTests.m; sourceTree = "<group>"; };
 		D57DE48E1A7BC9A20074EB8E /* PNTestConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNTestConstants.h; sourceTree = "<group>"; };
@@ -663,7 +663,7 @@
 		D57DE47C1A7BC86C0074EB8E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				D57DE47D1A7BC86C0074EB8E /* PNNativeAdRenderItemTests.m */,
+				D57DE47D1A7BC86C0074EB8E /* PNAdRenderingManagerTests.m */,
 				D57DE47E1A7BC86C0074EB8E /* PNTrackingManagerTests.m */,
 			);
 			path = Helpers;
@@ -1254,7 +1254,7 @@
 				D57DE48A1A7BC8780074EB8E /* PNTrackingManagerTests.m in Sources */,
 				D57DE49D1A7BCDF90074EB8E /* PNPubnativeDelegateTests.m in Sources */,
 				D57DE4881A7BC8780074EB8E /* PNSHA1Tests.m in Sources */,
-				D57DE4891A7BC8780074EB8E /* PNNativeAdRenderItemTests.m in Sources */,
+				D57DE4891A7BC8780074EB8E /* PNAdRenderingManagerTests.m in Sources */,
 				D57DE48B1A7BC8780074EB8E /* PNAdRequestTests.m in Sources */,
 				D57DE49C1A7BCDF90074EB8E /* PNPubnativeCreationTests.m in Sources */,
 				D57DE4871A7BC8780074EB8E /* PNMD5Tests.m in Sources */,
