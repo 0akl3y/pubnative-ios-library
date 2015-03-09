@@ -29,6 +29,7 @@
 @optional
 
 - (void)pnAdDidLoad:(UIViewController*)ad;
+- (void)pnAdReady:(UIViewController*)ad;
 - (void)pnAdDidFail:(NSError*)error;
 - (void)pnAdWillShow;
 - (void)pnAdDidShow;

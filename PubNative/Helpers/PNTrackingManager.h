@@ -30,6 +30,9 @@ typedef void (^PNTrackingCompletedBlock)(id result, NSError *error);
 
 @interface PNTrackingManager : NSObject
 
++ (NSMutableArray*)confirmedAds;
++ (void)setConfirmedAds:(NSMutableArray*)confirmedAds;
+
 + (void)trackURLString:(NSString*)confirmURLString
             completion:(PNTrackingCompletedBlock)completion;
 

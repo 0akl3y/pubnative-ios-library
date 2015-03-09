@@ -23,13 +23,13 @@ pubnative-ios-library is a collection of Open Source tools to implement API base
 1. Download this repository
 2. Copy the PubNative folder into your Xcode project
 
-## Simple usage
+## Native Ad Formats
 
 1. Implement `PubnativeAdDelegate`.
 2. Request an ad using `Pubnative` class
 3. Wait for the callback with `PubnativeAdDelegate`. 
 
-There are 3 types of predefined ads, please see the demo to have more info on how to operate with each. 
+There are 5 types of predefined ads, please see the demo to have more info on how to operate with each. 
 
 Here there is a sample for each one.
 
@@ -41,9 +41,9 @@ Here there is a sample for each one.
 
 @interface MyClass : UIViewController<PubnativeAdDelegate>
 
-@property (nonatomic, strong)PNInterstitialViewController *interstitialVC;
+@property (nonatomic, strong)UIViewControllerViewController *interstitialVC;
 
-#pragma mark Pubnative
+#pragma mark - Pubnative Interface Methods
 
 - (void)showInterstitial
 {
@@ -52,22 +52,26 @@ Here there is a sample for each one.
                  andDelegate:self];
 }
 
+#pragma mark - PubnativeAdDelegate Methods
+
 - (void)pnAdDidLoad:(UIViewController*)ad
 {
     // Hold an instance of the VC so it doesn't get released
     self.interstitialVC = ad;
-    
-    // Present the interstitial or add it as a subview
-    [self.view addSubView:self.interstitialVC.view];
+
+    // Present the interstitial
+    [self presentViewController:self.interstitialVC.view 
+                       animated:YES 
+                     completion:nil];
 }
 
-- (void)pnAdDidFail:(NSError*)error {}
-- (void)pnAdWillShow{}
-- (void)pnAdDidShow{}
-- (void)pnAdWillClose{}
+- (void)pnAdReady:(UIViewController*)ad;
+- (void)pnAdDidFail:(NSError*)error;
+- (void)pnAdWillShow;
+- (void)pnAdDidShow;
+- (void)pnAdWillClose;
 - (void)pnAdDidClose
 {
-    // Release it when it closes or whenever you want
     self.interstitialVC = nil;
 }
 
@@ -84,9 +88,9 @@ Here there is a sample for each one.
 
 @interface MyClass : UIViewController<PubnativeAdDelegate>
 
-@property (nonatomic, strong)PNBannerViewController *bannerVC;
+@property (nonatomic, strong)UIViewController *bannerVC;
 
-#pragma mark Pubnative
+#pragma mark - Pubnative Interface Methods
 
 - (void)showBanner
 {
@@ -95,23 +99,30 @@ Here there is a sample for each one.
                  andDelegate:self];
 }
 
+#pragma mark - PubnativeAdDelegate Methods
+
 - (void)pnAdDidLoad:(UIViewController*)ad
 {
     // Hold an instance of the VC so it doesn't get released
     self.bannerVC = ad;
-    
+
     // Put the banner whenever you want assiging a frame
     self.bannerVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 60);
-    
+
     // Add the banner
     [self.view addSubview:self.bannerVC.view];
 }
 
-- (void)pnAdDidFail:(NSError*)error {}
-- (void)pnAdWillShow{}
-- (void)pnAdDidShow{}
-- (void)pnAdWillClose{}
-- (void)pnAdDidClose{}
+- (void)pnAdReady:(UIViewController*)ad;
+- (void)pnAdDidFail:(NSError*)error;
+- (void)pnAdWillShow;
+- (void)pnAdDidShow;
+- (void)pnAdWillClose;
+- (void)pnAdDidClose
+{
+    [self.bannerVC.view removeFromSuperview];
+    self.bannerVC = nil;
+}
 
 @end
 
@@ -126,7 +137,7 @@ Here there is a sample for each one.
 
 @interface MyClass : UIViewController<PubnativeAdDelegate>
 
-@property (nonatomic, strong)PNVideoBannerViewController *videoBannerVC;
+@property (nonatomic, strong)UIViewController *videoBannerVC;
 
 #pragma mark Pubnative
 
@@ -137,27 +148,281 @@ Here there is a sample for each one.
                  andDelegate:self];
 }
 
+#pragma mark - PubnativeAdDelegate Methods
+
 - (void)pnAdDidLoad:(UIViewController*)ad
 {
     // Hold an instance of the VC so it doesn't get released
     self.videoBannerVC = ad;
-    
+
     // Put the banner whenever you want assiging a frame
     self.videoBannerVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 60);
-    
+
     // Add the banner
     [self.view addSubview:self.videoBannerVC.view];
 }
 
-- (void)pnAdDidFail:(NSError*)error {}
-- (void)pnAdWillShow{}
-- (void)pnAdDidShow{}
-- (void)pnAdWillClose{}
-- (void)pnAdDidClose{}
+- (void)pnAdReady:(UIViewController*)ad;
+- (void)pnAdDidFail:(NSError*)error;
+- (void)pnAdWillShow;
+- (void)pnAdDidShow;
+- (void)pnAdWillClose;
+- (void)pnAdDidClose
+{
+    [self.videoBannerVC.view removeFromSuperview];
+    self.videoBannerVC = nil;
+}
 
 @end
 
 //==================================================================
+```
+
+### 4)Video interstitial
+
+```objective-c
+#import "Pubnative.h"
+//==================================================================
+
+@interface MyClass : UIViewController<PubnativeAdDelegate>
+
+@property (nonatomic, strong)UIViewController *videoInterstitialVC;
+
+#pragma mark Pubnative
+
+- (void)showBanner
+{
+[Pubnative requestAdType:Pubnative_AdType_VideoInterstitial
+            withAppToken:@"YOUR_APP_TOKEN_HERE"
+             andDelegate:self];
+}
+
+#pragma mark - PubnativeAdDelegate Methods
+
+- (void)pnAdDidLoad:(UIViewController*)ad
+{
+    // Hold an instance of the VC so it doesn't get released
+    self.videoInterstitialVC = ad;
+
+    // Present the interstitial
+    [self presentViewController:self.videoInterstitialVC.view 
+                       animated:YES 
+                     completion:nil];
+}
+
+- (void)pnAdReady:(UIViewController*)ad;
+- (void)pnAdDidFail:(NSError*)error;
+- (void)pnAdWillShow;
+- (void)pnAdDidShow;
+- (void)pnAdWillClose;
+- (void)pnAdDidClose
+{
+    self.videoInterstitialVC = nil;
+}
+
+@end
+
+//==================================================================
+```
+
+### 5)Icon
+
+```objective-c
+#import "Pubnative.h"
+//==================================================================
+
+@interface MyClass : UIViewController<PubnativeAdDelegate>
+
+@property (nonatomic, strong)UIViewController *iconVC;
+
+#pragma mark Pubnative
+
+- (void)showIcon
+{
+    [Pubnative requestAdType:Pubnative_AdType_Icon
+                withAppToken:@"YOUR_APP_TOKEN_HERE"
+                andDelegate:self];
+}
+
+#pragma mark - PubnativeAdDelegate Methods
+
+- (void)pnAdDidLoad:(UIViewController*)ad
+{
+    // Hold an instance of the VC so it doesn't get released
+    self.iconVC = ad;
+
+    // Put the banner whenever you want assiging a frame
+    self.iconVC.view.frame = CGRectMake(0, 0, 200, 200);
+
+    // Add the icon
+    [self.view addSubview:self.iconVC.view];
+}
+
+- (void)pnAdReady:(UIViewController*)ad;
+- (void)pnAdDidFail:(NSError*)error;
+- (void)pnAdWillShow;
+- (void)pnAdDidShow;
+- (void)pnAdWillClose;
+- (void)pnAdDidClose
+{
+    [self.iconVC.view removeFromSuperview];
+    self.iconVC = nil;
+}
+
+@end
+
+//==================================================================
+```
+
+## In-Feed Ad Formats
+
+Currently there are 5 types of In-Feed formats, please see the demo to have more info on how to operate with each. 
+
+Here there is a sample implementation.
+
+1. Your UIViewController must have an UITableView.
+2. Set up the PNTableViewManager to manage your UITableView, make the request and build your table
+
+```objective-c
+@interface MyFeedViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UITableView      *tableView;
+@property (strong, nonatomic) PNNativeAdModel           *model;
+@property (strong, nonatomic) NSMutableArray            *ads;
+@property (strong, nonatomic) PNAdRequest               *request;
+@property (assign, nonatomic) PNFeedType                type;
+
+@end
+
+@implementation MyFeedViewController
+
+#pragma mark NSObject
+
+- (void)dealloc
+{
+    self.model = nil;
+    self.eventModel = nil;
+}
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    PNAdRequestParameters *parameters = [PNAdRequestParameters requestParameters];
+    [parameters fillWithDefaults];
+    parameters.ad_count = @5;
+    parameters.app_token = @"YOUR_APP_TOKEN_HERE";
+
+    self.request = [PNAdRequest request:requestType
+                         withParameters:parameters
+                          andCompletion:^(NSArray *ads, NSError *error)
+                          {
+                              if(error)
+                              {
+                                  NSLog(@"Pubnative - Request error: %@", error);
+                              }
+                              else
+                              {
+                                  NSLog(@"Pubnative - Request end");
+                                  weakSelf.ads = [[NSMutableArray alloc] initWithArray:ads];
+                                  weakSelf.model = [ads firstObject];
+                                  [self.tableView reloadData];
+                              }
+                          }];
+    [self.request startRequest];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [PNTableViewManager controlTable:self.tableView];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [PNTableViewManager controlTable:nil];
+}
+
+#pragma mark - UITableViewDataSource Methods
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *result = nil;
+    
+    // In-Feed Video Player
+    if (self.type == PNFeed_Native_Video)
+    {
+        PNVideoTableViewCell *videoCell = [tableView dequeueReusableCellWithIdentifier:videoCellID];
+        if (!videoCell)
+        {
+            videoCell = [[PNVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                                    reuseIdentifier:videoCellID];
+        }
+        videoCell.model = self.model;
+        result = videoCell;
+    }
+    // In-Feed Banner
+    else if (self.type == PNFeed_Native_Banner)
+    {
+        PNBannerTableViewCell *bannerCell = [tableView dequeueReusableCellWithIdentifier:bannerCellID];
+        if(!bannerCell)
+        {
+            NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PNBannerTableViewCell" 
+                                                                     owner:self options:nil];
+            bannerCell = [topLevelObjects objectAtIndex:0];
+        }
+
+        videoCell.model = self.model;
+        result = bannerCell;
+    }
+    // In-Feed Native
+    else if (self.type == PNFeed_Native_InFeed)
+    {
+        PNNativeTableViewCell *nativeCell = [tableView dequeueReusableCellWithIdentifier:nativeCellID];
+        if(!nativeCell)
+        {
+            NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PNNativeTableViewCell" 
+                                                                     owner:self 
+                                                                   options:nil];
+            nativeCell = [topLevelObjects objectAtIndex:0];
+        }
+
+        videoCell.model = self.model;
+        result = nativeCell;
+    }
+    // In-Feed Ad Carousel
+    else if (self.type == PNFeed_Native_Carousel)
+    {
+        PNCarouselTableViewCell *carouselCell = [tableView dequeueReusableCellWithIdentifier:carouselCellID];
+        if (!carouselCell)
+        {
+            carouselCell = [[PNCarouselTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                                          reuseIdentifier:videoCellID];
+        }
+        [carouselCell setCollectionData:self.ads];
+        result = carouselCell;
+    }
+    // In-Feed Icon
+    else if (self.type == PNFeed_Native_Icon)
+    {
+        PNIconTableViewCell *iconCell = [tableView dequeueReusableCellWithIdentifier:iconCellID];
+        if (!iconCell)
+        {
+            iconCell = [[PNIconTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                                  reuseIdentifier:iconCellID];
+        }
+
+        videoCell.model = self.model;
+        result = iconCell;
+    }
+
+    return result;
+}
+
+@end
 ```
 
 ## Advanced usage

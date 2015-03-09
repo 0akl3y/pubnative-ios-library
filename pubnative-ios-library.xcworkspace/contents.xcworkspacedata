@@ -36,7 +36,13 @@
          location = "group:testflight.sh">
       </FileRef>
       <FileRef
+         location = "group:hockey.sh">
+      </FileRef>
+      <FileRef
          location = "group:remove_keys.sh">
+      </FileRef>
+      <FileRef
+         location = "group:coveralls.sh">
       </FileRef>
       <FileRef
          location = "group:coveralls.rb">

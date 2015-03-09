@@ -27,7 +27,8 @@
 
 @interface Pubnative ()
 
-@property (nonatomic, strong) PNAdRequest *currentRequest;
+@property (nonatomic, strong) PNAdRequest       *currentRequest;
+@property (nonatomic, strong) UIViewController  *currentAdVC;
 
 + (instancetype)sharedInstance;
 
@@ -40,6 +41,7 @@
 - (void)dealloc
 {
     self.currentRequest = nil;
+    self.currentAdVC = nil;
 }
 
 #pragma mark - Pubnative
@@ -50,10 +52,17 @@
          withAppToken:(NSString *)appToken
           andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
 {
-    PNAdRequestType requestType = PNAdRequest_Native;
-    
     PNAdRequestParameters *parameters = [PNAdRequestParameters requestParameters];
     parameters.app_token = appToken;
+    [self requestAdType:type withParameters:parameters andDelegate:delegate];
+}
+
++ (void)requestAdType:(Pubnative_AdType)type
+       withParameters:(PNAdRequestParameters*)parameters
+          andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
+{
+    PNAdRequestType requestType = PNAdRequest_Native;
+    
     switch (type)
     {
         case Pubnative_AdType_VideoBanner:
@@ -62,11 +71,19 @@
             parameters.banner_size = @"1200x627";
         }
         break;
+            
+        case Pubnative_AdType_VideoInterstitial:
+        {
+            parameters.icon_size = @"200x200";
+            requestType = PNAdRequest_Native_Video;
+        }
+            
         case Pubnative_AdType_Banner:
         {
             parameters.icon_size = @"50x50";
         }
         break;
+            
         case Pubnative_AdType_Interstitial:
         {
             parameters.icon_size = @"400x400";
@@ -76,6 +93,7 @@
             }
         }
         break;
+            
         case Pubnative_AdType_Icon:
         {
             parameters.icon_size = @"400x400";
@@ -91,23 +109,43 @@
     {
         if(error)
         {
-            if(weakDelegate && [weakDelegate respondsToSelector:@selector(pnAdDidFail:)])
-            {
-                [weakDelegate pnAdDidFail:error];
-            }
+            [self invokeDidFailWithError:error
+                                delegate:weakDelegate];
         }
         else
         {
             PNNativeAdModel *adModel = [ads firstObject];
-            UIViewController *adVC = [Pubnative createType:adType withAd:adModel andDelegate:weakDelegate];
-            if(weakDelegate && [weakDelegate respondsToSelector:@selector(pnAdDidLoad:)])
+
+            UIViewController *adVC = [Pubnative createType:adType
+                                                    withAd:adModel
+                                               andDelegate:weakDelegate];
+            if(adVC)
             {
-                [weakDelegate pnAdDidLoad:adVC];
+                [Pubnative sharedInstance].currentAdVC = adVC;
+                UIView *adView = [Pubnative sharedInstance].currentAdVC.view;
+                #pragma unused(adView)
+            }
+            else
+            {
+                NSString *errorString = [NSString stringWithFormat:@"Pubnative error creating the selected type %d", adType];
+                NSError *creationError = [NSError errorWithDomain:errorString
+                                                             code:0
+                                                         userInfo:nil];
+                [self invokeDidFailWithError:creationError
+                                    delegate:weakDelegate];
             }
         }
     }];
     
     [[Pubnative sharedInstance].currentRequest startRequest];
+}
+
++ (void)invokeDidFailWithError:(NSError*)error delegate:(NSObject<PubnativeAdDelegate>*)delegate
+{
+    if(delegate && [delegate respondsToSelector:@selector(pnAdDidFail:)])
+    {
+        [delegate pnAdDidFail:error];
+    }
 }
 
 #pragma mark private
@@ -127,10 +165,11 @@
     UIViewController *result = nil;
     switch (type)
     {
-        case Pubnative_AdType_Banner:       result = [Pubnative createAdTypeBannerWithAd:ad andDelegate:delegate];       break;
-        case Pubnative_AdType_VideoBanner:  result = [Pubnative createAdTypeVideoBannerWithAd:ad andDelegate:delegate];  break;
-        case Pubnative_AdType_Interstitial: result = [Pubnative createAdTypeInterstitialWithAd:ad andDelegate:delegate]; break;
-        case Pubnative_AdType_Icon:         result = [Pubnative createAdTypeIconWithAd:ad];         break;
+        case Pubnative_AdType_Banner:               result = [Pubnative createAdTypeBannerWithAd:ad andDelegate:delegate];              break;
+        case Pubnative_AdType_VideoBanner:          result = [Pubnative createAdTypeVideoBannerWithAd:ad andDelegate:delegate];         break;
+        case Pubnative_AdType_VideoInterstitial:    result = [Pubnative createAdTypeVideoInterstitialWithAd:ad andDelegate:delegate];   break;
+        case Pubnative_AdType_Interstitial:         result = [Pubnative createAdTypeInterstitialWithAd:ad andDelegate:delegate];        break;
+        case Pubnative_AdType_Icon:                 result = [Pubnative createAdTypeIconWithAd:ad andDelegate:delegate];                break;
     }
     return result;
 }
@@ -153,6 +192,15 @@
     return result;
 }
 
++ (UIViewController*)createAdTypeVideoInterstitialWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
+{
+    PNVideoInterstitialViewController *result = [[PNVideoInterstitialViewController alloc] initWithNibName:NSStringFromClass([PNVideoInterstitialViewController class])
+                                                                                                    bundle:nil
+                                                                                                     model:(PNNativeVideoAdModel*)ad];
+    result.delegate = delegate;
+    return result;
+}
+
 + (UIViewController*)createAdTypeInterstitialWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
 {
     PNInterstitialAdViewController *result = [[PNInterstitialAdViewController alloc] initWithNibName:NSStringFromClass([PNInterstitialAdViewController class])
@@ -162,11 +210,12 @@
     return result;
 }
 
-+ (UIViewController*)createAdTypeIconWithAd:(PNNativeAdModel*)ad
++ (UIViewController*)createAdTypeIconWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
 {
     PNIconViewController *result = [[PNIconViewController alloc] initWithNibName:NSStringFromClass([PNIconViewController class])
                                                                           bundle:nil
                                                                            model:ad];
+    result.delegate = delegate;
     return result;
 }
 

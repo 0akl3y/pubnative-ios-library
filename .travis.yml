@@ -1,10 +1,11 @@
 language: objective-c
 xcode_workspace: pubnative-ios-library.xcworkspace
 xcode_scheme: PubnativeDemo
-before_install: 
+before_install:
 - sudo easy_install cpp-coveralls
 - chmod a+x travis/add_keys.sh
 - chmod a+x travis/testflight.sh
+- chmod a+x travis/hockey.sh
 - chmod a+x travis/coveralls.sh
 - chmod a+x travis/coveralls.rb
 - chmod a+x travis/remove_keys.sh
@@ -13,10 +14,12 @@ before_script:
 - env
 - ./travis/add_keys.sh
 script:
-- xctool -workspace pubnative-ios-library.xcworkspace -scheme PubnativeDemo -sdk iphonesimulator clean build test
+- xctool -workspace pubnative-ios-library.xcworkspace -scheme PubnativeDemo -sdk iphonesimulator
+  -configuration Debug ONLY_ACTIVE_ARCH=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+  clean build test
 after_success:
-- ./travis/testflight.sh
 - ./travis/coveralls.sh
+- ./travis/hockey.sh
 after_failure: 
 after_script:
 - ./travis/remove_keys.sh
@@ -25,3 +28,5 @@ env:
   - secure: VMvLNeF8N4YbW/BgQzzjpWs7UxgZ9HdS3SKL+6KaCXnfxYu0bDBdPVA5bqXfDaHFcTdrC4Tp40UPC0+aE+d4rLHbh9G3WdQO+hdg+fhNIkNnibHXBaXI5E653TyPH+zoUr2dU36VPnGji3RiprEF7GK3k1TzBwpb46M2GzPcCrE=
   - secure: X84c9HjA4X3WcvU01kDXzdIsiRDGlZWnG/pg5onF/uwai/ArLYPGvhbGo3z5T9zE97C8PFvIXTL5Oc4XibDRtHRx28YdyNNzI91EVYYwRlpXTMWyB2HaDAXnpf2W6kKbpJ+UJ8Pwme75x2w16ClY0nvv8S/qXar5SFODH97ntmg=
   - secure: aWYA0kWuy+Fn8iaoceCTYvz8u6M8DHVqZtMAss39Sx1p+A0i7jt/mrnNlysQNSzrUdtgPhQosG/4lENpSoj/CzroaF+1EJzwhNjIaa7dyQ6juWrd0VfigJKifaCsp9uxIq3ggvkyB+oSZW0IlcPp/BM6+143x/3+Ym5huc7bgo0=
+  - secure: jAeff80L5BvfjnCScijjCpnB/Cho6IM6FW7b/TuANNoZXvL4DrbDWAAbeobl9kdBqlh3MmFHaVUE2fWdhToxRGOr/6xqAUgWtMGclwpdNxYkGkM3Txk/8ugpgMTMzJjOvzhEOJZcYsrHD6ZhCiDuif6Yn0Gv1U4SxsJp3W2Bfe0=
+  - secure: JbMI1ojET9TCtZwOVLDUM37TH8lVLZlpVT+YGHec0shxG0XfYtHZuK5sI9PXrEqM28GVv8csKHyTOif1wb/E9GTa5kRXZ3qGP7xeCi8VOAOS5dlEy4OV5LaS8E6LmTmymmgh0UB9rQ0HYy1imve5rYqfsmC68HFX0gbQ6U/s2tE=

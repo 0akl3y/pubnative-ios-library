@@ -93,7 +93,8 @@
              
              if(error == nil &&
                 contentType &&
-                [contentType isEqualToString:@"application/json; charset=utf-8"])
+                ([contentType isEqualToString:@"application/json; charset=utf-8"] ||
+                 [contentType isEqualToString:@"text/javascript; charset=utf-8"]))
              {
                  YADMApiCallResult *callResult = [[YADMApiCallResult alloc] init];
                  callResult.httpResponse = response;

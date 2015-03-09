@@ -62,5 +62,5 @@
 @property (nonatomic, strong) NSString  *server_integration;
 
 + (instancetype)requestParameters;
-
+- (void)fillWithDefaults;
 @end
