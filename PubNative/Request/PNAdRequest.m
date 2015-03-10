@@ -105,7 +105,7 @@
     
     if(apiModel && apiURL)
     {
-        __weak typeof(self) weakSelf = self;
+        __weak PNAdRequest *weakSelf = self;
         [self.parameters fillWithDefaults];
         self.apiModel = [apiModel initWithURL:apiURL
                                        method:kPNAdConstantMethodGET

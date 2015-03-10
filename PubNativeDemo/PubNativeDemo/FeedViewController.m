@@ -100,7 +100,7 @@ NSString * const iconCellID     = @"iconCellID";
         self.navItem.title = @"In Feed";
     }
     
-    __weak typeof(self) weakSelf = self;
+    __weak FeedViewController *weakSelf = self;
     self.request = [PNAdRequest request:requestType
                          withParameters:parameters
                           andCompletion:^(NSArray *ads, NSError *error)

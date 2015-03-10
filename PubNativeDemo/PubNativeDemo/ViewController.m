@@ -66,7 +66,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
     [self.parameters fillWithDefaults];
     self.parameters.app_token = kPubnativeTestAppToken;
     
-    __weak typeof(self) weakSelf = self;
+    __weak ViewController *weakSelf = self;
     self.eventModel = [[EFApiModel alloc] initWithURL:[NSURL URLWithString:@"http://api.eventful.com/json/events/search"]
                                                method:@"GET"
                                                params:@{@"app_key"     : @"pd5PdshD44wckpD7",
@@ -79,7 +79,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
                                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                               timeout:30
                                    andCompletionBlock:^(NSError *error) {
-                                        __strong typeof(self) strongSelf = weakSelf;
+                                        __strong ViewController *strongSelf = weakSelf;
                                         [strongSelf processEventsWithError:error];
                                    }];
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
