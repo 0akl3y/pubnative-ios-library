@@ -76,7 +76,7 @@
     AVPlayer *avPlayer = [AVPlayer playerWithPlayerItem:playerItem];
     self.avPlayer = avPlayer;
     
-    __weak typeof(self) weakSelf = self;
+    __weak PNVideoPlayer *weakSelf = self;
     [self.avPlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0 / 60.0, NSEC_PER_SEC)
                                                 queue:nil
                                            usingBlock:^(CMTime time) {
