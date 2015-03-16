@@ -65,6 +65,13 @@
     
     switch (type)
     {
+        case Pubnative_AdType_GameList:
+        {
+            parameters.ad_count = @8;
+            parameters.icon_size = @"200x200";
+        }
+        break;
+            
         case Pubnative_AdType_VideoBanner:
         {
             requestType = PNAdRequest_Native_Video;
@@ -114,10 +121,9 @@
         }
         else
         {
-            PNNativeAdModel *adModel = [ads firstObject];
 
             UIViewController *adVC = [Pubnative createType:adType
-                                                    withAd:adModel
+                                                   withAds:ads
                                                andDelegate:weakDelegate];
             if(adVC)
             {
@@ -160,16 +166,17 @@
     return _sharedInstance;
 }
 
-+ (UIViewController*)createType:(Pubnative_AdType)type withAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
++ (UIViewController*)createType:(Pubnative_AdType)type withAds:(NSArray*)ads andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
 {
     UIViewController *result = nil;
     switch (type)
     {
-        case Pubnative_AdType_Banner:               result = [Pubnative createAdTypeBannerWithAd:ad andDelegate:delegate];              break;
-        case Pubnative_AdType_VideoBanner:          result = [Pubnative createAdTypeVideoBannerWithAd:ad andDelegate:delegate];         break;
-        case Pubnative_AdType_VideoInterstitial:    result = [Pubnative createAdTypeVideoInterstitialWithAd:ad andDelegate:delegate];   break;
-        case Pubnative_AdType_Interstitial:         result = [Pubnative createAdTypeInterstitialWithAd:ad andDelegate:delegate];        break;
-        case Pubnative_AdType_Icon:                 result = [Pubnative createAdTypeIconWithAd:ad andDelegate:delegate];                break;
+        case Pubnative_AdType_Banner:               result = [Pubnative createAdTypeBannerWithAd:[ads firstObject] andDelegate:delegate];              break;
+        case Pubnative_AdType_VideoBanner:          result = [Pubnative createAdTypeVideoBannerWithAd:[ads firstObject] andDelegate:delegate];         break;
+        case Pubnative_AdType_VideoInterstitial:    result = [Pubnative createAdTypeVideoInterstitialWithAd:[ads firstObject] andDelegate:delegate];   break;
+        case Pubnative_AdType_Interstitial:         result = [Pubnative createAdTypeInterstitialWithAd:[ads firstObject] andDelegate:delegate];        break;
+        case Pubnative_AdType_Icon:                 result = [Pubnative createAdTypeIconWithAd:[ads firstObject] andDelegate:delegate];                break;
+        case Pubnative_AdType_GameList:             result = [Pubnative createAdTypeGameListWithAd:ads andDelegate:delegate];
     }
     return result;
 }
@@ -215,6 +222,15 @@
     PNIconViewController *result = [[PNIconViewController alloc] initWithNibName:NSStringFromClass([PNIconViewController class])
                                                                           bundle:nil
                                                                            model:ad];
+    result.delegate = delegate;
+    return result;
+}
+
++ (UIViewController*)createAdTypeGameListWithAd:(NSArray*)ads andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
+{
+    PNGameListAdViewController *result = [[PNGameListAdViewController alloc] initWithNibName:NSStringFromClass([PNGameListAdViewController class])
+                                                                                      bundle:nil
+                                                                                         ads:ads];
     result.delegate = delegate;
     return result;
 }

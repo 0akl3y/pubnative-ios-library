@@ -67,21 +67,6 @@
     XCTAssertNil(nativeNil, @"Expected Native nil request");
 }
 
-- (void)testImageRequestCreation
-{
-    PNAdRequest *imageNotNil = [PNAdRequest request:PNAdRequest_Image
-                                     withParameters:self.parameters
-                                      andCompletion:nil];
-    
-    XCTAssertNotNil(imageNotNil, @"Expected request to be allocated");
-    
-    PNAdRequest *imageNil = [PNAdRequest request:PNAdRequest_Image
-                                  withParameters:nil
-                                   andCompletion:nil];
-    
-    XCTAssertNil(imageNil, @"Expected nil request");
-}
-
 - (void)testVideoRequestCreation
 {
     PNAdRequest *videoNotNil = [PNAdRequest request:PNAdRequest_Native_Video
@@ -107,21 +92,6 @@
     {
         [expectation fulfill];
     }];
-    [self.request startRequest];
-    
-    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
-}
-
-- (void)testDefaultRequestImage
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"expectation"];
-
-    self.request = [PNAdRequest request:PNAdRequest_Image
-                         withParameters:self.parameters
-                          andCompletion:^(NSArray *ads, NSError *error)
-                    {
-                        [expectation fulfill];
-                    }];
     [self.request startRequest];
     
     [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];

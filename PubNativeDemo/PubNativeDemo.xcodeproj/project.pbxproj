@@ -77,6 +77,10 @@
 		D57DE4931A7BCC150074EB8E /* PNTestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4921A7BCC150074EB8E /* PNTestConstants.m */; };
 		D57DE49C1A7BCDF90074EB8E /* PNPubnativeCreationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4941A7BCDF60074EB8E /* PNPubnativeCreationTests.m */; };
 		D57DE49D1A7BCDF90074EB8E /* PNPubnativeDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DE4951A7BCDF60074EB8E /* PNPubnativeDelegateTests.m */; };
+		D584F96C1AB6E5FD00C8543A /* PNGameListAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D584F96A1AB6E5FD00C8543A /* PNGameListAdViewController.m */; };
+		D584F96F1AB6EDDC00C8543A /* PNGameListAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D584F96E1AB6EDDC00C8543A /* PNGameListAdViewController.xib */; };
+		D584F9721AB7186600C8543A /* PNGameListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D584F9711AB7186600C8543A /* PNGameListTableViewCell.m */; };
+		D584F9741AB718BF00C8543A /* PNGameListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D584F9731AB718BF00C8543A /* PNGameListTableViewCell.xib */; };
 		D585D6531A39E26D00423640 /* NSObject+DictionaryValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6231A39E26D00423640 /* NSObject+DictionaryValue.m */; };
 		D585D6541A39E26D00423640 /* NSString+PNMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6251A39E26D00423640 /* NSString+PNMD5.m */; };
 		D585D6551A39E26D00423640 /* NSString+PNSHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6271A39E26D00423640 /* NSString+PNSHA1.m */; };
@@ -92,8 +96,6 @@
 		D585D65F1A39E26D00423640 /* PNAppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6411A39E26D00423640 /* PNAppModel.m */; };
 		D585D6601A39E26D00423640 /* PNBaseAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6431A39E26D00423640 /* PNBaseAdModel.m */; };
 		D585D6611A39E26D00423640 /* PNBeaconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6451A39E26D00423640 /* PNBeaconModel.m */; };
-		D585D6621A39E26D00423640 /* PNImageAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6471A39E26D00423640 /* PNImageAdModel.m */; };
-		D585D6631A39E26D00423640 /* PNImageAPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6491A39E26D00423640 /* PNImageAPIModel.m */; };
 		D585D6641A39E26D00423640 /* PNNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D64B1A39E26D00423640 /* PNNativeAdModel.m */; };
 		D585D6651A39E26D00423640 /* PNNativeAPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D64D1A39E26D00423640 /* PNNativeAPIModel.m */; };
 		D585D6661A39E26D00423640 /* PNAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D585D6501A39E26D00423640 /* PNAdRequest.m */; };
@@ -262,6 +264,12 @@
 		D57DE4921A7BCC150074EB8E /* PNTestConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNTestConstants.m; sourceTree = "<group>"; };
 		D57DE4941A7BCDF60074EB8E /* PNPubnativeCreationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNPubnativeCreationTests.m; sourceTree = "<group>"; };
 		D57DE4951A7BCDF60074EB8E /* PNPubnativeDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNPubnativeDelegateTests.m; sourceTree = "<group>"; };
+		D584F9691AB6E5FD00C8543A /* PNGameListAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNGameListAdViewController.h; sourceTree = "<group>"; };
+		D584F96A1AB6E5FD00C8543A /* PNGameListAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNGameListAdViewController.m; sourceTree = "<group>"; };
+		D584F96E1AB6EDDC00C8543A /* PNGameListAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNGameListAdViewController.xib; sourceTree = "<group>"; };
+		D584F9701AB7186600C8543A /* PNGameListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNGameListTableViewCell.h; sourceTree = "<group>"; };
+		D584F9711AB7186600C8543A /* PNGameListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNGameListTableViewCell.m; sourceTree = "<group>"; };
+		D584F9731AB718BF00C8543A /* PNGameListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PNGameListTableViewCell.xib; sourceTree = "<group>"; };
 		D585D6221A39E26D00423640 /* NSObject+DictionaryValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DictionaryValue.h"; sourceTree = "<group>"; };
 		D585D6231A39E26D00423640 /* NSObject+DictionaryValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DictionaryValue.m"; sourceTree = "<group>"; };
 		D585D6241A39E26D00423640 /* NSString+PNMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PNMD5.h"; sourceTree = "<group>"; };
@@ -293,10 +301,6 @@
 		D585D6431A39E26D00423640 /* PNBaseAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBaseAdModel.m; sourceTree = "<group>"; };
 		D585D6441A39E26D00423640 /* PNBeaconModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBeaconModel.h; sourceTree = "<group>"; };
 		D585D6451A39E26D00423640 /* PNBeaconModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBeaconModel.m; sourceTree = "<group>"; };
-		D585D6461A39E26D00423640 /* PNImageAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNImageAdModel.h; sourceTree = "<group>"; };
-		D585D6471A39E26D00423640 /* PNImageAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNImageAdModel.m; sourceTree = "<group>"; };
-		D585D6481A39E26D00423640 /* PNImageAPIModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNImageAPIModel.h; sourceTree = "<group>"; };
-		D585D6491A39E26D00423640 /* PNImageAPIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNImageAPIModel.m; sourceTree = "<group>"; };
 		D585D64A1A39E26D00423640 /* PNNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNNativeAdModel.h; sourceTree = "<group>"; };
 		D585D64B1A39E26D00423640 /* PNNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNNativeAdModel.m; sourceTree = "<group>"; };
 		D585D64C1A39E26D00423640 /* PNNativeAPIModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNNativeAPIModel.h; sourceTree = "<group>"; };
@@ -551,6 +555,7 @@
 			isa = PBXGroup;
 			children = (
 				D550C3301A8CC53200780532 /* Banner */,
+				D584F9681AB6DEF000C8543A /* GameList */,
 				D550C3341A8CC53200780532 /* Icon */,
 				D550C3381A8CC53200780532 /* Interstitial */,
 				D550C33D1A8CC53200780532 /* Video */,
@@ -684,6 +689,19 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		D584F9681AB6DEF000C8543A /* GameList */ = {
+			isa = PBXGroup;
+			children = (
+				D584F9691AB6E5FD00C8543A /* PNGameListAdViewController.h */,
+				D584F96A1AB6E5FD00C8543A /* PNGameListAdViewController.m */,
+				D584F96E1AB6EDDC00C8543A /* PNGameListAdViewController.xib */,
+				D584F9701AB7186600C8543A /* PNGameListTableViewCell.h */,
+				D584F9711AB7186600C8543A /* PNGameListTableViewCell.m */,
+				D584F9731AB718BF00C8543A /* PNGameListTableViewCell.xib */,
+			);
+			path = GameList;
+			sourceTree = "<group>";
+		};
 		D585D6201A39E26D00423640 /* PubNative */ = {
 			isa = PBXGroup;
 			children = (
@@ -764,8 +782,6 @@
 			children = (
 				D585D63E1A39E26D00423640 /* PNAPIModel.h */,
 				D585D63F1A39E26D00423640 /* PNAPIModel.m */,
-				D585D6481A39E26D00423640 /* PNImageAPIModel.h */,
-				D585D6491A39E26D00423640 /* PNImageAPIModel.m */,
 				D585D64C1A39E26D00423640 /* PNNativeAPIModel.h */,
 				D585D64D1A39E26D00423640 /* PNNativeAPIModel.m */,
 				D589E6121A3B3263008C6C88 /* PNNativeVideoAPIModel.h */,
@@ -780,8 +796,6 @@
 				D585D6411A39E26D00423640 /* PNAppModel.m */,
 				D585D6441A39E26D00423640 /* PNBeaconModel.h */,
 				D585D6451A39E26D00423640 /* PNBeaconModel.m */,
-				D585D6461A39E26D00423640 /* PNImageAdModel.h */,
-				D585D6471A39E26D00423640 /* PNImageAdModel.m */,
 				D589E5C71A3B05A3008C6C88 /* PNVastModel.h */,
 				D589E5C81A3B05A3008C6C88 /* PNVastModel.m */,
 			);
@@ -1115,7 +1129,9 @@
 				D5DCFB8E1A8E05F800C91621 /* PNNativeTableViewCell.xib in Resources */,
 				D550C3571A8CC53200780532 /* PnUnMute.png in Resources */,
 				D56CCBF71A8A54F00036EBDA /* camera.png in Resources */,
+				D584F96F1AB6EDDC00C8543A /* PNGameListAdViewController.xib in Resources */,
 				D550C3741A8CC53200780532 /* PNVideoInterstitialViewController.xib in Resources */,
+				D584F9741AB718BF00C8543A /* PNGameListTableViewCell.xib in Resources */,
 				D550C3761A8CC53200780532 /* PNVideoBannerViewController.xib in Resources */,
 				D56CCBF41A8A27450036EBDA /* EventTableViewCell.xib in Resources */,
 				D5E11A691A12177B001109A1 /* Main.storyboard in Resources */,
@@ -1150,7 +1166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D585D6561A39E26D00423640 /* YADMJSONApiModel.m in Sources */,
-				D585D6621A39E26D00423640 /* PNImageAdModel.m in Sources */,
 				D550C3651A8CC53200780532 /* PNCarouselCollectionViewCell.m in Sources */,
 				D552A9AA1A84E1F9001AD194 /* EFPerformerModel.m in Sources */,
 				D5DD2D591A80D5B600FB31A0 /* XLFormPickerCell.m in Sources */,
@@ -1177,6 +1192,7 @@
 				D570E6271A6FF29B0074EF4E /* FeedViewController.m in Sources */,
 				D585D6641A39E26D00423640 /* PNNativeAdModel.m in Sources */,
 				D550C3491A8CC53200780532 /* PNAdConstants.m in Sources */,
+				D584F9721AB7186600C8543A /* PNGameListTableViewCell.m in Sources */,
 				D585D6571A39E26D00423640 /* YADMApiCall.m in Sources */,
 				D5DD2D5F1A80D5B600FB31A0 /* XLFormTextFieldCell.m in Sources */,
 				D5DD2D701A80D5B600FB31A0 /* XLForm.m in Sources */,
@@ -1201,6 +1217,7 @@
 				D5E11A631A12177B001109A1 /* AppDelegate.m in Sources */,
 				D550C37A1A8CC54D00780532 /* PNTableViewManager.m in Sources */,
 				D550C3691A8CC53200780532 /* PNCarouselTableViewCell.m in Sources */,
+				D584F96C1AB6E5FD00C8543A /* PNGameListAdViewController.m in Sources */,
 				D5DD2D561A80D5B600FB31A0 /* XLFormDatePickerCell.m in Sources */,
 				D550C3701A8CC53200780532 /* PNInterstitialAdViewController.m in Sources */,
 				D5DD2D671A80D5B600FB31A0 /* NSArray+XLFormAdditions.m in Sources */,
@@ -1242,7 +1259,6 @@
 				D585D6611A39E26D00423640 /* PNBeaconModel.m in Sources */,
 				D585D6591A39E26D00423640 /* YADMJSONModelError.m in Sources */,
 				D5DD2D661A80D5B600FB31A0 /* XLFormSectionDescriptor.m in Sources */,
-				D585D6631A39E26D00423640 /* PNImageAPIModel.m in Sources */,
 				D585D65C1A39E26D00423640 /* PNAdRenderingManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

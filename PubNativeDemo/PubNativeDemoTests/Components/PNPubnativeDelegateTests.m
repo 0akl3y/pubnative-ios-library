@@ -100,6 +100,12 @@
     [self requestAd];
 }
 
+- (void)testGameList
+{
+    self.currentAdType = Pubnative_AdType_GameList;
+    [self requestAd];
+}
+
 - (void)requestAd
 {
     [Pubnative requestAdType:self.currentAdType
