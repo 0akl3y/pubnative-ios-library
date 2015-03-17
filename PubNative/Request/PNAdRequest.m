@@ -25,7 +25,6 @@
 #import "PNAdRequest.h"
 #import "PNNativeAPIModel.h"
 #import "PNNativeVideoAPIModel.h"
-#import "PNImageAPIModel.h"
 #import "NSObject+DictionaryValue.h"
 #import "PNAdConstants.h"
 
@@ -92,13 +91,6 @@
         {
             apiModel    = [PNNativeVideoAPIModel alloc];
             apiURL      = [NSURL URLWithString:kPNAdConstantRequestAPINativeVideoUrlString];
-        }
-            break;
-        
-        case PNAdRequest_Image:
-        {
-            apiModel    = [PNImageAPIModel alloc];
-            apiURL      = [NSURL URLWithString:kPNAdConstantRequestAPIImageUrlString];
         }
         break;
     }

@@ -37,7 +37,6 @@ NSInteger  const kPNAdConstantShowTimeForImpression                 = 1;
 NSInteger  const kPNAdConstantRequestDefaultTimeout                 = 30;
 NSString * const kPNAdConstantRequestAPINativeUrlString             = @"http://api.pubnative.net/api/partner/v2/promotions/native";
 NSString * const kPNAdConstantRequestAPINativeVideoUrlString        = @"http://api.pubnative.net/api/partner/v2/promotions/native/video";
-NSString * const kPNAdConstantRequestAPIImageUrlString              = @"http://api.pubnative.net/api/partner/v2/promotions/image";
 NSString * const kPNAdConstantMethodGET                             = @"GET";
 
 // Request parameters

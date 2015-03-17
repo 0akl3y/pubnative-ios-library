@@ -66,6 +66,15 @@
     [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
+- (void)testGameList
+{
+    self.expectation = [self expectationWithDescription:@"expectation"];
+    [Pubnative requestAdType:Pubnative_AdType_GameList
+                withAppToken:kPNTestConstantsAppToken
+                 andDelegate:self];
+    [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
+}
+
 - (void)testIcon
 {
     self.expectation = [self expectationWithDescription:@"expectation"];

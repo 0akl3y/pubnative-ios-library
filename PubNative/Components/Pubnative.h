@@ -29,6 +29,7 @@
 #import "PNInterstitialAdViewController.h"
 #import "PNVideoBannerViewController.h"
 #import "PNVideoInterstitialViewController.h"
+#import "PNGameListAdViewController.h"
 #import "PubnativeAdDelegate.h"
 #import "PNAdRequestParameters.h"
 
@@ -39,7 +40,8 @@ typedef NS_ENUM(NSInteger, Pubnative_AdType) {
     Pubnative_AdType_VideoBanner        = 1,
     Pubnative_AdType_Interstitial       = 2,
     Pubnative_AdType_Icon               = 3,
-    Pubnative_AdType_VideoInterstitial  = 4
+    Pubnative_AdType_VideoInterstitial  = 4,
+    Pubnative_AdType_GameList           = 5
 };
 
 // Pubnative simplified interface
