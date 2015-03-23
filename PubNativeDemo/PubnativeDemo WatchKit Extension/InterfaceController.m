@@ -39,6 +39,7 @@ NSString * const kWKPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957
 @implementation InterfaceController
 
 - (void)awakeWithContext:(id)context {
+    
     [super awakeWithContext:context];
     
     // Configure interface objects here.
@@ -58,6 +59,13 @@ NSString * const kWKPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957
 {
     [WKPubnative setDelegate:self];
     [WKPubnative requestWithAppToken:kWKPubnativeTestAppToken];
+}
+- (IBAction)iconTouch
+{
+    if(self.model)
+    {
+        [WKPubnative openOffer:self.model];
+    }
 }
 
 #pragma mark WKPubnativeDelegate

@@ -27,7 +27,8 @@
 typedef  NS_ENUM(NSInteger, WKPubnative_BindingType)
 {
     WKPubnative_BindingType_Request = 0,
-    WKPubnative_BindingType_Track = 1
+    WKPubnative_BindingType_Track = 1,
+    WKPubnative_BindingType_Open = 2
 };
 
 @interface WKPubnative ()
@@ -109,6 +110,16 @@ typedef  NS_ENUM(NSInteger, WKPubnative_BindingType)
              }
          }
      }];
+}
+
++ (void)openOffer:(WKPNNativeAdModel*)model
+{
+    [WKInterfaceController openParentApplication:@{
+                                                   @"type":[NSNumber numberWithInteger:WKPubnative_BindingType_Open],
+                                                   @"url":model.click_url
+                                                   }
+                                           reply:nil];
+
 }
 
 - (void)invokePNRequestDidLoad:(WKPNNativeAdModel*)model

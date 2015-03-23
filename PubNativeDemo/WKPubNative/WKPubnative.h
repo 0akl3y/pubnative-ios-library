@@ -41,5 +41,6 @@
 + (void)setDelegate:(NSObject<WKPubnativeDelegate>*)delegate;
 + (void)requestWithAppToken:(NSString*)appToken;
 + (void)trackImpressionWithModel:(WKPNNativeAdModel*)model;
++ (void)openOffer:(WKPNNativeAdModel*)model;
 
 @end

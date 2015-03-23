@@ -10,13 +10,28 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <button width="1" alignment="left" title="request" id="ZZd-Xv-bbk">
+                        <button width="1" alignment="left" title="Request Ad" id="ZZd-Xv-bbk">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.40000000000000002" green="0.0" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" type="boldSystem" pointSize="15"/>
                             <connections>
                                 <action selector="requestTouch" destination="AgC-eL-Hgc" id="Vx9-4G-hl8"/>
                             </connections>
                         </button>
-                        <imageView width="50" height="50" alignment="left" id="K51-SI-fsK"/>
-                        <label width="136" alignment="left" id="WR9-SF-26e"/>
+                        <separator alignment="left" id="6H9-vz-C5S"/>
+                        <button alignment="center" id="JJq-6L-gIJ">
+                            <group key="contentGroup" width="1" alignment="left" layout="vertical" id="yXc-Ye-Mob">
+                                <items>
+                                    <imageView width="50" height="50" alignment="center" contentMode="scaleAspectFill" id="K51-SI-fsK"/>
+                                    <label width="1" alignment="center" verticalAlignment="center" textAlignment="center" numberOfLines="3" id="WR9-SF-26e">
+                                        <fontDescription key="font" type="system" pointSize="16"/>
+                                    </label>
+                                </items>
+                            </group>
+                            <connections>
+                                <action selector="iconTouch" destination="AgC-eL-Hgc" id="PKS-Ng-GAj"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
                         <outlet property="iconImage" destination="K51-SI-fsK" id="jcu-pK-jkh"/>

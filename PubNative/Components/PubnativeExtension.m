@@ -31,7 +31,8 @@
 typedef NS_ENUM(NSInteger, PubnativeExtension_BindingType)
 {
     PubnativeExtension_BindingType_Request = 0,
-    PubnativeExtension_BindingType_Track = 1
+    PubnativeExtension_BindingType_Track = 1,
+    PubnativeExtension_BindingType_Open = 2
 };
 
 typedef void (^WKExtensionReply)(NSDictionary *reply);
@@ -67,6 +68,7 @@ typedef void (^WKExtensionReply)(NSDictionary *reply);
     {
         case PubnativeExtension_BindingType_Request:    [self handleRequestWithDictionary:userInfo reply:reply];    break;
         case PubnativeExtension_BindingType_Track:      [self handleTrackWithDictionary:userInfo reply:reply];      break;
+        case PubnativeExtension_BindingType_Open:       [self handleOpenWithDictionary:userInfo reply:reply];       break;
     }
 }
 
@@ -181,6 +183,12 @@ typedef void (^WKExtensionReply)(NSDictionary *reply);
             }
         }
     }];
+}
+
+- (void)handleOpenWithDictionary:(NSDictionary*)dictionary reply:(void (^)(NSDictionary *))reply
+{
+    NSString *open_url = [dictionary objectForKey:@"url"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:open_url]];
 }
 
 @end
