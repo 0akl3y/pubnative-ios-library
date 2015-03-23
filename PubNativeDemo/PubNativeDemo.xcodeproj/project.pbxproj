@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D5107D371AC0462200BBAE92 /* WKPNNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5107D341AC0462200BBAE92 /* WKPNNativeAdModel.m */; };
-		D5107D381AC0462200BBAE92 /* WKPubnative.m in Sources */ = {isa = PBXBuildFile; fileRef = D5107D361AC0462200BBAE92 /* WKPubnative.m */; };
+		D5242FDA1AC09361008253CD /* WKPNNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5242FD71AC09361008253CD /* WKPNNativeAdModel.m */; };
+		D5242FDB1AC09361008253CD /* WKPubnative.m in Sources */ = {isa = PBXBuildFile; fileRef = D5242FD91AC09361008253CD /* WKPubnative.m */; };
 		D550C3481A8CC53200780532 /* AMRatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D550C2F31A8CC53200780532 /* AMRatingControl.m */; };
 		D550C3491A8CC53200780532 /* PNAdConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D550C2F51A8CC53200780532 /* PNAdConstants.m */; };
 		D550C34B1A8CC53200780532 /* PnClose.png in Resources */ = {isa = PBXBuildFile; fileRef = D550C2F91A8CC53200780532 /* PnClose.png */; };
@@ -196,10 +196,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D5107D331AC0462200BBAE92 /* WKPNNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKPNNativeAdModel.h; sourceTree = "<group>"; };
-		D5107D341AC0462200BBAE92 /* WKPNNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKPNNativeAdModel.m; sourceTree = "<group>"; };
-		D5107D351AC0462200BBAE92 /* WKPubnative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKPubnative.h; sourceTree = "<group>"; };
-		D5107D361AC0462200BBAE92 /* WKPubnative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKPubnative.m; sourceTree = "<group>"; };
+		D5242FD61AC09361008253CD /* WKPNNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKPNNativeAdModel.h; sourceTree = "<group>"; };
+		D5242FD71AC09361008253CD /* WKPNNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKPNNativeAdModel.m; sourceTree = "<group>"; };
+		D5242FD81AC09361008253CD /* WKPubnative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKPubnative.h; sourceTree = "<group>"; };
+		D5242FD91AC09361008253CD /* WKPubnative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKPubnative.m; sourceTree = "<group>"; };
 		D550C2F21A8CC53200780532 /* AMRatingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRatingControl.h; sourceTree = "<group>"; };
 		D550C2F31A8CC53200780532 /* AMRatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRatingControl.m; sourceTree = "<group>"; };
 		D550C2F41A8CC53200780532 /* PNAdConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNAdConstants.h; sourceTree = "<group>"; };
@@ -487,15 +487,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D5107D321AC0462200BBAE92 /* WKPubNative */ = {
+		D5242FD51AC09361008253CD /* WKPubNative */ = {
 			isa = PBXGroup;
 			children = (
-				D5107D331AC0462200BBAE92 /* WKPNNativeAdModel.h */,
-				D5107D341AC0462200BBAE92 /* WKPNNativeAdModel.m */,
-				D5107D351AC0462200BBAE92 /* WKPubnative.h */,
-				D5107D361AC0462200BBAE92 /* WKPubnative.m */,
+				D5242FD61AC09361008253CD /* WKPNNativeAdModel.h */,
+				D5242FD71AC09361008253CD /* WKPNNativeAdModel.m */,
+				D5242FD81AC09361008253CD /* WKPubnative.h */,
+				D5242FD91AC09361008253CD /* WKPubnative.m */,
 			);
-			path = WKPubNative;
+			name = WKPubNative;
+			path = ../WKPubNative;
 			sourceTree = "<group>";
 		};
 		D550C2F01A8CC53200780532 /* Components */ = {
@@ -1078,7 +1079,7 @@
 			isa = PBXGroup;
 			children = (
 				D585D6201A39E26D00423640 /* PubNative */,
-				D5107D321AC0462200BBAE92 /* WKPubNative */,
+				D5242FD51AC09361008253CD /* WKPubNative */,
 				D5E11A5C1A12177B001109A1 /* PubNativeDemo */,
 				D5E11A761A12177B001109A1 /* PubNativeDemoTests */,
 				D5B5D08F1ABC771200D728EB /* PubnativeDemo WatchKit Extension */,
@@ -1357,8 +1358,8 @@
 				D5B5D0981ABC771200D728EB /* NotificationController.m in Sources */,
 				D5B5D0951ABC771200D728EB /* InterfaceController.m in Sources */,
 				D5B5D09B1ABC771200D728EB /* GlanceController.m in Sources */,
-				D5107D371AC0462200BBAE92 /* WKPNNativeAdModel.m in Sources */,
-				D5107D381AC0462200BBAE92 /* WKPubnative.m in Sources */,
+				D5242FDA1AC09361008253CD /* WKPNNativeAdModel.m in Sources */,
+				D5242FDB1AC09361008253CD /* WKPubnative.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
