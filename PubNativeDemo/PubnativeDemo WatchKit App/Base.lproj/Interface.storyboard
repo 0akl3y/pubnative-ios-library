@@ -22,10 +22,15 @@
                         <button alignment="center" id="JJq-6L-gIJ">
                             <group key="contentGroup" width="1" alignment="left" layout="vertical" id="yXc-Ye-Mob">
                                 <items>
-                                    <imageView width="50" height="50" alignment="center" contentMode="scaleAspectFill" id="K51-SI-fsK"/>
-                                    <label width="1" alignment="center" verticalAlignment="center" textAlignment="center" numberOfLines="3" id="WR9-SF-26e">
-                                        <fontDescription key="font" type="system" pointSize="16"/>
-                                    </label>
+                                    <imageView width="1" height="60" alignment="left" contentMode="scaleAspectFit" id="DSd-IN-tYW"/>
+                                    <group width="1" alignment="left" id="ZZN-6H-lzq">
+                                        <items>
+                                            <imageView width="50" height="50" alignment="left" contentMode="scaleAspectFill" id="K51-SI-fsK"/>
+                                            <label width="0.60000000000000009" alignment="left" verticalAlignment="center" textAlignment="center" numberOfLines="3" id="WR9-SF-26e">
+                                                <fontDescription key="font" type="system" pointSize="16"/>
+                                            </label>
+                                        </items>
+                                    </group>
                                 </items>
                             </group>
                             <connections>
@@ -34,12 +39,13 @@
                         </button>
                     </items>
                     <connections>
+                        <outlet property="bannerImage" destination="DSd-IN-tYW" id="RKb-jc-kSf"/>
                         <outlet property="iconImage" destination="K51-SI-fsK" id="jcu-pK-jkh"/>
                         <outlet property="titleLabel" destination="WR9-SF-26e" id="thl-i7-X5o"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="235" y="347"/>
+            <point key="canvasLocation" x="235" y="365"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">

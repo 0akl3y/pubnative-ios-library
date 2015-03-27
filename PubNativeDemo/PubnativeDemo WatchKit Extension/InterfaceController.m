@@ -31,29 +31,13 @@ NSString * const kWKPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957
 
 - (IBAction)requestTouch;
 @property (weak, nonatomic) IBOutlet WKInterfaceImage *iconImage;
+@property (weak, nonatomic) IBOutlet WKInterfaceImage *bannerImage;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *titleLabel;
 @property (strong, nonatomic) WKPNNativeAdModel *model;
 @end
 
 
 @implementation InterfaceController
-
-- (void)awakeWithContext:(id)context {
-    
-    [super awakeWithContext:context];
-    
-    // Configure interface objects here.
-}
-
-- (void)willActivate {
-    // This method is called when watch view controller is about to be visible to user
-    [super willActivate];
-}
-
-- (void)didDeactivate {
-    // This method is called when watch view controller is no longer visible
-    [super didDeactivate];
-}
 
 - (IBAction)requestTouch
 {
@@ -74,6 +58,7 @@ NSString * const kWKPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957
 {
     self.model = model;
     
+    [self.bannerImage setImage:self.model.banner];
     [self.titleLabel setText:self.model.title];
     [self.iconImage setImage:self.model.icon];
     

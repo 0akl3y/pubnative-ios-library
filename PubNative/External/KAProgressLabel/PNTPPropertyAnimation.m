@@ -1,39 +1,39 @@
 //
-//  ALPropertyAnimation.m
+//  TPPropertyAnimation.m
 //  Property Animation http://atastypixel.com/blog/key-path-based-property-animation
 //
 //  Created by Michael Tyson on 13/08/2010.
 //  Copyright 2010 A Tasty Pixel. All rights reserved.
 //
 
-#import "PNPropertyAnimation.h"
+#import "PNTPPropertyAnimation.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define kRefreshRate 1.0/30.0
+#define kPNTPRefreshRate 1.0/30.0
 
 // Storage for singleton manager
-@class PNPropertyAnimationManager;
-static PNPropertyAnimationManager *__manager = nil;
+@class PNTPPropertyAnimationManager;
+static PNTPPropertyAnimationManager *__manager = nil;
 
 // Manager declaration
-@class PNPropertyAnimation;
-@interface PNPropertyAnimationManager : NSObject {
+@class PNTPPropertyAnimation;
+@interface PNTPPropertyAnimationManager : NSObject {
     id timer;
     NSMutableArray *animations;
 }
-+ (PNPropertyAnimationManager*)manager;
++ (PNTPPropertyAnimationManager*)manager;
 - (NSArray*)allPropertyAnimationsForTarget:(id)target;
 - (void)update:(id)sender;
-- (void)addAnimation:(PNPropertyAnimation*)animation;
-- (void)removeAnimation:(PNPropertyAnimation*)animation;
+- (void)addAnimation:(PNTPPropertyAnimation*)animation;
+- (void)removeAnimation:(PNTPPropertyAnimation*)animation;
 @end
 
-@interface PNPropertyAnimation ()
+@interface PNTPPropertyAnimation ()
 @property (nonatomic, readonly) NSTimeInterval startTime;
 @end
 
 // Main class
-@implementation PNPropertyAnimation
+@implementation PNTPPropertyAnimation
 @synthesize target, delegate, keyPath, duration, timing, fromValue, toValue, chainedAnimation, startTime, startDelay;
 
 - (id)initWithKeyPath:(NSString*)theKeyPath {
@@ -45,12 +45,12 @@ static PNPropertyAnimationManager *__manager = nil;
     return self;
 }
 
-+ (PNPropertyAnimation*)propertyAnimationWithKeyPath:(NSString*)keyPath {
-    return [[PNPropertyAnimation alloc] initWithKeyPath:keyPath] ;
++ (PNTPPropertyAnimation*)propertyAnimationWithKeyPath:(NSString*)keyPath {
+    return [[PNTPPropertyAnimation alloc] initWithKeyPath:keyPath] ;
 }
 
 + (NSArray*)allPropertyAnimationsForTarget:(id)target {
-    return [[PNPropertyAnimationManager manager] allPropertyAnimationsForTarget:target];
+    return [[PNTPPropertyAnimationManager manager] allPropertyAnimationsForTarget:target];
 }
 
 - (void)begin {
@@ -60,7 +60,7 @@ static PNPropertyAnimationManager *__manager = nil;
         self.fromValue = [target valueForKey:keyPath];
     }
     
-    [[PNPropertyAnimationManager manager] addAnimation:self];
+    [[PNTPPropertyAnimationManager manager] addAnimation:self];
 }
 
 - (void)beginWithTarget:(id)theTarget {
@@ -69,7 +69,7 @@ static PNPropertyAnimationManager *__manager = nil;
 }
 
 - (void)cancel {
-    [[PNPropertyAnimationManager manager] removeAnimation:self];
+    [[PNTPPropertyAnimationManager manager] removeAnimation:self];
 }
 
 
@@ -104,11 +104,11 @@ static inline CGFloat funcQuadOut(CGFloat ft, CGFloat f0, CGFloat f1) {
 #pragma mark Manager
 
 
-@implementation PNPropertyAnimationManager
+@implementation PNTPPropertyAnimationManager
 
-+ (PNPropertyAnimationManager*)manager {
++ (PNTPPropertyAnimationManager*)manager {
     if ( !__manager ) {
-        __manager = [[PNPropertyAnimationManager alloc] init];
+        __manager = [[PNTPPropertyAnimationManager alloc] init];
     }
     return __manager;
 }
@@ -116,14 +116,14 @@ static inline CGFloat funcQuadOut(CGFloat ft, CGFloat f0, CGFloat f1) {
 - (NSArray*)allPropertyAnimationsForTarget:(id)target {
     NSMutableArray *result = [NSMutableArray array];
     if ( animations ) {
-        for ( PNPropertyAnimation* animation in animations ) {
+        for ( PNTPPropertyAnimation* animation in animations ) {
             if ( animation.target == target ) [result addObject:animation];
         }
     }
     return result;
 }
 
-- (void)addAnimation:(PNPropertyAnimation *)animation {
+- (void)addAnimation:(PNTPPropertyAnimation *)animation {
     
     if ( !animations ) {
         animations = [[NSMutableArray alloc] init];
@@ -136,12 +136,12 @@ static inline CGFloat funcQuadOut(CGFloat ft, CGFloat f0, CGFloat f1) {
             timer = [CADisplayLink displayLinkWithTarget:self selector:@selector(update:)];
             [timer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
         } else {
-            timer = [NSTimer scheduledTimerWithTimeInterval:kRefreshRate target:self selector:@selector(update:) userInfo:nil repeats:YES];
+            timer = [NSTimer scheduledTimerWithTimeInterval:kPNTPRefreshRate target:self selector:@selector(update:) userInfo:nil repeats:YES];
         }
     }
 }
 
-- (void)removeAnimation:(PNPropertyAnimation *)animation {
+- (void)removeAnimation:(PNTPPropertyAnimation *)animation {
     [animations removeObject:animation];
     
     if ( [animations count] == 0 ) {
@@ -156,7 +156,7 @@ static inline CGFloat funcQuadOut(CGFloat ft, CGFloat f0, CGFloat f1) {
 
 - (void)update:(id)sender {
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-    for ( PNPropertyAnimation *animation in [animations copy] ) {
+    for ( PNTPPropertyAnimation *animation in [animations copy] ) {
         
         if ( now < animation.startTime + animation.startDelay ) continue; // Animation hasn't started yet
         

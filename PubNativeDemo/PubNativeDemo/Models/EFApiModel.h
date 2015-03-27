@@ -22,7 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "YADMJSONApiModel.h"
+#import "PNYADMJSONApiModel.h"
 #import "EFEventsModel.h"
 
 @protocol EFApiModel
@@ -39,6 +39,6 @@
 
 @end
 
-@interface EFApiModel : YADMJSONApiModel <EFApiModel>
+@interface EFApiModel : PNYADMJSONApiModel <EFApiModel>
 
 @end

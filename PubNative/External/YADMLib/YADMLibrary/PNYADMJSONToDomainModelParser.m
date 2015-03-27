@@ -25,13 +25,13 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-#import "YADMJSONToDomainModelParser.h"
+#import "PNYADMJSONToDomainModelParser.h"
 
 #define reservedNames [NSArray arrayWithObjects:@"description", nil]
 
 NSString    * const kYADMDateFormat             = @"dd-MM-yyyy";
 
-@implementation YADMJSONToDomainModelParser
+@implementation PNYADMJSONToDomainModelParser
 
 #pragma mark - Class Methods
 
@@ -39,7 +39,7 @@ NSString    * const kYADMDateFormat             = @"dd-MM-yyyy";
                           onModel:(NSString*)model
 {
     
-    return [[YADMJSONToDomainModelParser alloc] initToParseResult:(id)jsonObject
+    return [[PNYADMJSONToDomainModelParser alloc] initToParseResult:(id)jsonObject
                                                         onModel:model];
 }
 

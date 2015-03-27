@@ -27,7 +27,7 @@
 #import "PNNativeAdRenderItem.h"
 #import "PNAdRenderingManager.h"
 #import "PNTrackingManager.h"
-#include "AMRatingControl.h"
+#include "PNAMRatingControl.h"
 
 CGFloat const kPNCarouselCollectionViewCellVisibilityTimer  = 0.1f;
 CGFloat const kPNCarouselCollectionViewCellTimeToConfirm    = 1.0f;
@@ -43,8 +43,8 @@ CGFloat const kPNCarouselCollectionViewCellTimeToConfirm    = 1.0f;
 @property (weak, nonatomic) IBOutlet    UIView          *dataView;
 
 @property (strong, nonatomic)           PNNativeAdModel *model;
-
 @property (strong, nonatomic)           NSTimer         *displayTimer;
+
 @property (assign, nonatomic)           NSTimeInterval  initTimeStamp;
 @property (assign, nonatomic)           NSTimeInterval  elapsedTime;
 @property (assign, nonatomic)           BOOL            adConfirmed;
@@ -60,10 +60,7 @@ CGFloat const kPNCarouselCollectionViewCellTimeToConfirm    = 1.0f;
     [self invalidateDisplayTimer];
     
     self.model = nil;
-    self.adConfirmed = false;
 }
-
-#pragma UIView
 
 - (void)awakeFromNib
 {
@@ -80,7 +77,7 @@ CGFloat const kPNCarouselCollectionViewCellTimeToConfirm    = 1.0f;
     [self.dataView.layer setBorderWidth:2.0f];
 }
 
-#pragma mark PNScrollerViewCell
+#pragma mark PNCarouselCollectionViewCell
 
 - (void)setData:(PNNativeAdModel*)data
 {
@@ -113,7 +110,7 @@ CGFloat const kPNCarouselCollectionViewCellTimeToConfirm    = 1.0f;
     [self.descriptionTextView sizeToFit];
     [self.downloadButton setTitle:self.model.cta_text forState:UIControlStateNormal];
     
-    AMRatingControl *ratingControl = [[AMRatingControl alloc] initWithLocation:CGPointZero
+    PNAMRatingControl *ratingControl = [[PNAMRatingControl alloc] initWithLocation:CGPointZero
                                                                     emptyColor:[UIColor lightGrayColor]
                                                                     solidColor:[UIColor orangeColor]
                                                                   andMaxRating:(NSInteger)5];

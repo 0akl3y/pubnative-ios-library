@@ -23,6 +23,7 @@
 // THE SOFTWARE.
 
 #import "PNNativeTableViewCell.h"
+#import "PNAMRatingControl.h"
 #import "PNNativeAdRenderItem.h"
 #import "PNAdRenderingManager.h"
 #import "PNTrackingManager.h"
@@ -30,15 +31,15 @@
 
 @interface PNNativeTableViewCell ()
 
-@property (nonatomic, weak) IBOutlet UIImageView        *iconImage;
-@property (nonatomic, weak) IBOutlet UIImageView        *bannerImage;
-@property (nonatomic, weak) IBOutlet UILabel            *titleLabel;
-@property (nonatomic, weak) IBOutlet UIView             *ratingContainer;
-@property (nonatomic, strong) AMRatingControl           *ratingControl;
-@property (nonatomic, weak) IBOutlet UILabel            *totalRatings;
-@property (nonatomic, weak) IBOutlet UIButton           *downloadButton;
-@property (nonatomic, weak) IBOutlet UITextView         *descriptionLabel;
+@property (nonatomic, weak) IBOutlet UIImageView    *iconImage;
+@property (nonatomic, weak) IBOutlet UIImageView    *bannerImage;
+@property (nonatomic, weak) IBOutlet UILabel        *titleLabel;
+@property (nonatomic, weak) IBOutlet UIView         *ratingContainer;
+@property (nonatomic, weak) IBOutlet UILabel        *totalRatings;
+@property (nonatomic, weak) IBOutlet UIButton       *downloadButton;
+@property (nonatomic, weak) IBOutlet UITextView     *descriptionLabel;
 
+@property (nonatomic, strong) PNAMRatingControl     *ratingControl;
 @property (nonatomic, strong) NSTimer               *cellViewTimer;
 @property (nonatomic, strong) NSTimer               *impressionTimer;
 
@@ -46,37 +47,10 @@
 
 @implementation PNNativeTableViewCell
 
-- (void)awakeFromNib
-{
-    [self.iconImage.layer setCornerRadius:5];
-    [self.iconImage setClipsToBounds:YES];
-    [self.downloadButton.layer setCornerRadius:5];
-    [self.downloadButton setClipsToBounds:YES];
-    
-    self.ratingControl = [[AMRatingControl alloc]
-                          initWithLocation:CGPointZero
-                          emptyColor:[UIColor lightGrayColor]
-                          solidColor:[UIColor orangeColor]
-                          andMaxRating:(NSInteger)5];
-    [self.ratingControl setUserInteractionEnabled:NO];
-    [self.ratingContainer addSubview:self.ratingControl];
-    
-    [self addSponsorLabel];
-}
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    if ([[gestureRecognizer view] isKindOfClass:[UITableViewCell class]])
-    {
-        return YES;
-    }
-    return NO;
-}
+#pragma mark NSObject
 
 - (void)dealloc
 {
-    self.model = nil;
-    
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
     
@@ -87,9 +61,36 @@
     self.ratingControl = nil;
 }
 
+- (void)awakeFromNib
+{
+    [self.iconImage.layer setCornerRadius:5];
+    [self.iconImage setClipsToBounds:YES];
+    [self.downloadButton.layer setCornerRadius:5];
+    [self.downloadButton setClipsToBounds:YES];
+    
+    self.ratingControl = [[PNAMRatingControl alloc]
+                          initWithLocation:CGPointZero
+                          emptyColor:[UIColor lightGrayColor]
+                          solidColor:[UIColor orangeColor]
+                          andMaxRating:(NSInteger)5];
+    [self.ratingControl setUserInteractionEnabled:NO];
+    [self.ratingContainer addSubview:self.ratingControl];
+    
+    [self addSponsorLabel];
+}
 
+#pragma mark UIView
 
-#pragma mark - Public Methods
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if ([[gestureRecognizer view] isKindOfClass:[UITableViewCell class]])
+    {
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark PNTableViewCell
 
 - (void)willDisplayCell
 {
@@ -105,9 +106,12 @@
      self.impressionTimer = nil;
 }
 
++ (CGFloat)cellMinHeight
+{
+    return 300.0f;
+}
 
-
-#pragma mark - Private Methods
+#pragma mark PNNativeTableViewCell
 
 - (void)clearCell:(NSNotification*)notification
 {
@@ -116,7 +120,7 @@
 
 - (void)setModel:(PNNativeAdModel*)model
 {
-    _model = model;
+    [super setModel:model];
     [self loadAd];
 }
 
@@ -171,8 +175,6 @@
                                       completion:nil];
     }
 }
-
-#pragma mark - Action Methods
 
 - (IBAction)installButtonPressed:(id)sender
 {

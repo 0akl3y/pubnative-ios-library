@@ -24,7 +24,6 @@
 //
 
 #import "PNCarouselContainerView.h"
-#import <QuartzCore/QuartzCore.h>
 #import "PNCarouselCollectionViewCell.h"
 #import "PNNativeAdModel.h"
 #import "PNAdConstants.h"
@@ -32,7 +31,6 @@
 @interface PNCarouselContainerView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic)     IBOutlet    UICollectionView        *collectionView;
-@property (strong, nonatomic)               NSArray                 *collectionData;
 @property (assign, nonatomic)               CGSize                  cellSize;
 @property (assign, nonatomic)               NSInteger               currentIndex;
 
@@ -40,14 +38,13 @@
 
 @implementation PNCarouselContainerView
 
-#pragma NSObject
+#pragma mark NSObject
 
 - (void)dealloc
 {
+    self.model = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-#pragma UIView
 
 - (void)awakeFromNib
 {
@@ -78,7 +75,7 @@
     [self addSponsorLabel];
 }
 
-#pragma PNCarouselTableViewCellView
+#pragma mark PNCarouselContainerView
 
 - (void)didRotateNotification:(NSNotification*)notification
 {
@@ -111,9 +108,9 @@
     [self addSubview:sponsorLabel];
 }
 
-- (void)setCollectionData:(NSArray *)collectionData
+- (void)setModel:(NSArray *)model
 {
-    _collectionData = collectionData;
+    _model = model;
     [self.collectionView setContentOffset:CGPointZero animated:NO];
     self.currentIndex = 0;
     [self.collectionView reloadData];
@@ -122,7 +119,7 @@
 - (CGFloat)offsetXForIndex:(NSInteger)index;
 {
     CGFloat result = self.collectionView.contentOffset.x;
-    if(index >= 0 && index < [self.collectionData count])
+    if(index >= 0 && index < [self.model count])
     {
         UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
         CGSize itemSize = layout.itemSize;
@@ -159,7 +156,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.collectionData count];
+    return [self.model count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -170,7 +167,7 @@
         cellID = [NSString stringWithFormat:@"%@-landscape", cellID];
     }
     PNCarouselCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
-    PNNativeAdModel *cellData = [self.collectionData objectAtIndex:[indexPath row]];
+    PNNativeAdModel *cellData = [self.model objectAtIndex:[indexPath row]];
     [cell setData:cellData];
     return cell;
 }
@@ -193,9 +190,9 @@
     }
     else
     {
-        if([indexPath row] >= 0 && [indexPath row] < [self.collectionData count])
+        if([indexPath row] >= 0 && [indexPath row] < [self.model count])
         {
-            PNNativeAdModel *cellModel = [self.collectionData objectAtIndex:[indexPath row]];
+            PNNativeAdModel *cellModel = [self.model objectAtIndex:[indexPath row]];
             if (cellModel && cellModel.click_url)
             {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:cellModel.click_url]];
@@ -222,7 +219,7 @@
     
     // Get final target index in array limits (0 - index - data.count)
     targetIndex = self.currentIndex + targetMovement;
-    targetIndex = MIN(MAX(targetIndex, 0), [self.collectionData count]);
+    targetIndex = MIN(MAX(targetIndex, 0), [self.model count]);
     
     CGFloat newOffsetX = [self offsetXForIndex:targetIndex];
     targetContentOffset->x = newOffsetX;

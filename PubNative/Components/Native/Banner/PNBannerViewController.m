@@ -28,21 +28,21 @@
 #import "PNNativeAdModel.h"
 #import "PNAdRenderingManager.h"
 #import "PNTrackingManager.h"
-#import "AMRatingControl.h"
+#import "PNAMRatingControl.h"
 #import "PNAdConstants.h"
 
 @interface PNBannerViewController ()
 
-@property (nonatomic, weak) IBOutlet    UIImageView     *iconView;
-@property (nonatomic, weak) IBOutlet    UIView          *dataContainer;
-@property (nonatomic, weak) IBOutlet    UILabel         *titleLabel;
-@property (nonatomic, weak) IBOutlet    UIView          *ratingContainer;
-@property (nonatomic, weak) IBOutlet    UILabel         *ctaLabel;
+@property (nonatomic, weak) IBOutlet UIImageView    *iconView;
+@property (nonatomic, weak) IBOutlet UIView         *dataContainer;
+@property (nonatomic, weak) IBOutlet UILabel        *titleLabel;
+@property (nonatomic, weak) IBOutlet UIView         *ratingContainer;
+@property (nonatomic, weak) IBOutlet UILabel        *ctaLabel;
 
-@property (nonatomic, strong)           AMRatingControl *ratingControl;
-@property (nonatomic, strong)           PNAdRequest     *request;
-@property (nonatomic, strong)           PNNativeAdModel *model;
-@property (nonatomic, strong)           NSTimer         *impressionTimer;
+@property (nonatomic, strong) PNAdRequest           *request;
+@property (nonatomic, strong) PNNativeAdModel       *model;
+@property (nonatomic, strong) PNAMRatingControl     *ratingControl;
+@property (nonatomic, strong) NSTimer               *impressionTimer;
 
 - (IBAction)installButtonPressed:(id)sender;
 
@@ -55,16 +55,15 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.delegate = nil;
+
+    self.request = nil;
+    self.model = nil;
     
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
     
     [self.ratingControl removeFromSuperview];
     self.ratingControl = nil;
-    
-    self.request = nil;
-    self.model = nil;
 }
 
 #pragma mark - UIViewController
@@ -75,7 +74,7 @@
     
     if(self.model)
     {
-        self.ratingControl = [[AMRatingControl alloc] initWithLocation:CGPointZero
+        self.ratingControl = [[PNAMRatingControl alloc] initWithLocation:CGPointZero
                                                             emptyColor:[UIColor lightGrayColor]
                                                             solidColor:[UIColor orangeColor]
                                                           andMaxRating:(NSInteger)5];

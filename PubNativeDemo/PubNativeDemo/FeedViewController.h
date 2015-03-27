@@ -23,10 +23,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "PNAdRequest.h"
-#import "PNVideoTableViewCell.h"
-#import "PNBannerTableViewCell.h"
-#import "PNCarouselTableViewCell.h"
+#import "Pubnative.h"
 #import "EFApiModel.h"
 #import "EventTableViewCell.h"
 
@@ -34,11 +31,11 @@
 
 - (void)loadAdWithParameters:(PNAdRequestParameters*)parameters
                  requestType:(PNAdRequestType)reuqestType
-                 andFeedType:(PNFeedType)feedType;
+                 andFeedType:(Pubnative_FeedType)feedType;
 - (void)loadAdWithParameters:(PNAdRequestParameters*)parameters
                  requestType:(PNAdRequestType)reuqestType
                     feedData:(EFApiModel*)data
-                 andFeedType:(PNFeedType)feedType;
+                 andFeedType:(Pubnative_FeedType)feedType;
 - (IBAction)dismiss:(id)sender;
 
 @end

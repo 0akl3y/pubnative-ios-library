@@ -6,11 +6,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^EditingChangedBlock)(NSUInteger rating);
-typedef void (^EditingDidEndBlock)(NSUInteger rating);
+typedef void (^PNAMRatingEditingChangedBlock)(NSUInteger rating);
+typedef void (^PNAMRatingEditingDidEndBlock)(NSUInteger rating);
 
 
-@interface AMRatingControl : UIControl
+@interface PNAMRatingControl : UIControl
 
 
 /**************************************************************************************************/
@@ -21,8 +21,8 @@ typedef void (^EditingDidEndBlock)(NSUInteger rating);
 @property (nonatomic, readwrite) NSUInteger starFontSize;
 @property (nonatomic, readwrite) NSUInteger starWidthAndHeight;
 @property (nonatomic, readwrite) NSUInteger starSpacing;
-@property (nonatomic, copy) EditingChangedBlock editingChangedBlock;
-@property (nonatomic, copy) EditingDidEndBlock editingDidEndBlock;
+@property (nonatomic, copy) PNAMRatingEditingChangedBlock editingChangedBlock;
+@property (nonatomic, copy) PNAMRatingEditingDidEndBlock editingDidEndBlock;
 
 /**************************************************************************************************/
 #pragma mark - Birth & Death

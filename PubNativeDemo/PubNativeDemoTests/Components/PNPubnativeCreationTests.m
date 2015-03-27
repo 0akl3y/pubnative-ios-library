@@ -51,54 +51,84 @@
 - (void)testBanner
 {
     self.expectation = [self expectationWithDescription:@"expectation"];
+    
+    PNAdRequestParameters *paramenters = [PNAdRequestParameters requestParameters];
+    paramenters.app_token = kPNTestConstantsAppToken;
+    
     [Pubnative requestAdType:Pubnative_AdType_Banner
-                withAppToken:kPNTestConstantsAppToken
+              withParameters:paramenters
                  andDelegate:self];
+    
     [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
 - (void)testVideoBanner
 {
     self.expectation = [self expectationWithDescription:@"expectation"];
+    
+    PNAdRequestParameters *paramenters = [PNAdRequestParameters requestParameters];
+    paramenters.app_token = kPNTestConstantsAppToken;
+    
     [Pubnative requestAdType:Pubnative_AdType_VideoBanner
-                withAppToken:kPNTestConstantsAppToken
+              withParameters:paramenters
                  andDelegate:self];
+    
     [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
 - (void)testGameList
 {
     self.expectation = [self expectationWithDescription:@"expectation"];
+    
+    PNAdRequestParameters *paramenters = [PNAdRequestParameters requestParameters];
+    paramenters.app_token = kPNTestConstantsAppToken;
+    
     [Pubnative requestAdType:Pubnative_AdType_GameList
-                withAppToken:kPNTestConstantsAppToken
+              withParameters:paramenters
                  andDelegate:self];
+    
     [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
 - (void)testIcon
 {
     self.expectation = [self expectationWithDescription:@"expectation"];
+    
+    PNAdRequestParameters *paramenters = [PNAdRequestParameters requestParameters];
+    paramenters.app_token = kPNTestConstantsAppToken;
+    
     [Pubnative requestAdType:Pubnative_AdType_Icon
-                withAppToken:kPNTestConstantsAppToken
+              withParameters:paramenters
                  andDelegate:self];
+    
     [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
 - (void)testInterstitial
 {
     self.expectation = [self expectationWithDescription:@"expectation"];
+    
+    PNAdRequestParameters *paramenters = [PNAdRequestParameters requestParameters];
+    paramenters.app_token = kPNTestConstantsAppToken;
+    
     [Pubnative requestAdType:Pubnative_AdType_Interstitial
-                withAppToken:kPNTestConstantsAppToken
+              withParameters:paramenters
                  andDelegate:self];
+    
     [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 
 - (void)testVideoInterstitial
 {
     self.expectation = [self expectationWithDescription:@"expectation"];
+    
+    PNAdRequestParameters *paramenters = [PNAdRequestParameters requestParameters];
+    paramenters.app_token = kPNTestConstantsAppToken;
+    
     [Pubnative requestAdType:Pubnative_AdType_VideoInterstitial
-                withAppToken:kPNTestConstantsAppToken
+              withParameters:paramenters
                  andDelegate:self];
+    
     [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 

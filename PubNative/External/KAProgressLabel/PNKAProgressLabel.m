@@ -6,10 +6,10 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "PNProgressLabel.h"
+#import "PNKAProgressLabel.h"
 
 
-@implementation PNProgressLabel {
+@implementation PNKAProgressLabel {
     radiansFromDegreesCompletion _radiansFromDegrees;
 }
 
@@ -115,16 +115,16 @@
         [self setStartDegree:0.0];
         [self setEndDegree:progress*360];
 
-        PNProgressLabel *__weak weakSelf = self;
+        PNKAProgressLabel *__weak weakSelf = self;
         if(self.progressLabelVCBlock) {
             self.progressLabelVCBlock(weakSelf, progress);
         }
     }
 }
 
--(void)setProgress:(CGFloat)progress timing:(PNPropertyAnimationTiming)timing duration:(CGFloat)duration delay:(CGFloat)delay {
+-(void)setProgress:(CGFloat)progress timing:(PNTPPropertyAnimationTiming)timing duration:(CGFloat)duration delay:(CGFloat)delay {
 
-    PNPropertyAnimation *animation = [PNPropertyAnimation propertyAnimationWithKeyPath:@"progress"];
+    PNTPPropertyAnimation *animation = [PNTPPropertyAnimation propertyAnimationWithKeyPath:@"progress"];
     animation.fromValue = @(_progress);
     animation.toValue = @(progress);
     animation.duration = duration;

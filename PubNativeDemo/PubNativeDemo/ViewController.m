@@ -36,13 +36,12 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 @property (weak, nonatomic)     IBOutlet    UIView                  *eventLoader;
 @property (weak, nonatomic)     IBOutlet    UIActivityIndicatorView *adLoadingIndicator;
 @property (weak, nonatomic)     IBOutlet    UILabel                 *versionLabel;
-@property (strong, nonatomic)   IBOutlet    UIScrollView            *optionsScrollView;
-@property (strong, nonatomic)               PNAdRequestParameters   *parameters;
-@property (assign, nonatomic)               Pubnative_AdType        currentType;
+@property (weak, nonatomic)     IBOutlet    UIScrollView            *optionsScrollView;
 
+@property (strong, nonatomic) PNAdRequestParameters                 *parameters;
 @property (strong, nonatomic) EFApiModel                            *eventModel;
-
-@property (nonatomic, strong) UIViewController  *currentAdVC;
+@property (strong, nonatomic) UIViewController                      *currentAdVC;
+@property (assign, nonatomic) Pubnative_AdType                      currentType;
 
 - (IBAction)settingsPressed:(id)sender;
 
@@ -54,6 +53,9 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 
 - (void)dealloc
 {
+    [self.currentAdVC dismissViewControllerAnimated:NO completion:nil];
+    self.eventModel = nil;
+    self.parameters = nil;
 }
 
 - (void)viewDidLoad
@@ -157,35 +159,35 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 {
     [self startLoading];
     self.currentType = -1;
-    [self loadFeedWithType:PNFeed_Native_Video requestType:PNAdRequest_Native_Video];
+    [self loadFeedWithType:Pubnative_FeedType_Video requestType:PNAdRequest_Native_Video];
 }
 
 - (IBAction)adFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     self.currentType = -1;
-    [self loadFeedWithType:PNFeed_Native_Banner requestType:PNAdRequest_Native];
+    [self loadFeedWithType:Pubnative_FeedType_Banner requestType:PNAdRequest_Native];
 }
 
 - (IBAction)scrollFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     self.currentType = -1;
-    [self loadFeedWithType:PNFeed_Native_Carousel requestType:PNAdRequest_Native];
+    [self loadFeedWithType:Pubnative_FeedType_Carousel requestType:PNAdRequest_Native];
 }
 
 - (IBAction)iconFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     self.currentType = -1;
-    [self loadFeedWithType:PNFeed_Native_Icon requestType:PNAdRequest_Native];
+    [self loadFeedWithType:Pubnative_FeedType_Icon requestType:PNAdRequest_Native];
 }
 
 - (IBAction)nativeFeedTouchUpInside:(id)sender
 {
     [self startLoading];
     self.currentType = -1;
-    [self loadFeedWithType:PNFeed_Native_InFeed requestType:PNAdRequest_Native];
+    [self loadFeedWithType:Pubnative_FeedType_Native requestType:PNAdRequest_Native];
 }
 
 - (void)requestAdWithType:(Pubnative_AdType)type
@@ -196,7 +198,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
                  andDelegate:self];
 }
 
-- (void)loadFeedWithType:(PNFeedType)feedType requestType:(PNAdRequestType)requestType
+- (void)loadFeedWithType:(Pubnative_FeedType)feedType requestType:(PNAdRequestType)requestType
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FeedViewController *feedVC = [storyboard instantiateViewControllerWithIdentifier:@"FeedViewController"];
@@ -235,6 +237,7 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 
 - (void)pnAdDidLoad:(UIViewController *)adVC
 {
+    NSLog(@"Pubnative - Request end");
     [self stopLoading];
     switch (self.currentType)
     {
@@ -267,13 +270,13 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
 
 - (void)pnAdDidClose
 {
+    self.currentAdVC = nil;
 }
 
 - (void)pnAdDidFail:(NSError *)error
 {
     [self stopLoading];
-    
-    NSLog(@"Error loading ad - %@", [error description]);
+    NSLog(@"Pubnative - Request error: %@", error);
 }
 
 #pragma mark - SettingsViewControllerDelegate Methods

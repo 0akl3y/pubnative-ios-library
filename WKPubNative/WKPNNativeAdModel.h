@@ -29,6 +29,7 @@
 
 @property (strong, nonatomic)NSString   *click_url;
 @property (strong, nonatomic)UIImage    *icon;
+@property (strong, nonatomic)UIImage    *banner;
 @property (strong, nonatomic)NSString   *title;
 @property (strong, nonatomic)NSString   *cta_text;
 @property (strong, nonatomic)NSString   *Description;

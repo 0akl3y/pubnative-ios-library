@@ -24,15 +24,8 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#include "AMRatingControl.h"
-#import "PNAPIModel.h"
-#import "PNNativeAdModel.h"
+#import "PNNativeAdModelTableViewCell.h"
 
-@interface PNBannerTableViewCell : UITableViewCell
-
-@property (nonatomic, strong) PNNativeAdModel           *model;
-
-- (void)willDisplayCell;
-- (void)didEndDisplayingCell;
+@interface PNBannerTableViewCell : PNNativeAdModelTableViewCell
 
 @end

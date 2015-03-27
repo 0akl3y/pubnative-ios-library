@@ -23,12 +23,13 @@
 //  THE SOFTWARE.
 
 #import "Pubnative.h"
-#import "PNAdRequest.h"
 
-@interface Pubnative ()
+@interface Pubnative () <PubnativeAdDelegate>
 
-@property (nonatomic, strong) PNAdRequest       *currentRequest;
-@property (nonatomic, strong) UIViewController  *currentAdVC;
+@property (nonatomic, strong) PNAdRequest                   *currentRequest;
+@property (nonatomic, strong) UIViewController              *currentAdVC;
+
+@property (nonatomic, weak) NSObject<PubnativeAdDelegate>   *originalDelegate;
 
 + (instancetype)sharedInstance;
 
@@ -41,20 +42,20 @@
 - (void)dealloc
 {
     self.currentRequest = nil;
-    self.currentAdVC = nil;
 }
 
 #pragma mark - Pubnative
 
 #pragma mark public
 
-+ (void)requestAdType:(Pubnative_AdType)type
-         withAppToken:(NSString *)appToken
-          andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
++ (PNTableViewCell*)dequeueFeedType:(Pubnative_FeedType)feedType
 {
-    PNAdRequestParameters *parameters = [PNAdRequestParameters requestParameters];
-    parameters.app_token = appToken;
-    [self requestAdType:type withParameters:parameters andDelegate:delegate];
+    return [PNTableViewManager dequeueType:feedType];
+}
+
++ (CGFloat)heightForRowType:(Pubnative_FeedType)feedType
+{
+    return [PNTableViewManager heightForRowType:feedType];
 }
 
 + (void)requestAdType:(Pubnative_AdType)type
@@ -121,19 +122,21 @@
         }
         else
         {
-
+            [Pubnative cleanCurrentAdVC];
+            
             UIViewController *adVC = [Pubnative createType:adType
-                                                   withAds:ads
-                                               andDelegate:weakDelegate];
+                                                   withAds:ads];
+            
             if(adVC)
             {
+                [Pubnative sharedInstance].originalDelegate = weakDelegate;
                 [Pubnative sharedInstance].currentAdVC = adVC;
-                UIView *adView = [Pubnative sharedInstance].currentAdVC.view;
+                UIView *adView = adVC.view;
                 #pragma unused(adView)
             }
             else
             {
-                NSString *errorString = [NSString stringWithFormat:@"Pubnative error creating the selected type %d", adType];
+                NSString *errorString = [NSString stringWithFormat:@"Pubnative error creating the selected type %ld", (long)adType];
                 NSError *creationError = [NSError errorWithDomain:errorString
                                                              code:0
                                                          userInfo:nil];
@@ -144,6 +147,20 @@
     }];
     
     [[Pubnative sharedInstance].currentRequest startRequest];
+}
+
++ (void)cleanCurrentAdVC
+{
+    if([Pubnative sharedInstance].currentAdVC)
+    {
+        if([[Pubnative sharedInstance].currentAdVC respondsToSelector:@selector(setDelegate:)])
+        {
+            [[Pubnative sharedInstance].currentAdVC performSelector:@selector(setDelegate:) withObject:[Pubnative sharedInstance].originalDelegate];
+        }
+        
+        [Pubnative sharedInstance].currentAdVC = nil;
+        [Pubnative sharedInstance].originalDelegate = nil;
+    }
 }
 
 + (void)invokeDidFailWithError:(NSError*)error delegate:(NSObject<PubnativeAdDelegate>*)delegate
@@ -166,73 +183,176 @@
     return _sharedInstance;
 }
 
-+ (UIViewController*)createType:(Pubnative_AdType)type withAds:(NSArray*)ads andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
++ (UIViewController*)createType:(Pubnative_AdType)type withAds:(NSArray*)ads
 {
     UIViewController *result = nil;
     switch (type)
     {
-        case Pubnative_AdType_Banner:               result = [Pubnative createAdTypeBannerWithAd:[ads firstObject] andDelegate:delegate];              break;
-        case Pubnative_AdType_VideoBanner:          result = [Pubnative createAdTypeVideoBannerWithAd:[ads firstObject] andDelegate:delegate];         break;
-        case Pubnative_AdType_VideoInterstitial:    result = [Pubnative createAdTypeVideoInterstitialWithAd:[ads firstObject] andDelegate:delegate];   break;
-        case Pubnative_AdType_Interstitial:         result = [Pubnative createAdTypeInterstitialWithAd:[ads firstObject] andDelegate:delegate];        break;
-        case Pubnative_AdType_Icon:                 result = [Pubnative createAdTypeIconWithAd:[ads firstObject] andDelegate:delegate];                break;
-        case Pubnative_AdType_GameList:             result = [Pubnative createAdTypeGameListWithAd:ads andDelegate:delegate];
+        case Pubnative_AdType_Banner:               result = [Pubnative createAdTypeBannerWithAd:[ads firstObject]];            break;
+        case Pubnative_AdType_VideoBanner:          result = [Pubnative createAdTypeVideoBannerWithAd:[ads firstObject]];       break;
+        case Pubnative_AdType_VideoInterstitial:    result = [Pubnative createAdTypeVideoInterstitialWithAd:[ads firstObject]]; break;
+        case Pubnative_AdType_Interstitial:         result = [Pubnative createAdTypeInterstitialWithAd:[ads firstObject]];      break;
+        case Pubnative_AdType_Icon:                 result = [Pubnative createAdTypeIconWithAd:[ads firstObject]];              break;
+        case Pubnative_AdType_GameList:             result = [Pubnative createAdTypeGameListWithAd:ads];                        break;
     }
     return result;
 }
 
-+ (UIViewController*)createAdTypeBannerWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
++ (UIViewController*)createAdTypeBannerWithAd:(PNNativeAdModel*)ad
 {
     PNBannerViewController *result = [[PNBannerViewController alloc] initWithNibName:NSStringFromClass([PNBannerViewController class])
                                                                               bundle:nil
                                                                                model:ad];
-    result.delegate = delegate;
+    result.delegate = [Pubnative sharedInstance];
     return result;
 }
 
-+ (UIViewController*)createAdTypeVideoBannerWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
++ (UIViewController*)createAdTypeVideoBannerWithAd:(PNNativeAdModel*)ad
 {
     PNVideoBannerViewController *result = [[PNVideoBannerViewController alloc] initWithNibName:NSStringFromClass([PNVideoBannerViewController class])
                                                                                         bundle:nil
                                                                                          model:(PNNativeVideoAdModel*)ad];
-    result.delegate = delegate;
+    result.delegate = [Pubnative sharedInstance];
     return result;
 }
 
-+ (UIViewController*)createAdTypeVideoInterstitialWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
++ (UIViewController*)createAdTypeVideoInterstitialWithAd:(PNNativeAdModel*)ad
 {
     PNVideoInterstitialViewController *result = [[PNVideoInterstitialViewController alloc] initWithNibName:NSStringFromClass([PNVideoInterstitialViewController class])
                                                                                                     bundle:nil
                                                                                                      model:(PNNativeVideoAdModel*)ad];
-    result.delegate = delegate;
+    result.delegate = [Pubnative sharedInstance];
     return result;
 }
 
-+ (UIViewController*)createAdTypeInterstitialWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
++ (UIViewController*)createAdTypeInterstitialWithAd:(PNNativeAdModel*)ad
 {
     PNInterstitialAdViewController *result = [[PNInterstitialAdViewController alloc] initWithNibName:NSStringFromClass([PNInterstitialAdViewController class])
                                                                                               bundle:nil
                                                                                                model:ad];
-    result.delegate = delegate;
+    result.delegate = [Pubnative sharedInstance];
     return result;
 }
 
-+ (UIViewController*)createAdTypeIconWithAd:(PNNativeAdModel*)ad andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
++ (UIViewController*)createAdTypeIconWithAd:(PNNativeAdModel*)ad
 {
     PNIconViewController *result = [[PNIconViewController alloc] initWithNibName:NSStringFromClass([PNIconViewController class])
                                                                           bundle:nil
                                                                            model:ad];
-    result.delegate = delegate;
+    result.delegate = [Pubnative sharedInstance];
     return result;
 }
 
-+ (UIViewController*)createAdTypeGameListWithAd:(NSArray*)ads andDelegate:(NSObject<PubnativeAdDelegate>*)delegate
++ (UIViewController*)createAdTypeGameListWithAd:(NSArray*)ads
 {
     PNGameListAdViewController *result = [[PNGameListAdViewController alloc] initWithNibName:NSStringFromClass([PNGameListAdViewController class])
                                                                                       bundle:nil
                                                                                          ads:ads];
-    result.delegate = delegate;
+    result.delegate = [Pubnative sharedInstance];
     return result;
+}
+
+#pragma mark - DELEGATES -
+#pragma PubnativeAdDelegate
+
+- (void)pnAdDidLoad:(UIViewController *)ad
+{
+    if(self.originalDelegate)
+    {
+        if([self.originalDelegate respondsToSelector:@selector(pnAdDidLoad:)])
+        {
+            [self.originalDelegate pnAdDidLoad:ad];
+        }
+    }
+    else
+    {
+        [Pubnative cleanCurrentAdVC];
+    }
+}
+
+- (void)pnAdReady:(UIViewController*)ad
+{
+    if(self.originalDelegate)
+    {
+        if([self.originalDelegate respondsToSelector:@selector(pnAdReady:)])
+        {
+            [self.originalDelegate pnAdReady:ad];
+        }
+    }
+    else
+    {
+        [Pubnative cleanCurrentAdVC];
+    }
+}
+
+- (void)pnAdDidFail:(NSError *)error
+{
+    if(self.originalDelegate)
+    {
+        if([self.originalDelegate respondsToSelector:@selector(pnAdDidFail:)])
+        {
+            [self.originalDelegate pnAdDidFail:error];
+        }
+    }
+    else
+    {
+        [Pubnative cleanCurrentAdVC];
+    }
+}
+
+- (void)pnAdWillShow
+{
+    if(self.originalDelegate)
+    {
+        if([self.originalDelegate respondsToSelector:@selector(pnAdWillShow)])
+        {
+            [self.originalDelegate pnAdWillShow];
+        }
+    }
+    else
+    {
+        [Pubnative cleanCurrentAdVC];
+    }
+}
+
+- (void)pnAdDidShow
+{
+    if(self.originalDelegate)
+    {
+        if([self.originalDelegate respondsToSelector:@selector(pnAdDidShow)])
+        {
+            [self.originalDelegate pnAdDidShow];
+        }
+    }
+    else
+    {
+        [Pubnative cleanCurrentAdVC];
+    }
+}
+
+- (void)pnAdWillClose
+{
+    if(self.originalDelegate)
+    {
+        if([self.originalDelegate respondsToSelector:@selector(pnAdWillClose)])
+        {
+            [self.originalDelegate pnAdWillClose];
+        }
+    }
+    else
+    {
+        [Pubnative cleanCurrentAdVC];
+    }
+}
+
+- (void)pnAdDidClose
+{
+    if([self.originalDelegate respondsToSelector:@selector(pnAdDidClose)])
+    {
+        [self.originalDelegate pnAdDidClose];
+    }
+    
+    [Pubnative cleanCurrentAdVC];
 }
 
 @end

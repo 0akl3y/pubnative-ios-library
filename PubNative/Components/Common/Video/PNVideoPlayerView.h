@@ -30,26 +30,29 @@
 #import "PNVideoPlayer.h"
 #import "PNVideoPlayerViewDelegate.h"
 #import "PNVideoCacher.h"
-#import "PNProgressLabel.h"
+#import "PNKAProgressLabel.h"
 #import "PNTrackingManager.h"
 
 @interface PNVideoPlayerView : UIViewController <PNVideoPlayerDelegate>
 
-@property (nonatomic, weak) IBOutlet UIView                           *videoContainer;
-@property (nonatomic, weak) IBOutlet UIView                           *loadContainer;
-@property (nonatomic, strong) PNVideoPlayer                           *videoPlayer;
-@property (nonatomic, strong) VastContainer                           *vastAd;
-@property (nonatomic, strong) PNProgressLabel                         *loadLabel;
-@property (nonatomic, strong) PNVastModel                             *model;
-@property (nonatomic, weak) IBOutlet UIView                           *skipView;
-@property (nonatomic, weak) IBOutlet UIButton                         *skipButton;
-@property (nonatomic, weak) IBOutlet UIButton                         *muteButton;
-@property (nonatomic, weak) IBOutlet UIButton                         *learnMoreButton;
-@property (nonatomic, weak) IBOutlet UIButton                         *closeButton;
-@property (nonatomic, weak) IBOutlet UIButton                         *fullScreenButton;
-@property (nonatomic, assign)   NSInteger                             skipTime;
-@property (nonatomic, assign) BOOL                                    isMaximized;
-@property (nonatomic, assign) BOOL                                    isCompleted;
+@property (nonatomic, weak) IBOutlet UIView     *videoContainer;
+@property (nonatomic, weak) IBOutlet UIView     *loadContainer;
+@property (nonatomic, weak) IBOutlet UIView     *skipView;
+@property (nonatomic, weak) IBOutlet UIButton   *skipButton;
+@property (nonatomic, weak) IBOutlet UIButton   *muteButton;
+@property (nonatomic, weak) IBOutlet UIButton   *learnMoreButton;
+@property (nonatomic, weak) IBOutlet UIButton   *closeButton;
+@property (nonatomic, weak) IBOutlet UIButton   *fullScreenButton;
+
+@property (nonatomic, strong) PNVastModel       *model;
+@property (nonatomic, strong) VastContainer     *vastAd;
+@property (nonatomic, strong) PNVideoPlayer     *videoPlayer;
+@property (nonatomic, strong) PNKAProgressLabel *loadLabel;
+
+
+@property (nonatomic, assign) NSInteger         skipTime;
+@property (nonatomic, assign) BOOL              isMaximized;
+@property (nonatomic, assign) BOOL              isCompleted;
 
 
 - (id)initWithFrame:(CGRect)frame

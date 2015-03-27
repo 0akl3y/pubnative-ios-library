@@ -1,8 +1,8 @@
 //
-// YADMJSONModelError.h
+// PNTableViewCell.h
 //
-// Created by Csongor Nagy on 15/04/14.
-// Copyright (c) 2014 Csongor Nagy
+// Created by David Martin on 25/03/15.
+// Copyright (c) 2015 PubNative. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,19 +22,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "PNNativeAdModel.h"
 
-extern NSString *const kYADMJSONModelErrorDomain;
+@protocol PNTableViewCell <NSObject>
 
-typedef enum kALJSONModelErrorTypes : NSInteger
-{
-    kALJSONModelErrorInvalidData,
-    kALJSONModelErrorNilInput,
-    kALJSONModelErrorJSONUnreachable
-} kALJSONModelErrorTypes;
+@property (strong, nonatomic) NSObject *model;
 
-@interface YADMJSONModelError : NSError
+- (void)willDisplayCell;
+- (void)didEndDisplayingCell;
++ (CGFloat)cellMinHeight;
 
+@end
 
+@interface PNTableViewCell : UITableViewCell<PNTableViewCell>
 
 @end

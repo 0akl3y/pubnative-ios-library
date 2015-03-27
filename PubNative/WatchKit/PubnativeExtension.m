@@ -23,10 +23,7 @@
 //  THE SOFTWARE.
 
 #import "PubnativeExtension.h"
-#import "PNAdRequest.h"
-#import "PNNativeAdModel.h"
-#import "PNCacheManager.h"
-#import "PNTrackingManager.h"
+#import "Pubnative.h"
 
 typedef NS_ENUM(NSInteger, PubnativeExtension_BindingType)
 {
@@ -101,15 +98,20 @@ typedef void (^WKExtensionReply)(NSDictionary *reply);
                                    model != nil &&
                                    ((NSNull*)model) != [NSNull null])
                                 {
-                                    [PNCacheManager dataWithURLString:model.icon_url
-                                                        andCompletion:^(NSData *data)
-                                     {
-                                         if(reply)
-                                         {
-                                             reply([self resultDictionaryWithModel:model
-                                                                       andIconData:data]);
-                                         }
-                                     }];
+                                    [self requestDataWithURL:model.icon_url
+                                                  completion:^(NSData * iconData)
+                                    {
+                                        [self requestDataWithURL:model.banner_url
+                                                      completion:^(NSData *bannerData)
+                                        {
+                                            if(reply)
+                                            {
+                                                reply([self resultDictionaryWithModel:model
+                                                                             iconData:iconData
+                                                                           bannerData:bannerData]);
+                                            }
+                                        }];
+                                    }];
                                 }
                                 else
                                 {
@@ -128,14 +130,40 @@ typedef void (^WKExtensionReply)(NSDictionary *reply);
                             }
                         }
                     }];
+    
     [self.request startRequest];
 }
 
-- (NSDictionary*)resultDictionaryWithModel:(PNNativeAdModel*)model andIconData:(NSData*)data
+- (void)requestDataWithURL:(NSString*)urlString completion:(void(^)(NSData* data))completion
+{
+    if(urlString &&
+       [NSNull null] != ((NSNull*)urlString))
+    {
+        [PNCacheManager dataWithURLString:urlString
+                            andCompletion:^(NSData *data)
+         {
+             if(completion)
+             {
+                 completion(data);
+             }
+         }];
+    }
+    else
+    {
+        if(completion)
+        {
+            completion(nil);
+        }
+    }
+}
+
+
+- (NSDictionary*)resultDictionaryWithModel:(PNNativeAdModel*)model iconData:(NSData*)iconData bannerData:(NSData*)bannerData
 {
     return @{
              @"title" : model.title,
-             @"icon" : data,
+             @"icon" : iconData,
+             @"banner" : bannerData,
              @"click_url" : model.click_url,
              @"cta_text" : model.cta_text,
              @"description" : model.Description,

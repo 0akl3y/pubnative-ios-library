@@ -5,11 +5,11 @@
 //  Copyright (c) 2013 Alexis Creuzot. All rights reserved.
 //
 
-#import "PNPropertyAnimation.h"
+#import "PNTPPropertyAnimation.h"
 
-@class PNProgressLabel;
+@class PNKAProgressLabel;
 
-typedef void(^progressLabelValueChangedCompletion)(PNProgressLabel *label, CGFloat progress);
+typedef void(^progressLabelValueChangedCompletion)(PNKAProgressLabel *label, CGFloat progress);
 typedef CGFloat(^radiansFromDegreesCompletion)(CGFloat degrees);
 
 typedef NS_ENUM(NSUInteger, ProgressLabelColorTable) {
@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, ProgressLabelColorTable) {
     ProgressLabelProgressColor
 };
 
-@interface PNProgressLabel : UILabel
+@interface PNKAProgressLabel : UILabel
 
 @property (nonatomic, copy) progressLabelValueChangedCompletion progressLabelVCBlock;
 
@@ -37,7 +37,7 @@ UIColor *PNColorDefaultForColorInProgressLabelColorTableKey(ProgressLabelColorTa
 
 // Progress is a float between 0.0 and 1.0
 -(void)setProgress:(CGFloat)progress;
--(void)setProgress:(CGFloat)progress timing:(PNPropertyAnimationTiming)timing duration:(CGFloat) duration delay:(CGFloat)delay;
+-(void)setProgress:(CGFloat)progress timing:(PNTPPropertyAnimationTiming)timing duration:(CGFloat) duration delay:(CGFloat)delay;
 
 
 @end

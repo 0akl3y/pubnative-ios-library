@@ -1,5 +1,5 @@
 //
-// YADMApiCallResult.m
+// YADMApiCall.h
 //
 // Created by Csongor Nagy on 15/04/14.
 // Copyright (c) 2014 Csongor Nagy
@@ -22,7 +22,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "YADMApiCallResult.h"
+#import <Foundation/Foundation.h>
 
-@implementation YADMApiCallResult
+#import "PNYADMApiCallResult.h"
+#import "PNYADMApiCallDelegate.h"
+
+@interface PNYADMApiCall : NSObject
+
++ (instancetype)requestWith:(NSURL*)url
+                     method:(NSString*)method
+                     params:(NSDictionary*)params
+                    headers:(NSDictionary*)headers
+                cachePolicy:(NSURLRequestCachePolicy)policy
+                    timeout:(NSTimeInterval)timeout
+                   delegate:(id<PNYADMApiCallDelegate>)delegate
+           startImmediately:(BOOL)startImmediately;
+- (void)start;
+
 @end

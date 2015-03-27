@@ -1,5 +1,5 @@
 //
-//  ALPropertyAnimation.h
+//  TPPropertyAnimation.h
 //  Property Animation http://atastypixel.com/blog/key-path-based-property-animation
 //
 //  Created by Michael Tyson on 13/08/2010.
@@ -48,15 +48,15 @@ typedef enum {
     PNPropertyAnimationTimingEaseIn,
     PNPropertyAnimationTimingEaseOut,
     PNPropertyAnimationTimingEaseInEaseOut
-} PNPropertyAnimationTiming;
+} PNTPPropertyAnimationTiming;
 
-@interface PNPropertyAnimation : NSObject {    
+@interface PNTPPropertyAnimation : NSObject {    
     @private
     NSTimeInterval startTime;
 }
 
 // Create a new animation
-+ (PNPropertyAnimation*)propertyAnimationWithKeyPath:(NSString*)keyPath;
++ (PNTPPropertyAnimation*)propertyAnimationWithKeyPath:(NSString*)keyPath;
 
 // Get all animations for the given target object (if there are no animations, will return an empty array)
 // You can then cancel all animations for a target by calling [[ALPropertyAnimation allPropertyAnimationsForTarget:object] makeObjectsPerformSelector:@selector(cancel)]
@@ -75,11 +75,11 @@ typedef enum {
 @property (nonatomic, assign) CGFloat startDelay;
 @property (nonatomic, retain) id fromValue;
 @property (nonatomic, retain) id toValue;
-@property (nonatomic, assign) PNPropertyAnimationTiming timing;
-@property (nonatomic, retain) PNPropertyAnimation *chainedAnimation;
+@property (nonatomic, assign) PNTPPropertyAnimationTiming timing;
+@property (nonatomic, retain) PNTPPropertyAnimation *chainedAnimation;
 @end
 
 // Implement this to act as a delegate
-@interface NSObject (ALPropertyAnimationDelegate)
-- (void)propertyAnimationDidFinish:(PNPropertyAnimation*)propertyAnimation;
+@interface NSObject (PNTPPropertyAnimationDelegate)
+- (void)propertyAnimationDidFinish:(PNTPPropertyAnimation*)propertyAnimation;
 @end

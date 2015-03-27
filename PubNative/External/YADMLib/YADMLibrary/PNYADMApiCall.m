@@ -22,9 +22,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "YADMApiCall.h"
+#import "PNYADMApiCall.h"
 
-@interface YADMApiCall () <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+@interface PNYADMApiCall () <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) NSURL                             *url;
 @property (nonatomic, strong) NSString                          *method;
@@ -32,7 +32,7 @@
 @property (nonatomic, strong) NSDictionary                      *headers;
 @property (nonatomic, assign) NSURLRequestCachePolicy           policy;
 @property (nonatomic, assign) NSTimeInterval                    timeout;
-@property (nonatomic, readwrite) NSObject<YADMApiCallDelegate>  *delegate;
+@property (nonatomic, readwrite) NSObject<PNYADMApiCallDelegate>  *delegate;
 @property (nonatomic, strong) NSURLConnection                   *connection;
 @property (nonatomic, assign) BOOL                              startImmediately;
 
@@ -40,7 +40,7 @@
 
 
 
-@implementation YADMApiCall
+@implementation PNYADMApiCall
 
 #pragma mark - Class Methods
 
@@ -50,17 +50,17 @@
                     headers:(NSDictionary*)headers
                 cachePolicy:(NSURLRequestCachePolicy)policy
                     timeout:(NSTimeInterval)timeout
-                   delegate:(id<YADMApiCallDelegate>)delegate
+                   delegate:(id<PNYADMApiCallDelegate>)delegate
            startImmediately:(BOOL)startImmediately
 {
     
-    return [[YADMApiCall alloc] initWithURL:url
+    return [[PNYADMApiCall alloc] initWithURL:url
                                    method:method
                                    params:params
                                   headers:headers
                               cachePolicy:policy
                                   timeout:timeout
-                                 delegate:(id<YADMApiCallDelegate>)delegate
+                                 delegate:(id<PNYADMApiCallDelegate>)delegate
                          startImmediately:startImmediately];
 }
 
@@ -96,7 +96,7 @@
                 ([contentType isEqualToString:@"application/json; charset=utf-8"] ||
                  [contentType isEqualToString:@"text/javascript; charset=utf-8"]))
              {
-                 YADMApiCallResult *callResult = [[YADMApiCallResult alloc] init];
+                 PNYADMApiCallResult *callResult = [[PNYADMApiCallResult alloc] init];
                  callResult.httpResponse = response;
                  callResult.responseData = data;
                  
@@ -124,7 +124,7 @@
                     headers:(NSDictionary*)headers
                 cachePolicy:(NSURLRequestCachePolicy)policy
                     timeout:(NSTimeInterval)timeout
-                   delegate:(id<YADMApiCallDelegate>)delegate
+                   delegate:(id<PNYADMApiCallDelegate>)delegate
            startImmediately:(BOOL)startImmediately
 {
     self = [super init];
@@ -162,7 +162,7 @@
     }
 }
 
-- (void)invokeDidFinishedWithResult:(YADMApiCallResult *)result
+- (void)invokeDidFinishedWithResult:(PNYADMApiCallResult *)result
 {
     if(self.delegate && [self.delegate respondsToSelector:@selector(apiCall:didFinishedWithResult:)])
     {
