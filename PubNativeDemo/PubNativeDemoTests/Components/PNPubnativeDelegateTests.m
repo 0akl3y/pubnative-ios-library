@@ -108,9 +108,13 @@
 
 - (void)requestAd
 {
+    PNAdRequestParameters *paramenters = [PNAdRequestParameters requestParameters];
+    paramenters.app_token = kPNTestConstantsAppToken;
+    
     [Pubnative requestAdType:self.currentAdType
-                withAppToken:kPNTestConstantsAppToken
+                withParameters:paramenters
                  andDelegate:self];
+    
     [self waitForExpectationsWithTimeout:kPNTestConstantsTimeout handler:nil];
 }
 

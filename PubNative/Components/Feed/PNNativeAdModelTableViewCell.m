@@ -1,8 +1,8 @@
 //
-// PNInterstitialAdViewController.h
+// PNNativeAdModelTableViewCell.m
 //
-// Created by Csongor Nagy on 10/10/14.
-// Copyright (c) 2014 PubNative
+// Created by David Martin on 25/03/15.
+// Copyright (c) 2015 PubNative. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,17 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-#import "PubnativeAdDelegate.h"
-#import "PNNativeAdModel.h"
+#import "PNNativeAdModelTableViewCell.h"
 
-@interface PNInterstitialAdViewController : UIViewController
-
-@property (nonatomic, weak) NSObject<PubnativeAdDelegate> *delegate;
-
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil
-                         bundle:(NSBundle *)nibBundleOrNil
-                          model:(PNNativeAdModel*)model;
+@implementation PNNativeAdModelTableViewCell
 
 @end

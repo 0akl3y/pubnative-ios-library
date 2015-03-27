@@ -4,7 +4,7 @@
 //
 
 
-#import "AMRatingControl.h"
+#import "PNAMRatingControl.h"
 
 
 // Constants :
@@ -16,7 +16,7 @@ static const NSString *kDefaultEmptyChar = @"☆";
 static const NSString *kDefaultSolidChar = @"★";
 
 
-@interface AMRatingControl (Private)
+@interface PNAMRatingControl (Private)
 
 - (id)initWithLocation:(CGPoint)location
             emptyImage:(UIImage *)emptyImageOrNil
@@ -31,7 +31,7 @@ static const NSString *kDefaultSolidChar = @"★";
 @end
 
 
-@implementation AMRatingControl
+@implementation PNAMRatingControl
 {
     BOOL _respondsToTranslatesAutoresizingMaskIntoConstraints;
     UIImage *_emptyImage, *_solidImage;

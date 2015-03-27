@@ -1,8 +1,8 @@
 //
-// YADMApiCall.h
+// PNVideoAdModelTableViewCell.m
 //
-// Created by Csongor Nagy on 15/04/14.
-// Copyright (c) 2014 Csongor Nagy
+// Created by David Martin on 25/03/15.
+// Copyright (c) 2015 PubNative. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,21 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "PNVideoAdModelTableViewCell.h"
 
-#import "YADMApiCallResult.h"
-#import "YADMApiCallDelegate.h"
-
-@interface YADMApiCall : NSObject
-
-+ (instancetype)requestWith:(NSURL*)url
-                     method:(NSString*)method
-                     params:(NSDictionary*)params
-                    headers:(NSDictionary*)headers
-                cachePolicy:(NSURLRequestCachePolicy)policy
-                    timeout:(NSTimeInterval)timeout
-                   delegate:(id<YADMApiCallDelegate>)delegate
-           startImmediately:(BOOL)startImmediately;
-- (void)start;
+@implementation PNVideoAdModelTableViewCell
 
 @end

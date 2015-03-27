@@ -45,12 +45,11 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.delegate = nil;
+
+    self.model = nil;
     
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
-    
-    self.model = nil;
 }
 
 #pragma mark - UIViewController

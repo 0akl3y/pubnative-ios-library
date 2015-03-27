@@ -24,14 +24,28 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+// Basic
+#import "PNAdRequest.h"
+#import "PNAdRenderingManager.h"
+#import "PNTrackingManager.h"
+#import "PubnativeAdDelegate.h"
+
+// In feed
+#import "PNTableViewManager.h"
+#import "PNBannerTableViewCell.h"
+#import "PNCarouselTableViewCell.h"
+#import "PNIconTableViewCell.h"
+#import "PNNativeTableViewCell.h"
+#import "PNVideoTableViewCell.h"
+
+// ViewControllers
 #import "PNIconViewController.h"
 #import "PNBannerViewController.h"
 #import "PNInterstitialAdViewController.h"
 #import "PNVideoBannerViewController.h"
 #import "PNVideoInterstitialViewController.h"
 #import "PNGameListAdViewController.h"
-#import "PubnativeAdDelegate.h"
-#import "PNAdRequestParameters.h"
 
 // Types and Contstants
 //================================
@@ -50,11 +64,10 @@ typedef NS_ENUM(NSInteger, Pubnative_AdType) {
 @interface Pubnative : NSObject
 
 + (void)requestAdType:(Pubnative_AdType)type
-         withAppToken:(NSString *)appToken
-          andDelegate:(NSObject<PubnativeAdDelegate>*)delegate;
-
-+ (void)requestAdType:(Pubnative_AdType)type
        withParameters:(PNAdRequestParameters*)parameters
           andDelegate:(NSObject<PubnativeAdDelegate>*)delegate;
+
++ (PNTableViewCell*)dequeueFeedType:(Pubnative_FeedType)feedType;
++ (CGFloat)heightForRowType:(Pubnative_FeedType)feedType;
 
 @end

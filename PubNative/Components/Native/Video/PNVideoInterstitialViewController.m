@@ -1,10 +1,26 @@
 //
-//  PNVideoInterstitialViewController.m
-//  PubNativeDemo
+// PNVideoInterstitialViewController.m
 //
-//  Created by David Martin on 05/02/15.
-//  Copyright (c) 2015 PubNative. All rights reserved.
+// Created by David Martin on 05/02/15.
+// Copyright (c) 2015 PubNative. All rights reserved.
 //
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 #import "PNVideoInterstitialViewController.h"
 #import "PNVideoPlayerView.h"
@@ -32,10 +48,12 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
 
 - (void)dealloc
 {
+    [self removeObserver:self forKeyPath:kPNVideoInterstitialViewControllerFrameKey];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.model = nil;
     self.vastModel = nil;
+    
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
     
@@ -45,6 +63,11 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
         [self.playerContainer.videoPlayer stop];
     }
     self.playerContainer = nil;
+    
+    if(self.interstitialVC)
+    {
+        [self.interstitialVC.view removeFromSuperview];
+    }
     self.interstitialVC = nil;
 }
 
@@ -56,7 +79,7 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
     
     [self.playerContainer.videoPlayer play];
     
-    if ([self.delegate respondsToSelector:@selector(pnAdWillShow)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pnAdWillShow)])
     {
         [self.delegate pnAdWillShow];
     }
@@ -66,7 +89,7 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
 {
     [super viewDidAppear:animated];
     
-    if ([self.delegate respondsToSelector:@selector(pnAdDidShow)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pnAdDidShow)])
     {
         [self.delegate pnAdDidShow];
     }
@@ -78,7 +101,7 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
 {
     [super viewWillDisappear:animated];
     
-    if ([self.delegate respondsToSelector:@selector(pnAdWillClose)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pnAdWillClose)])
     {
         [self.delegate pnAdWillClose];
     }
@@ -91,7 +114,7 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
     
-    if ([self.delegate respondsToSelector:@selector(pnAdDidClose)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pnAdDidClose)])
     {
         [self.delegate pnAdDidClose];
     }
@@ -180,6 +203,37 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
     [self.playerContainer prepareAd:self.vastModel];
 }
 
+- (BOOL)isModal
+{
+    if([self presentingViewController])
+        return YES;
+    if([[self presentingViewController] presentedViewController] == self)
+        return YES;
+    if([[[self tabBarController] presentingViewController] isKindOfClass:[UITabBarController class]])
+        return YES;
+    
+    return NO;
+}
+
+- (void)close
+{
+    if(self.interstitialVC)
+    {
+        [self.interstitialVC.view removeFromSuperview];
+    }
+    
+    if([self isModal])
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else
+    {
+        [self willMoveToParentViewController:nil];
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+    }
+}
+
 #pragma mark - DELEGATES -
 
 #pragma mark VastXMLParserDelegate
@@ -192,7 +246,7 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
 
 - (void)parserError:(NSError*)error
 {
-    if([self.delegate respondsToSelector:@selector(pnAdDidFail:)])
+    if(self.delegate && [self.delegate respondsToSelector:@selector(pnAdDidFail:)])
     {
         [self.delegate pnAdDidFail:error];
     }
@@ -202,17 +256,18 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
 
 - (void)videoClicked:(NSString*)clickThroughUrl
 {
+    [self close];
     [self openOffer];
 }
 
 - (void)videoReady
 {
-    if([self.delegate respondsToSelector:@selector(pnAdDidLoad:)])
+    if(self.delegate && [self.delegate respondsToSelector:@selector(pnAdDidLoad:)])
     {
         [self.delegate pnAdDidLoad:self];
     }
     
-    if([self.delegate respondsToSelector:@selector(pnAdReady:)])
+    if(self.delegate && [self.delegate respondsToSelector:@selector(pnAdReady:)])
     {
         [self.delegate pnAdReady:self];
     }
@@ -262,7 +317,7 @@ NSString * const kPNVideoInterstitialViewControllerFrameKey = @"view.frame";
 
 - (void)pnAdWillClose
 {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self close];
 }
 
 - (void)pnAdDidClose{}

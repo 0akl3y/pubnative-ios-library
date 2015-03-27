@@ -25,21 +25,21 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-#import "YADMJSONApiModel.h"
-#import "YADMApiCall.h"
-#import "YADMApiCallResult.h"
-#import "YADMJSONToDomainModelParser.h"
+#import "PNYADMJSONApiModel.h"
+#import "PNYADMApiCall.h"
+#import "PNYADMApiCallResult.h"
+#import "PNYADMJSONToDomainModelParser.h"
 
-@interface YADMJSONApiModel() <YADMApiCallDelegate>
+@interface PNYADMJSONApiModel() <PNYADMApiCallDelegate>
 
-@property (nonatomic, strong) YADMApiCall                       *call;
-@property (nonatomic, strong) YADMJSONApiModelCompletionBlock   block;
+@property (nonatomic, strong) PNYADMApiCall                       *call;
+@property (nonatomic, strong) PNYADMJSONApiModelCompletionBlock   block;
 
 @end
 
 
 
-@implementation YADMJSONApiModel
+@implementation PNYADMJSONApiModel
 
 #pragma mark - Class Methods
 
@@ -49,7 +49,7 @@
           headers:(NSDictionary*)headers
       cachePolicy:(NSURLRequestCachePolicy)policy
           timeout:(NSTimeInterval)timeout
-andCompletionBlock:(YADMJSONApiModelCompletionBlock)block
+andCompletionBlock:(PNYADMJSONApiModelCompletionBlock)block
 {
     self = [super init];
     
@@ -77,13 +77,13 @@ andCompletionBlock:(YADMJSONApiModelCompletionBlock)block
         cachePolicy:(NSURLRequestCachePolicy)policy
             timeout:(NSTimeInterval)timeout
 {
-    self.call = [YADMApiCall requestWith:url
+    self.call = [PNYADMApiCall requestWith:url
                                 method:method
                                 params:params
                                headers:headers
                            cachePolicy:policy
                                timeout:timeout
-                              delegate:(id<YADMApiCallDelegate>)self
+                              delegate:(id<PNYADMApiCallDelegate>)self
                       startImmediately:YES];
 }
 
@@ -91,15 +91,15 @@ andCompletionBlock:(YADMJSONApiModelCompletionBlock)block
 
 #pragma mark - ALApiCallDelegate Methods
 
-- (void)apiCall:(YADMApiCall*)call didFinishedWithResult:(YADMApiCallResult*)callResult
+- (void)apiCall:(PNYADMApiCall*)call didFinishedWithResult:(PNYADMApiCallResult*)callResult
 {
-    YADMJSONModelError *error = nil;
+    PNYADMJSONModelError *error = nil;
     id jsonObject = nil;
     
     if (!callResult.responseData)
     {
-        error = (YADMJSONModelError*)[NSError errorWithDomain:kYADMJSONModelErrorDomain
-                                                         code:kALJSONModelErrorJSONUnreachable
+        error = (PNYADMJSONModelError*)[NSError errorWithDomain:kPNYADMJSONModelErrorDomain
+                                                         code:kPNALJSONModelErrorJSONUnreachable
                                                      userInfo:@{NSLocalizedDescriptionKey:@"Bad response or JSON is unreachable."}];
     }
     
@@ -118,7 +118,7 @@ andCompletionBlock:(YADMJSONApiModelCompletionBlock)block
     if (!error)
     {
         NSString *selfClassString =  NSStringFromClass([self class]);
-        YADMJSONToDomainModelParser *parser = [YADMJSONToDomainModelParser initToParseResult:jsonObject
+        PNYADMJSONToDomainModelParser *parser = [PNYADMJSONToDomainModelParser initToParseResult:jsonObject
                                                                                  onModel:selfClassString];
         unsigned int propertyCount;
         objc_property_t *properties =  class_copyPropertyList([self class], &propertyCount);
@@ -154,7 +154,7 @@ andCompletionBlock:(YADMJSONApiModelCompletionBlock)block
     }
 }
 
-- (void)apiCall:(YADMApiCall*)call didFailedWithError:(NSError*)error
+- (void)apiCall:(PNYADMApiCall*)call didFailedWithError:(NSError*)error
 {
     self.block(error);
 }

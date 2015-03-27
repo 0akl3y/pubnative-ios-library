@@ -34,6 +34,14 @@
 
 @implementation AdViewController
 
+#pragma mark NSObject
+
+- (void)dealloc
+{
+    [self.currentAdVC.view removeFromSuperview];
+    self.currentAdVC = nil;
+}
+
 #pragma mark UIViewController
 
 - (void)viewDidLoad

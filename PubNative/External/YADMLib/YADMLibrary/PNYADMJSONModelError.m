@@ -1,5 +1,5 @@
 //
-// YADMApiCallDelegate.h
+// YADMJSONModelError.m
 //
 // Created by Csongor Nagy on 15/04/14.
 // Copyright (c) 2014 Csongor Nagy
@@ -22,15 +22,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "PNYADMJSONModelError.h"
 
-@class YADMApiCall;
+NSString *const kPNYADMJSONModelErrorDomain = @"com.pontlab.YADMJSONModel.ErrorDomain";
 
-@protocol YADMApiCallDelegate <NSObject>
-
-@optional
-
-- (void)apiCall:(YADMApiCall*)call didFinishedWithResult:(YADMApiCallResult*)callResult;
-- (void)apiCall:(YADMApiCall*)call didFailedWithError:(NSError*)error;
+@implementation PNYADMJSONModelError
 
 @end

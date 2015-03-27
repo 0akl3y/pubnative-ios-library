@@ -31,13 +31,23 @@
     self = [super init];
     if (self)
     {
-        self.click_url = [dictionary objectForKey:@"click_url"];
-        NSData *iconData = [dictionary objectForKey:@"icon"];
-        self.icon = [UIImage imageWithData:iconData];
-        self.title = [dictionary objectForKey:@"title"];
-        self.cta_text = [dictionary objectForKey:@"cta_text"];
-        self.Description = [dictionary objectForKey:@"description"];
-        self.impression_url = [dictionary objectForKey:@"impression_url"];
+        self.click_url = dictionary[@"click_url"];
+        NSData *iconData = dictionary[@"icon"];
+        if(iconData &&
+           [NSNull null] != ((NSNull*)iconData))
+        {
+            self.icon = [UIImage imageWithData:iconData];
+        }
+        NSData *bannerData = dictionary[@"banner"];
+        if(bannerData &&
+           [NSNull null] != ((NSNull*)bannerData))
+        {
+            self.banner = [UIImage imageWithData:bannerData];
+        }
+        self.title = dictionary[@"title"];
+        self.cta_text = dictionary[@"cta_text"];
+        self.Description = dictionary[@"description"];
+        self.impression_url = dictionary[@"impression_url"];
     }
     return self;
 }
@@ -46,6 +56,7 @@
 {
     self.click_url = nil;
     self.icon = nil;
+    self.banner = nil;
     self.title = nil;
     self.cta_text = nil;
     self.Description = nil;

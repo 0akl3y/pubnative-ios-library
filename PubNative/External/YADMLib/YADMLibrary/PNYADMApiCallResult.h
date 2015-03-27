@@ -1,5 +1,5 @@
 //
-// YADMJSONToDomainModelParser.h
+// YADMApiCallResult.h
 //
 // Created by Csongor Nagy on 15/04/14.
 // Copyright (c) 2014 Csongor Nagy
@@ -24,13 +24,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "YADMJSONModelError.h"
+@interface PNYADMApiCallResult : NSObject
 
-@interface YADMJSONToDomainModelParser : NSObject
-
-@property (nonatomic, strong) id result;
-
-+ (instancetype)initToParseResult:(id)jsonObject
-                          onModel:(NSString*)model;
+@property (nonatomic, strong) NSURLResponse             *httpResponse;
+@property (nonatomic, strong) NSData                    *responseData;
+@property (nonatomic, strong) id                        result;
 
 @end

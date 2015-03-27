@@ -26,64 +26,43 @@
 
 @interface PNVideoPlayerView () <PNVideoCacherDelegate>
 
-@property (strong)PNVideoCacher *cacher;
+@property (nonatomic, weak)   NSObject<PNVideoPlayerViewDelegate>   *delegate;
 
-@property (nonatomic, assign)   BOOL                                    autoStart;
-@property (nonatomic, strong)   NSObject<PNVideoPlayerViewDelegate>     *delegate;
-@property (nonatomic, assign)   CGRect                                  frame;
-@property (nonatomic, assign)   BOOL                                    wasStatusBarHidden;
-@property (nonatomic, strong)   NSMutableArray                          *trackingEvents;
+@property (nonatomic, assign) BOOL                                  autoStart;
+@property (nonatomic, assign) CGRect                                frame;
+@property (nonatomic, assign) BOOL                                  wasStatusBarHidden;
+
+@property (nonatomic, strong) NSMutableArray                        *trackingEvents;
+@property (nonatomic, strong) PNVideoCacher                         *cacher;
 
 @end
 
 @implementation PNVideoPlayerView
 
-#pragma mark - NSObject
-
-- (id)initWithFrame:(CGRect)frame
-              model:(PNVastModel*)model
-           delegate:(id<PNVideoPlayerViewDelegate>)delegate
-{
-    self = [super initWithNibName:NSStringFromClass([PNVideoPlayerView class]) bundle:nil];
-    
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(close)
-                                                     name:UIApplicationWillResignActiveNotification
-                                                   object:NULL];
-        
-        self.trackingEvents = [[NSMutableArray alloc] init];
-        self.wasStatusBarHidden = [UIApplication sharedApplication].statusBarHidden;
-        self.delegate = delegate;
-        self.model = model;
-        self.skipTime = [model.video_skip_time intValue];
-        self.frame = frame;
-    }
-    
-    return self;
-}
+#pragma mark NSObject
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    self.videoPlayer = nil;
-    
+    self.model = nil;
     self.vastAd = nil;
+    
+    [self.videoPlayer stop];
+    self.videoPlayer = nil;
     
     [self.loadLabel removeFromSuperview];
     self.loadLabel = nil;
     
+    
     [self.cacher cancelCaching];
     self.cacher = nil;
-    
-    self.delegate = nil;
     
     [self.trackingEvents removeAllObjects];
     self.trackingEvents = nil;
 }
 
-#pragma mark - UIViewController
+#pragma mark UIViewController
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -97,13 +76,13 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.view.frame = self.frame;
     
-    self.loadLabel = [[PNProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    self.loadLabel = [[PNKAProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [self.loadLabel setBorderWidth: 6.0];
     [self.loadLabel setColorTable: @{
                                      PNStringFromProgressLabelColorTableKey(ProgressLabelTrackColor):[UIColor clearColor],
                                      PNStringFromProgressLabelColorTableKey(ProgressLabelProgressColor):[UIColor whiteColor],
                                      PNStringFromProgressLabelColorTableKey(ProgressLabelFillColor):[UIColor clearColor]
-                                    }];
+                                     }];
     [self.loadLabel setTextColor:[UIColor whiteColor]];
     [self.loadLabel setShadowColor:[UIColor darkGrayColor]];
     self.loadLabel.shadowOffset = CGSizeMake(1, 1);
@@ -136,8 +115,30 @@
     }
 }
 
-#pragma mark - PNVideoPlayerView
-#pragma mark public
+#pragma mark PNVideoPlayerView
+
+- (id)initWithFrame:(CGRect)frame
+              model:(PNVastModel*)model
+           delegate:(id<PNVideoPlayerViewDelegate>)delegate
+{
+    self = [super initWithNibName:NSStringFromClass([PNVideoPlayerView class]) bundle:nil];
+    
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(close)
+                                                     name:UIApplicationWillResignActiveNotification
+                                                   object:NULL];
+        
+        self.trackingEvents = [[NSMutableArray alloc] init];
+        self.wasStatusBarHidden = [UIApplication sharedApplication].statusBarHidden;
+        self.delegate = delegate;
+        self.model = model;
+        self.skipTime = [model.video_skip_time intValue];
+        self.frame = frame;
+    }
+    
+    return self;
+}
 
 - (void)displayCloseButton
 {

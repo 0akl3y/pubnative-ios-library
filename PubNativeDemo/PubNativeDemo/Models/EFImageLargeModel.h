@@ -22,7 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "YADMJSONApiModel.h"
+#import "PNYADMJSONApiModel.h"
 
 @protocol EFImageLargeModel
 
@@ -32,6 +32,6 @@
 
 @end
 
-@interface EFImageLargeModel : YADMJSONApiModel <EFImageLargeModel>
+@interface EFImageLargeModel : PNYADMJSONApiModel <EFImageLargeModel>
 
 @end

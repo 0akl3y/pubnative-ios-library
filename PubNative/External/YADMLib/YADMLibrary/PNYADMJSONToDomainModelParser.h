@@ -1,5 +1,5 @@
 //
-// YADMJSONModelError.m
+// YADMJSONToDomainModelParser.h
 //
 // Created by Csongor Nagy on 15/04/14.
 // Copyright (c) 2014 Csongor Nagy
@@ -22,10 +22,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "YADMJSONModelError.h"
+#import <Foundation/Foundation.h>
 
-NSString *const kYADMJSONModelErrorDomain = @"com.pontlab.YADMJSONModel.ErrorDomain";
+#import "PNYADMJSONModelError.h"
 
-@implementation YADMJSONModelError
+@interface PNYADMJSONToDomainModelParser : NSObject
+
+@property (nonatomic, strong) id result;
+
++ (instancetype)initToParseResult:(id)jsonObject
+                          onModel:(NSString*)model;
 
 @end
