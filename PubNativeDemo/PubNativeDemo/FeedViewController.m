@@ -53,7 +53,6 @@ NSString * const iconCellID     = @"iconCellID";
 
 - (void)dealloc
 {
-    NSLog(@"FeedViewController - DEALLOC");
     self.ads = nil;
     self.model = nil;
     self.request = nil;
@@ -73,6 +72,13 @@ NSString * const iconCellID     = @"iconCellID";
     [super viewDidDisappear:animated];
     [PNTableViewManager controlTable:nil];
 }
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+
 
 #pragma mark FeedViewController
 
