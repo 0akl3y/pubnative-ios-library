@@ -107,7 +107,7 @@
 
 + (CGFloat)cellMinHeight
 {
-    return 60.0f;
+    return 80.0f;
 }
 
 #pragma mark PNBannerTableViewCell

@@ -30,7 +30,6 @@
 
 @property (nonatomic, assign) BOOL                                  autoStart;
 @property (nonatomic, assign) CGRect                                frame;
-@property (nonatomic, assign) BOOL                                  wasStatusBarHidden;
 
 @property (nonatomic, strong) NSMutableArray                        *trackingEvents;
 @property (nonatomic, strong) PNVideoCacher                         *cacher;
@@ -94,27 +93,6 @@
     [self.skipButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if (!self.wasStatusBarHidden)
-    {
-        if (![self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-        {
-            [[UIApplication sharedApplication] setStatusBarHidden:YES];
-        }
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    if (!self.wasStatusBarHidden)
-    {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    }
-}
-
 #pragma mark PNVideoPlayerView
 
 - (id)initWithFrame:(CGRect)frame
@@ -130,7 +108,6 @@
                                                    object:NULL];
         
         self.trackingEvents = [[NSMutableArray alloc] init];
-        self.wasStatusBarHidden = [UIApplication sharedApplication].statusBarHidden;
         self.delegate = delegate;
         self.model = model;
         self.skipTime = [model.video_skip_time intValue];
@@ -355,8 +332,6 @@
     [self displayCloseButton];
     [presentingController.view addSubview:self.view];
 }
-
-
 
 #pragma mark - Private Methods
 
