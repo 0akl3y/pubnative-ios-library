@@ -42,7 +42,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rCE-9m-aLX" userLabel="inFeedView">
                                 <rect key="frame" x="300" y="88" width="300" height="497"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="In-feed ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93F-Sc-MsO">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In-feed ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93F-Sc-MsO">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -52,7 +52,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhB-rC-D5R">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhB-rC-D5R">
                                         <rect key="frame" x="91" y="76" width="120" height="30"/>
                                         <color key="backgroundColor" red="0.40000000000000002" green="0.0" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -68,7 +68,7 @@
                                             <action selector="videoFeedTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7EK-ox-pIS"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="zCH-G2-fWz">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="zCH-G2-fWz">
                                         <rect key="frame" x="90" y="114" width="120" height="30"/>
                                         <color key="backgroundColor" red="0.40000000000000002" green="0.0" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -84,7 +84,7 @@
                                             <action selector="scrollFeedTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yt5-79-zC6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="eQS-Jv-gjk">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="eQS-Jv-gjk">
                                         <rect key="frame" x="90" y="38" width="120" height="30"/>
                                         <color key="backgroundColor" red="0.40000000000000002" green="0.0" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -100,7 +100,7 @@
                                             <action selector="adFeedTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kei-0D-VfL"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="krO-do-pjF">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="krO-do-pjF">
                                         <rect key="frame" x="90" y="152" width="120" height="30"/>
                                         <color key="backgroundColor" red="0.40000000000000002" green="0.0" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -116,7 +116,7 @@
                                             <action selector="iconFeedTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZpC-Go-HbR"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gt1-XL-HmN">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gt1-XL-HmN">
                                         <rect key="frame" x="90" y="190" width="120" height="30"/>
                                         <color key="backgroundColor" red="0.40000000000000002" green="0.0" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -140,7 +140,8 @@
                                     <constraint firstItem="fhB-rC-D5R" firstAttribute="top" secondItem="eQS-Jv-gjk" secondAttribute="bottom" constant="8" id="Bew-gs-dVC"/>
                                     <constraint firstAttribute="centerX" secondItem="zCH-G2-fWz" secondAttribute="centerX" id="HMy-iN-lfX"/>
                                     <constraint firstItem="zCH-G2-fWz" firstAttribute="top" secondItem="fhB-rC-D5R" secondAttribute="bottom" constant="8" id="I2c-Sa-CJQ"/>
-                                    <constraint firstAttribute="centerX" secondItem="fhB-rC-D5R" secondAttribute="centerX" id="ZUi-nt-Uuo"/>
+                                    <constraint firstItem="93F-Sc-MsO" firstAttribute="top" secondItem="rCE-9m-aLX" secondAttribute="top" id="KJj-9V-SK8"/>
+                                    <constraint firstAttribute="centerX" secondItem="fhB-rC-D5R" secondAttribute="centerX" constant="-1" id="ZUi-nt-Uuo"/>
                                     <constraint firstAttribute="centerX" secondItem="gt1-XL-HmN" secondAttribute="centerX" id="ZZN-yA-g6v"/>
                                     <constraint firstAttribute="centerX" secondItem="krO-do-pjF" secondAttribute="centerX" id="a4G-5j-42C"/>
                                     <constraint firstAttribute="centerX" secondItem="eQS-Jv-gjk" secondAttribute="centerX" id="axk-7A-Lwg"/>
@@ -286,7 +287,7 @@
                                     <constraint firstAttribute="height" constant="15" id="IDb-D0-TYz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view alpha="0.89999999999999991" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJw-qf-26i">
