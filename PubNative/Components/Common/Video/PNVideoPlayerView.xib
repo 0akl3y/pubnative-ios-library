@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PNVideoPlayerView">
@@ -42,10 +42,10 @@
                         <constraint firstAttribute="height" constant="50" id="8Kl-ae-dtk"/>
                         <constraint firstAttribute="width" constant="50" id="FGg-ZT-iWs"/>
                     </constraints>
-                    <state key="normal" image="PnMute.png">
+                    <state key="normal" image="PnUnMute.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" image="PnUnMute.png"/>
+                    <state key="selected" image="PnMute.png"/>
                     <connections>
                         <action selector="muteAd:" destination="-1" eventType="touchUpInside" id="RmS-vc-sRd"/>
                     </connections>
