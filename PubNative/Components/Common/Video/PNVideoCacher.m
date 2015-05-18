@@ -221,7 +221,7 @@ NSString * const kPNVideoCacherNamespace            = @"com.pubnative.VideoDownl
     {
         NSDictionary *headers = [self.httpResponse allHeaderFields];
         NSString *contentType = [headers objectForKey:@"Content-Type"];
-        if(contentType && [contentType containsString:@"video/"])
+        if(contentType && [contentType isKindOfClass:[NSString class]] && [contentType containsString:@"video/"])
         {
             [self invokeCacherDidCache:[self cacheData:self.responseData witName:self.videoUrl]];
             
