@@ -26,19 +26,74 @@
 
 @interface PNVideoPlayerView () <PNVideoCacherDelegate>
 
-@property (strong)PNVideoCacher *cacher;
+@property (nonatomic, weak)   NSObject<PNVideoPlayerViewDelegate>   *delegate;
 
-@property (nonatomic, assign)   BOOL                                    autoStart;
-@property (nonatomic, strong)   NSObject<PNVideoPlayerViewDelegate>     *delegate;
-@property (nonatomic, assign)   CGRect                                  frame;
-@property (nonatomic, assign)   BOOL                                    wasStatusBarHidden;
-@property (nonatomic, strong)   NSMutableArray                          *trackingEvents;
+@property (nonatomic, assign) BOOL                                  autoStart;
+@property (nonatomic, assign) CGRect                                frame;
+
+@property (nonatomic, strong) NSMutableArray                        *trackingEvents;
+@property (nonatomic, strong) PNVideoCacher                         *cacher;
 
 @end
 
 @implementation PNVideoPlayerView
 
-#pragma mark - NSObject
+#pragma mark NSObject
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    self.model = nil;
+    self.vastAd = nil;
+    
+    [self.videoPlayer stop];
+    self.videoPlayer = nil;
+    
+    [self.loadLabel removeFromSuperview];
+    self.loadLabel = nil;
+    
+    
+    [self.cacher cancelCaching];
+    self.cacher = nil;
+    
+    [self.trackingEvents removeAllObjects];
+    self.trackingEvents = nil;
+}
+
+#pragma mark UIViewController
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor blackColor];
+    self.view.frame = self.frame;
+    
+    self.loadLabel = [[PNKAProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [self.loadLabel setBorderWidth: 6.0];
+    [self.loadLabel setColorTable: @{
+                                     PNStringFromProgressLabelColorTableKey(ProgressLabelTrackColor):[UIColor clearColor],
+                                     PNStringFromProgressLabelColorTableKey(ProgressLabelProgressColor):[UIColor whiteColor],
+                                     PNStringFromProgressLabelColorTableKey(ProgressLabelFillColor):[UIColor clearColor]
+                                     }];
+    [self.loadLabel setTextColor:[UIColor whiteColor]];
+    [self.loadLabel setShadowColor:[UIColor darkGrayColor]];
+    self.loadLabel.shadowOffset = CGSizeMake(1, 1);
+    [self.loadLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.loadLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+    [self.loadContainer addSubview:self.loadLabel];
+    
+    [self.skipButton setTitle:self.model.skip_video_button forState:UIControlStateNormal];
+    [self.skipButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+}
+
+#pragma mark PNVideoPlayerView
 
 - (id)initWithFrame:(CGRect)frame
               model:(PNVastModel*)model
@@ -53,7 +108,6 @@
                                                    object:NULL];
         
         self.trackingEvents = [[NSMutableArray alloc] init];
-        self.wasStatusBarHidden = [UIApplication sharedApplication].statusBarHidden;
         self.delegate = delegate;
         self.model = model;
         self.skipTime = [model.video_skip_time intValue];
@@ -62,82 +116,6 @@
     
     return self;
 }
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    self.videoPlayer = nil;
-    
-    self.vastAd = nil;
-    
-    [self.loadLabel removeFromSuperview];
-    self.loadLabel = nil;
-    
-    [self.cacher cancelCaching];
-    self.cacher = nil;
-    
-    self.delegate = nil;
-    
-    [self.trackingEvents removeAllObjects];
-    self.trackingEvents = nil;
-}
-
-#pragma mark - UIViewController
-
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor blackColor];
-    self.view.frame = self.frame;
-    
-    self.loadLabel = [[PNProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [self.loadLabel setBorderWidth: 6.0];
-    [self.loadLabel setColorTable: @{
-                                     PNStringFromProgressLabelColorTableKey(ProgressLabelTrackColor):[UIColor clearColor],
-                                     PNStringFromProgressLabelColorTableKey(ProgressLabelProgressColor):[UIColor whiteColor],
-                                     PNStringFromProgressLabelColorTableKey(ProgressLabelFillColor):[UIColor clearColor]
-                                    }];
-    [self.loadLabel setTextColor:[UIColor whiteColor]];
-    [self.loadLabel setShadowColor:[UIColor darkGrayColor]];
-    self.loadLabel.shadowOffset = CGSizeMake(1, 1);
-    [self.loadLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.loadLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
-    [self.loadContainer addSubview:self.loadLabel];
-    
-    [self.skipButton setTitle:self.model.skip_video_button forState:UIControlStateNormal];
-    [self.skipButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if (!self.wasStatusBarHidden)
-    {
-        if (![self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-        {
-            [[UIApplication sharedApplication] setStatusBarHidden:YES];
-        }
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    if (!self.wasStatusBarHidden)
-    {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    }
-}
-
-#pragma mark - PNVideoPlayerView
-#pragma mark public
 
 - (void)displayCloseButton
 {
@@ -354,8 +332,6 @@
     [self displayCloseButton];
     [presentingController.view addSubview:self.view];
 }
-
-
 
 #pragma mark - Private Methods
 

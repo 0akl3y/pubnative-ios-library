@@ -24,10 +24,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface PNCarouselContainerView : UIView
 
-- (void)setCollectionData:(NSArray *)collectionData;
+@property (strong, nonatomic) NSArray *model;
+
 + (CGSize)itemSize;
 
 @end

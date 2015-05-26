@@ -30,10 +30,19 @@
 
 @property (strong, nonatomic) PNCarouselContainerView *collectionView;
 
-
 @end
 
 @implementation PNCarouselTableViewCell
+
+#pragma mark NSObject
+
+- (void)dealloc
+{
+    [self.collectionView removeFromSuperview];
+    self.collectionView = nil;
+}
+
+#pragma mark UITableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -48,16 +57,18 @@
     return self;
 }
 
-+ (CGSize)itemSize
+#pragma mark PNTableViewCell
+
++ (CGFloat)cellMinHeight
 {
-    return [PNCarouselContainerView itemSize];
+    return [PNCarouselContainerView itemSize].height;
 }
 
-- (void)setCollectionData:(NSArray *)collectionData
+#pragma mark PNArrayModelTAbleViewCell
+
+- (void)setModel:(NSArray *)model
 {
-    [_collectionView setCollectionData:collectionData];
+    self.collectionView.model = model;
 }
-
-
 
 @end

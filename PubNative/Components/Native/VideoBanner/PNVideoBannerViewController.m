@@ -41,7 +41,6 @@
 
 @property (nonatomic, strong)           PNNativeVideoAdModel            *model;
 @property (nonatomic, strong)           VastContainer                   *vastModel;
-
 @property (nonatomic, strong)           PNVideoPlayerView               *playerContainer;
 @property (nonatomic, strong)           PNInterstitialAdViewController  *interstitialVC;
 @property (nonatomic, strong)           NSTimer                         *impressionTimer;
@@ -60,15 +59,23 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    self.delegate = nil;
+    self.model = nil;
+    self.vastModel = nil;
     
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
     
-    self.model = nil;
-    self.vastModel = nil;
-    
+    if (self.playerContainer)
+    {
+        [self.playerContainer.view removeFromSuperview];
+        [self.playerContainer.videoPlayer stop];
+    }
     self.playerContainer = nil;
+    
+    if(self.interstitialVC)
+    {
+        [self.interstitialVC.view removeFromSuperview];
+    }
     self.interstitialVC = nil;
 }
 
@@ -94,7 +101,7 @@
         }
     }
     
-    if([self.delegate respondsToSelector:@selector(pnAdDidLoad:)])
+    if(self.delegate && [self.delegate respondsToSelector:@selector(pnAdDidLoad:)])
     {
         [self.delegate pnAdDidLoad:self];
     }
@@ -104,7 +111,7 @@
 {
     [super viewWillAppear:animated];
     
-    if ([self.delegate respondsToSelector:@selector(pnAdWillShow)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pnAdWillShow)])
     {
         [self.delegate pnAdWillShow];
     }
@@ -114,7 +121,7 @@
 {
     [super viewDidAppear:animated];
     
-    if ([self.delegate respondsToSelector:@selector(pnAdDidShow)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pnAdDidShow)])
     {
         [self.delegate pnAdDidShow];
     }
@@ -126,7 +133,7 @@
 {
     [super viewWillDisappear:animated];
     
-    if ([self.delegate respondsToSelector:@selector(pnAdWillClose)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pnAdWillClose)])
     {
         [self.delegate pnAdWillClose];
     }
@@ -139,7 +146,7 @@
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
     
-    if ([self.delegate respondsToSelector:@selector(pnAdDidClose)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pnAdDidClose)])
     {
         [self.delegate pnAdDidClose];
     }
@@ -180,7 +187,7 @@
 
 - (void)bannerDidLoad:(NSNotification*)notification
 {
-    if([self.delegate respondsToSelector:@selector(pnAdReady:)])
+    if(self.delegate && [self.delegate respondsToSelector:@selector(pnAdReady:)])
     {
         [self.delegate pnAdReady:self];
     }

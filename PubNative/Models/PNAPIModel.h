@@ -23,7 +23,7 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "YADMJSONApiModel.h"
+#import "PNYADMJSONApiModel.h"
 #import "PNBaseAdModel.h"
 
 
@@ -36,6 +36,6 @@
 
 @end
 
-@interface PNAPIModel : YADMJSONApiModel <PNAPIModel>
+@interface PNAPIModel : PNYADMJSONApiModel <PNAPIModel>
 
 @end

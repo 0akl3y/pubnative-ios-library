@@ -30,17 +30,7 @@ typedef void (^PNAdRequestCompletionBlock)(NSArray *ads, NSError *error);
 typedef NS_ENUM(NSInteger, PNAdRequestType)
 {
     PNAdRequest_Native,
-    PNAdRequest_Native_Video,
-    PNAdRequest_Image
-};
-
-typedef NS_ENUM(NSInteger, PNFeedType)
-{
-    PNFeed_Native_Banner,
-    PNFeed_Native_Icon,
-    PNFeed_Native_Video,
-    PNFeed_Native_Carousel,
-    PNFeed_Native_InFeed
+    PNAdRequest_Native_Video
 };
 
 @interface PNAdRequest : NSObject

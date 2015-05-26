@@ -30,11 +30,11 @@ NSString * const kPNVideoCacherNamespace            = @"com.pubnative.VideoDownl
 
 @interface PNVideoCacher () <NSURLConnectionDelegate>
 
-@property (strong)  NSMutableData       *responseData;
-@property (strong)  NSURLConnection     *connection;
-@property (strong)  NSHTTPURLResponse   *httpResponse;
-@property (strong)  NSString            *videoUrl;
-@property (nonatomic, strong)  dispatch_queue_t videoCacheQueue;
+@property (nonatomic, strong) NSMutableData     *responseData;
+@property (nonatomic, strong) NSURLConnection   *connection;
+@property (nonatomic, strong) NSHTTPURLResponse *httpResponse;
+@property (nonatomic, strong) NSString          *videoUrl;
+@property (nonatomic, strong) dispatch_queue_t  videoCacheQueue;
 
 - (void)invokeCacherDidCache:(NSString*)file;
 - (void)invokeCacherDidFail:(NSError*)error;
@@ -43,6 +43,16 @@ NSString * const kPNVideoCacherNamespace            = @"com.pubnative.VideoDownl
 @end
 
 @implementation PNVideoCacher
+
+- (void)dealloc
+{
+    [self cancelCaching];
+    
+    self.videoCacheQueue = nil;
+    self.httpResponse = nil;
+    self.responseData = nil;
+    self.videoUrl = nil;
+}
 
 - (id)initWithURL:(NSString*)url
 {
@@ -55,14 +65,6 @@ NSString * const kPNVideoCacherNamespace            = @"com.pubnative.VideoDownl
     }
     
     return self;
-}
-
-- (void)dealloc
-{
-    [self cancelCaching];
-    
-    self.responseData = nil;
-    self.videoUrl = nil;
 }
 
 - (void)startCaching
@@ -105,8 +107,6 @@ NSString * const kPNVideoCacherNamespace            = @"com.pubnative.VideoDownl
 {
     [self.connection cancel];
     self.connection = nil;
-    
-    self.delegate = nil;
 }
 
 + (BOOL)cleanCache
@@ -221,7 +221,7 @@ NSString * const kPNVideoCacherNamespace            = @"com.pubnative.VideoDownl
     {
         NSDictionary *headers = [self.httpResponse allHeaderFields];
         NSString *contentType = [headers objectForKey:@"Content-Type"];
-        if(contentType && [contentType containsString:@"video/"])
+        if(contentType && [contentType isKindOfClass:[NSString class]] && [contentType containsString:@"video/"])
         {
             [self invokeCacherDidCache:[self cacheData:self.responseData witName:self.videoUrl]];
             

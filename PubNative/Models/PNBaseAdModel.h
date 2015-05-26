@@ -23,7 +23,7 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "YADMJSONApiModel.h"
+#import "PNYADMJSONApiModel.h"
 #import "PNBeaconModel.h"
 
 @protocol PNBaseAdModel
@@ -34,5 +34,5 @@
 
 @end
 
-@interface PNBaseAdModel : YADMJSONApiModel <PNBaseAdModel>
+@interface PNBaseAdModel : PNYADMJSONApiModel <PNBaseAdModel>
 @end

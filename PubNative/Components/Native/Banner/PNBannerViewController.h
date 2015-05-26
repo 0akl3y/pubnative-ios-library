@@ -31,7 +31,7 @@
 
 @interface PNBannerViewController : UIViewController
 
-@property (nonatomic, strong) NSObject<PubnativeAdDelegate> *delegate;
+@property (nonatomic, weak) NSObject<PubnativeAdDelegate> *delegate;
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil
                          bundle:(NSBundle *)nibBundleOrNil

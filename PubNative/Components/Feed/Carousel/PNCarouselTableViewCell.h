@@ -24,12 +24,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "PNArrayModelTableViewCell.h"
 
-@interface PNCarouselTableViewCell : UITableViewCell
-
-@property (weak, nonatomic) UITableView *tableView;
-
-- (void)setCollectionData:(NSArray *)collectionData;
-+ (CGSize)itemSize;
+@interface PNCarouselTableViewCell : PNArrayModelTableViewCell
 
 @end

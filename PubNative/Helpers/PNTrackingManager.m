@@ -116,15 +116,15 @@ static PNTrackingManager *sharedManager = nil;
 
 + (void)confirmWithURLString:(NSString*)confirmURLString urlScheme:(NSString*)urlScheme completion:(PNTrackingCompletedBlock)completion
 {
-    __block NSMutableArray *confirmedAds = [PNTrackingManager confirmedAds];
-    if (![confirmedAds containsObject:confirmURLString])
+    if (![[PNTrackingManager confirmedAds] containsObject:confirmURLString])
     {
+        NSString *requestURLString = confirmURLString;
         if (urlScheme)
         {
-            confirmURLString = [confirmURLString stringByAppendingString:@"&installed=1"];
+            requestURLString = [confirmURLString stringByAppendingString:@"&installed=1"];
         }
         
-        NSURL *requestURL = [NSURL URLWithString:confirmURLString];
+        NSURL *requestURL = [NSURL URLWithString:requestURLString];
         
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL
                                                                cachePolicy:NSURLRequestReloadIgnoringCacheData
@@ -133,30 +133,34 @@ static PNTrackingManager *sharedManager = nil;
         [request setHTTPMethod:kPNAdConstantMethodGET];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
-                       ^{
-                           [NSURLConnection sendAsynchronousRequest:request
-                                                              queue:[NSOperationQueue mainQueue]
-                                                  completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-                            {
-                                dispatch_async(dispatch_get_main_queue(),
-                                               ^{
-                                                   if(completion)
-                                                   {
-                                                       if(error)
-                                                       {
-                                                           completion(nil, error);
-                                                       }
-                                                       else
-                                                       {
-                                                           [confirmedAds addObject:confirmURLString];
-                                                           [[NSUserDefaults standardUserDefaults] setObject:confirmedAds forKey:kPNAdConstantTrackingConfirmedAdsKey];
-                                                           [[NSUserDefaults standardUserDefaults] synchronize];
-                                                           completion(response, nil);
-                                                       }
-                                                   }
-                                               });
-                            }];
-                       });
+        ^{
+            [NSURLConnection sendAsynchronousRequest:request
+                                               queue:[NSOperationQueue mainQueue]
+                                   completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+            {
+                dispatch_async(dispatch_get_main_queue(),
+                ^{
+                    if(error)
+                    {
+                        if(completion)
+                        {
+                            completion(nil, error);
+                        }
+                    }
+                    else
+                    {
+                        NSMutableArray *confirmedAds = [PNTrackingManager confirmedAds];
+                        [confirmedAds addObject:confirmURLString];
+                        [PNTrackingManager setConfirmedAds:confirmedAds];
+
+                        if(completion)
+                        {
+                            completion(response, nil);
+                        }
+                    }
+                });
+            }];
+        });
     }
 }
 

@@ -26,23 +26,29 @@
 
 @implementation PNVideoPlayer
 
-- (id)initWithDelegate:(id<PNVideoPlayerDelegate>)delegate
-{
-    self = [super init];
-    
-    if (self) {
-        self.delegate = delegate;
-    }
-	
-    return self;
-}
+#pragma mark NSObject
 
 - (void)dealloc
 {
-    self.delegate = nil;
-    self.avPlayer = nil;
-    self.layer = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self.avPlayer pause];
+    self.avPlayer = nil;
+    
+    [self.layer removeFromSuperlayer];
+    self.layer = nil;
+}
+
+#pragma mark PNVideoPlayer
+
+- (id)initWithDelegate:(id<PNVideoPlayerDelegate>)delegate
+{
+    self = [super init];
+    if (self)
+    {
+        self.delegate = delegate;
+    }
+    return self;
 }
 
 - (void)open:(NSString*)urlString autoplay:(BOOL)autoplay
@@ -76,7 +82,7 @@
     AVPlayer *avPlayer = [AVPlayer playerWithPlayerItem:playerItem];
     self.avPlayer = avPlayer;
     
-    __weak typeof(self) weakSelf = self;
+    __weak PNVideoPlayer *weakSelf = self;
     [self.avPlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0 / 60.0, NSEC_PER_SEC)
                                                 queue:nil
                                            usingBlock:^(CMTime time) {
@@ -99,7 +105,6 @@
 
 - (void)close
 {
-    self.delegate = nil;
     [self stop];
     [self cleanup];
 }
@@ -154,12 +159,12 @@
 }
 
 
-
-#pragma mark - Movie Player Notifications
+#pragma mark - NOTIFICATIONS -
+#pragma mark MPMoviePlayer Notifications
 
 - (void)moviePlayBackDidStarted:(NSNotification*)notification
 {
-    if ([self.delegate respondsToSelector:@selector(playbackStartedWithDuration:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playbackStartedWithDuration:)])
     {
         [self.delegate playbackStartedWithDuration:[self duration]];
     }
@@ -167,7 +172,7 @@
 
 - (void)moviePlayBackDidFinish:(NSNotification*)notification
 {
-    if ([self.delegate respondsToSelector:@selector(playbackCompleted)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playbackCompleted)])
     {
         [self.delegate playbackCompleted];
     }
@@ -175,7 +180,7 @@
 
 - (void)onProgressTimer
 {
-    if ([self.delegate respondsToSelector:@selector(playbackProgress:duration:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playbackProgress:duration:)])
     {
         [self.delegate playbackProgress:[self currentPosition]
                                duration:[self duration]];

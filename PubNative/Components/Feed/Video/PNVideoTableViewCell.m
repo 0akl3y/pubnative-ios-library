@@ -1,10 +1,26 @@
 //
-//  PNTableViewCellFeed.m
-//  PubNativeDemo
+// PNVideoTableViewCell.m
 //
-//  Created by David Martin on 08/01/15.
-//  Copyright (c) 2015 PubNative. All rights reserved.
+// Created by David Martin on 25/03/15.
+// Copyright (c) 2015 PubNative. All rights reserved.
 //
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 #import "PNVideoTableViewCell.h"
 #import "PNNativeAdRenderItem.h"
@@ -30,7 +46,8 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 
 - (void)dealloc
 {
-    self.model = nil;
+    [self removeObserver:self forKeyPath:kPNTableViewCellContentViewFrameKey];
+    
     self.vastModel = nil;
     
     [self.banner removeFromSuperview];
@@ -45,8 +62,33 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     
     [self.impressionTimer invalidate];
     self.impressionTimer = nil;
-    
-    self.vastModel = nil;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if([kPNTableViewCellContentViewFrameKey isEqualToString:keyPath])
+    {
+        if([object valueForKeyPath:keyPath] != [NSNull null])
+        {
+            CGRect frame = [[object valueForKeyPath:keyPath] CGRectValue];
+            if(self.playerContainer.view.superview == self.contentView)
+            {
+                self.playerContainer.view.frame = frame;
+                self.playerContainer.videoPlayer.layer.frame = frame;
+            }
+        }
+    }
+}
+
+#pragma mark UIView
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if ([[gestureRecognizer view] isKindOfClass:[UITableViewCell class]])
+    {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark UITableViewCell
@@ -93,47 +135,6 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
 
 #pragma mark PNTableViewCell
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    if ([[gestureRecognizer view] isKindOfClass:[UITableViewCell class]])
-    {
-        return YES;
-    }
-    return NO;
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if([kPNTableViewCellContentViewFrameKey isEqualToString:keyPath])
-    {
-        if([object valueForKeyPath:keyPath] != [NSNull null])
-        {
-            CGRect frame = [[object valueForKeyPath:keyPath] CGRectValue];
-            if(self.playerContainer.view.superview == self.contentView)
-            {
-                self.playerContainer.view.frame = frame;
-                self.playerContainer.videoPlayer.layer.frame = frame;
-            }
-        }
-    }
-}
-
-- (void)didRotate:(NSNotification*)notification
-{
-    if(self.playerContainer.view.superview != self.contentView)
-    {
-        UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        if(presentingController.presentedViewController)
-        {
-            presentingController = presentingController.presentedViewController;
-        }
-        
-        CGRect newFrame = presentingController.view.frame;
-        self.playerContainer.view.frame = newFrame;
-        self.playerContainer.videoPlayer.layer.frame = newFrame;
-    }
-}
-
 - (void)willDisplayCell
 {
     self.banner.hidden = YES;
@@ -172,17 +173,40 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     self.impressionTimer = nil;
 }
 
-#pragma mark - Private Methods
++ (CGFloat)cellMinHeight
+{
+    return 150.0f;
+}
+
+#pragma mark PNVideoAdModelTableViewCell
+
+- (void)setModel:(PNNativeVideoAdModel*)model
+{
+    [super setModel:model];
+    [self loadAd];
+}
+
+#pragma mark PNVideoTableViewCell
+
+- (void)didRotate:(NSNotification*)notification
+{
+    if(self.playerContainer.view.superview != self.contentView)
+    {
+        UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        if(presentingController.presentedViewController)
+        {
+            presentingController = presentingController.presentedViewController;
+        }
+        
+        CGRect newFrame = presentingController.view.frame;
+        self.playerContainer.view.frame = newFrame;
+        self.playerContainer.videoPlayer.layer.frame = newFrame;
+    }
+}
 
 - (void)clearCell:(NSNotification*)notification
 {
     [self didEndDisplayingCell];
-}
-
-- (void)setModel:(PNNativeVideoAdModel*)model
-{
-    _model = model;
-    [self loadAd];
 }
 
 - (void)loadAd
@@ -223,9 +247,9 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     }
 }
 
+#pragma mark - DELEGATES -
 
-
-#pragma mark - VastXMLParserDelegate Methods
+#pragma mark VastXMLParserDelegate
 
 - (void)parserReady:(VastContainer*)ad
 {
@@ -233,7 +257,7 @@ FOUNDATION_IMPORT NSString * const kPNTableViewManagerClearAllNotification;
     [self.playerContainer prepareAd:self.vastModel];
 }
 
-#pragma mark - PNVideoPlayerViewDelegate Methods
+#pragma mark PNVideoPlayerViewDelegate
 
 - (void)videoClicked:(NSString*)clickThroughUrl
 {

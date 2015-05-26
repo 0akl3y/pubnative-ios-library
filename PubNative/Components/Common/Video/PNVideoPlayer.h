@@ -32,7 +32,9 @@
 
 @property (nonatomic, strong) AVPlayer                      *avPlayer;
 @property (nonatomic, strong) AVPlayerLayer                 *layer;
+
 @property (nonatomic, assign) BOOL                          silenced;
+
 @property (nonatomic, weak) id<PNVideoPlayerDelegate>       delegate;
 
 - (id)initWithDelegate:(id<PNVideoPlayerDelegate>)delegate;

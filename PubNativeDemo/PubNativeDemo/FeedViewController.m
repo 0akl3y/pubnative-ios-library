@@ -36,13 +36,14 @@ NSString * const iconCellID     = @"iconCellID";
 
 @interface FeedViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView      *tableView;
+@property (weak, nonatomic) IBOutlet UITableView        *tableView;
+@property (weak, nonatomic) IBOutlet UINavigationItem   *navItem;
+
 @property (strong, nonatomic) PNNativeAdModel           *model;
 @property (strong, nonatomic) NSMutableArray            *ads;
 @property (strong, nonatomic) PNAdRequest               *request;
-@property (assign, nonatomic) PNFeedType                type;
-@property (weak, nonatomic) IBOutlet UINavigationItem   *navItem;
 @property (strong, nonatomic) EFApiModel                *eventModel;
+@property (assign, nonatomic) Pubnative_FeedType        type;
 
 @end
 
@@ -52,7 +53,9 @@ NSString * const iconCellID     = @"iconCellID";
 
 - (void)dealloc
 {
+    self.ads = nil;
     self.model = nil;
+    self.request = nil;
     self.eventModel = nil;
 }
 
@@ -70,37 +73,44 @@ NSString * const iconCellID     = @"iconCellID";
     [PNTableViewManager controlTable:nil];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+
+
 #pragma mark FeedViewController
 
 - (void)loadAdWithParameters:(PNAdRequestParameters*)parameters
                  requestType:(PNAdRequestType)requestType
-                 andFeedType:(PNFeedType)feedType
+                 andFeedType:(Pubnative_FeedType)feedType
 {
     self.type = feedType;
     parameters.ad_count = @5;
-    if (self.type == PNFeed_Native_Banner)
+    if (self.type == Pubnative_FeedType_Banner)
     {
         self.navItem.title = @"Banner";
     }
-    else if (self.type == PNFeed_Native_Video)
+    else if (self.type == Pubnative_FeedType_Video)
     {
         self.navItem.title = @"Video";
     }
-    else if (self.type == PNFeed_Native_Carousel)
+    else if (self.type == Pubnative_FeedType_Carousel)
     {
         self.navItem.title = @"Carousel";
     }
-    else if (self.type == PNFeed_Native_Icon)
+    else if (self.type == Pubnative_FeedType_Icon)
     {
         parameters.icon_size = @"400x400";
         self.navItem.title = @"Icon";
     }
-    else if (self.type == PNFeed_Native_InFeed)
+    else if (self.type == Pubnative_FeedType_Native)
     {
         self.navItem.title = @"In Feed";
     }
     
-    __weak typeof(self) weakSelf = self;
+    __weak FeedViewController *weakSelf = self;
     self.request = [PNAdRequest request:requestType
                          withParameters:parameters
                           andCompletion:^(NSArray *ads, NSError *error)
@@ -121,12 +131,14 @@ NSString * const iconCellID     = @"iconCellID";
 }
 
 - (void)loadAdWithParameters:(PNAdRequestParameters*)parameters
-                 requestType:(PNAdRequestType)reuqestType
+                 requestType:(PNAdRequestType)requestType
                     feedData:(EFApiModel*)data
-                 andFeedType:(PNFeedType)feedType
+                 andFeedType:(Pubnative_FeedType)feedType
 {
     self.eventModel = data;
-    [self loadAdWithParameters:parameters requestType:reuqestType andFeedType:feedType];
+    [self loadAdWithParameters:parameters
+                   requestType:requestType
+                   andFeedType:feedType];
 }
 
 - (IBAction)dismiss:(id)sender
@@ -165,68 +177,18 @@ NSString * const iconCellID     = @"iconCellID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *result = nil;
-    if (self.model &&
-        [self isAdCell:indexPath])
+    if (self.model && [self isAdCell:indexPath])
     {
-        if (self.type == PNFeed_Native_Video)
+        PNTableViewCell *cell = [Pubnative dequeueFeedType:self.type];
+        if(self.type == Pubnative_FeedType_Carousel)
         {
-            PNVideoTableViewCell *videoCell = [tableView dequeueReusableCellWithIdentifier:videoCellID];
-            if (!videoCell)
-            {
-                videoCell = [[PNVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellID];
-            }
-            PNNativeVideoAdModel *model = [self.ads objectAtIndex:((indexPath.row-5)/10)%[self.ads count]];
-            videoCell.model = model;
-            result = videoCell;
+            cell.model = self.ads;
         }
-        else if (self.type == PNFeed_Native_Banner)
+        else
         {
-            PNBannerTableViewCell *bannerCell = [tableView dequeueReusableCellWithIdentifier:bannerCellID];
-            if(!bannerCell)
-            {
-                NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PNBannerTableViewCell" owner:self options:nil];
-                bannerCell = [topLevelObjects objectAtIndex:0];
-            }
-            
-            PNNativeAdModel *model = [self.ads objectAtIndex:((indexPath.row-5)/10)%[self.ads count]];
-            bannerCell.model = model;
-            result = bannerCell;
+            cell.model = [self.ads objectAtIndex:((indexPath.row-5)/10)%[self.ads count]];
         }
-        else if (self.type == PNFeed_Native_InFeed)
-        {
-            PNNativeTableViewCell *nativeCell = [tableView dequeueReusableCellWithIdentifier:nativeCellID];
-            if(!nativeCell)
-            {
-                NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"PNNativeTableViewCell" owner:self options:nil];
-                nativeCell = [topLevelObjects objectAtIndex:0];
-            }
-            
-            PNNativeAdModel *model = [self.ads objectAtIndex:((indexPath.row-5)/10)%[self.ads count]];
-            nativeCell.model = model;
-            result = nativeCell;
-        }
-        else if (self.type == PNFeed_Native_Carousel)
-        {
-            PNCarouselTableViewCell *carouselCell = [tableView dequeueReusableCellWithIdentifier:carouselCellID];
-            if (!carouselCell)
-            {
-                carouselCell = [[PNCarouselTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoCellID];
-            }
-            [carouselCell setCollectionData:self.ads];
-            result = carouselCell;
-        }
-        else if (self.type == PNFeed_Native_Icon)
-        {
-            PNIconTableViewCell *iconCell = [tableView dequeueReusableCellWithIdentifier:iconCellID];
-            if (!iconCell)
-            {
-                iconCell = [[PNIconTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:iconCellID];
-            }
-            
-            PNNativeAdModel *model = [self.ads objectAtIndex:((indexPath.row-5)/10)%[self.ads count]];
-            iconCell.model = model;
-            result = iconCell;
-        }
+        result = cell;
     }
     else
     {
@@ -239,10 +201,11 @@ NSString * const iconCellID     = @"iconCellID";
         
         if(self.model && self.eventModel)
         {
-            EFEventModel *e = [self.eventModel.events.event objectAtIndex:indexPath.row];
-            [(EventTableViewCell*)result setModel:e];
+            EFEventModel *eventModel = [self.eventModel.events.event objectAtIndex:indexPath.row];
+            [(EventTableViewCell*)result setModel:eventModel];
         }
     }
+    
     return result;
 }
 
@@ -254,23 +217,7 @@ NSString * const iconCellID     = @"iconCellID";
     if(self.model &&
        [self isAdCell:indexPath])
     {
-        if (self.type == PNFeed_Native_Video)
-        {
-            result = 150;
-        }
-        else if (self.type == PNFeed_Native_Banner)
-        {
-            result = 60;
-        }
-        else if (self.type == PNFeed_Native_InFeed)
-        {
-            result = 300;
-        }
-        else if (self.type == PNFeed_Native_Carousel)
-        {
-            CGSize scrollerItemSize = [PNCarouselTableViewCell itemSize];
-            return scrollerItemSize.height;
-        }
+        result = [Pubnative heightForRowType:self.type];
     }
     return result;
 }

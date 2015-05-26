@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6221" systemVersion="14C99d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PNVideoPlayerView">
@@ -23,11 +23,11 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z6n-8S-cRC">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z6n-8S-cRC" userLabel="video">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XsC-5u-n3E">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XsC-5u-n3E" userLabel="videoClick">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -36,21 +36,21 @@
                         <action selector="learnMoreAd:" destination="-1" eventType="touchUpInside" id="lJP-Qj-bwt"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xh5-re-Mvw">
-                    <rect key="frame" x="-5" y="-5" width="50" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xh5-re-Mvw" userLabel="mute">
+                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="8Kl-ae-dtk"/>
                         <constraint firstAttribute="width" constant="50" id="FGg-ZT-iWs"/>
                     </constraints>
-                    <state key="normal" backgroundImage="PnMute.png">
+                    <state key="normal" image="PnUnMute.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" backgroundImage="PnUnMute.png"/>
+                    <state key="selected" image="PnMute.png"/>
                     <connections>
                         <action selector="muteAd:" destination="-1" eventType="touchUpInside" id="RmS-vc-sRd"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UnM-QC-2Gc">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UnM-QC-2Gc" userLabel="time">
                     <rect key="frame" x="10" y="560" width="30" height="30"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -58,7 +58,7 @@
                         <constraint firstAttribute="height" constant="30" id="SpI-7x-gc8"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k5u-fz-0sL">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k5u-fz-0sL" userLabel="skip">
                     <rect key="frame" x="430" y="560" width="160" height="30"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Vf-yU-LzT">
@@ -80,8 +80,8 @@
                         <constraint firstAttribute="height" constant="30" id="zC4-Dh-6kf"/>
                     </constraints>
                 </view>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="He7-mA-maM">
-                    <rect key="frame" x="555" y="-5" width="50" height="50"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="He7-mA-maM" userLabel="close">
+                    <rect key="frame" x="550" y="0.0" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="KoO-QB-a4V"/>
                         <constraint firstAttribute="height" constant="50" id="ohu-wY-diI"/>
@@ -93,8 +93,8 @@
                         <action selector="closeAd:" destination="-1" eventType="touchUpInside" id="F5Z-Fc-gCa"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvl-Fy-NFY">
-                    <rect key="frame" x="555" y="-5" width="50" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvl-Fy-NFY" userLabel="learnMore">
+                    <rect key="frame" x="550" y="0.0" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="S63-l3-DkV"/>
                         <constraint firstAttribute="width" constant="50" id="sUv-Wp-DBG"/>
@@ -106,8 +106,8 @@
                         <action selector="learnMoreAd:" destination="-1" eventType="touchUpInside" id="ByE-N3-dqH"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yod-mM-nvn">
-                    <rect key="frame" x="555" y="-5" width="50" height="50"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yod-mM-nvn" userLabel="fullScreen">
+                    <rect key="frame" x="550" y="0.0" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="Hk6-FB-9ly"/>
                         <constraint firstAttribute="width" constant="50" id="uQx-JY-9yD"/>
@@ -121,22 +121,26 @@
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="Xh5-re-Mvw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-5" id="7tP-wA-Npe"/>
+                <constraint firstAttribute="trailing" secondItem="XsC-5u-n3E" secondAttribute="trailing" id="66O-5m-9Lu"/>
+                <constraint firstItem="Xh5-re-Mvw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7tP-wA-Npe"/>
                 <constraint firstAttribute="trailing" secondItem="k5u-fz-0sL" secondAttribute="trailing" constant="10" id="81j-C7-cyZ"/>
-                <constraint firstAttribute="trailing" secondItem="yod-mM-nvn" secondAttribute="trailing" constant="-5" id="8TY-6R-AJN"/>
+                <constraint firstAttribute="trailing" secondItem="yod-mM-nvn" secondAttribute="trailing" id="8TY-6R-AJN"/>
                 <constraint firstAttribute="bottom" secondItem="UnM-QC-2Gc" secondAttribute="bottom" constant="10" id="9YT-tl-1cR"/>
                 <constraint firstItem="Z6n-8S-cRC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BSb-Wc-KYV"/>
+                <constraint firstItem="XsC-5u-n3E" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DCs-Nb-Obh"/>
                 <constraint firstItem="UnM-QC-2Gc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="IEu-9e-fjk"/>
                 <constraint firstAttribute="trailing" secondItem="Z6n-8S-cRC" secondAttribute="trailing" id="Mpi-d3-A5n"/>
+                <constraint firstAttribute="bottom" secondItem="XsC-5u-n3E" secondAttribute="bottom" id="PgS-26-dGn"/>
                 <constraint firstAttribute="bottom" secondItem="Z6n-8S-cRC" secondAttribute="bottom" id="UCE-ZI-nNv"/>
-                <constraint firstItem="Mvl-Fy-NFY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-5" id="UXM-q6-9Gn"/>
-                <constraint firstItem="yod-mM-nvn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-5" id="Uhv-44-SDv"/>
-                <constraint firstItem="He7-mA-maM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-5" id="Vte-vx-Iy6"/>
+                <constraint firstItem="Mvl-Fy-NFY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="UXM-q6-9Gn"/>
+                <constraint firstItem="yod-mM-nvn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Uhv-44-SDv"/>
+                <constraint firstItem="He7-mA-maM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Vte-vx-Iy6"/>
                 <constraint firstAttribute="bottom" secondItem="k5u-fz-0sL" secondAttribute="bottom" constant="10" id="fIO-k0-ard"/>
                 <constraint firstItem="Z6n-8S-cRC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hYY-We-Zud"/>
-                <constraint firstAttribute="trailing" secondItem="He7-mA-maM" secondAttribute="trailing" constant="-5" id="jFd-Fb-msc"/>
-                <constraint firstAttribute="trailing" secondItem="Mvl-Fy-NFY" secondAttribute="trailing" constant="-5" id="jgQ-vb-ffT"/>
-                <constraint firstItem="Xh5-re-Mvw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-5" id="mI6-Wa-GGz"/>
+                <constraint firstAttribute="trailing" secondItem="He7-mA-maM" secondAttribute="trailing" id="jFd-Fb-msc"/>
+                <constraint firstAttribute="trailing" secondItem="Mvl-Fy-NFY" secondAttribute="trailing" id="jgQ-vb-ffT"/>
+                <constraint firstItem="Xh5-re-Mvw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mI6-Wa-GGz"/>
+                <constraint firstItem="XsC-5u-n3E" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="seC-oU-LpH"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
         </view>
