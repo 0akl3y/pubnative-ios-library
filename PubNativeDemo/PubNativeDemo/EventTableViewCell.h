@@ -24,7 +24,6 @@
 
 #import <UIKit/UIKit.h>
 #import "EFApiModel.h"
-#import "PNCacheManager.h"
 
 @interface EventTableViewCell : UITableViewCell
 

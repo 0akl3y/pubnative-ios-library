@@ -23,9 +23,6 @@
 // THE SOFTWARE.
 
 #import "FeedViewController.h"
-#import "PNTableViewManager.h"
-#import "PNIconTableViewCell.h"
-#import "PNNativeTableViewCell.h"
 
 NSString * const videoCellID    = @"videoCellID";
 NSString * const bannerCellID   = @"bannerCellID";

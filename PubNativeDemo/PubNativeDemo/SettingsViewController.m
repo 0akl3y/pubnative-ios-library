@@ -24,6 +24,8 @@
 
 #import "SettingsViewController.h"
 
+#import <PubNativeLibrary/PNVideoCacher.h>
+
 @interface SettingsViewController ()
 
 @property (nonatomic, weak) NSObject<SettingsViewControllerDelegate>    *delegate;
