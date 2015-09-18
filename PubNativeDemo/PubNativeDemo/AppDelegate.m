@@ -23,7 +23,7 @@
 // THE SOFTWARE.
 
 #import "AppDelegate.h"
-#import "PubnativeExtension.h"
+#import <PubNativeLibrary/Pubnative.h>
 
 @interface AppDelegate ()
 
@@ -34,6 +34,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
     return YES;
 }
 

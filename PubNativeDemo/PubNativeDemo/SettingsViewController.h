@@ -26,9 +26,7 @@
 #import "XLFormViewController.h"
 #import "XLForm.h"
 #import "ViewController.h"
-#import "PNAdRequestParameters.h"
-#import "PNCroissantCache.h"
-#import "PNVideoCacher.h"
+#import <PubNativeLibrary/Pubnative.h>
 
 @protocol SettingsViewControllerDelegate <NSObject>
 

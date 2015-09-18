@@ -1,7 +1,5 @@
 ![PNLogo](PNLogo.png)
 
-[![Build Status](https://travis-ci.org/pubnative/pubnative-ios-library.svg?branch=master)](https://travis-ci.org/pubnative/pubnative-ios-library)[![Coverage Status](https://coveralls.io/repos/pubnative/pubnative-ios-library/badge.svg?branch=master)](https://coveralls.io/r/pubnative/pubnative-ios-library?branch=master)
-
 PubNative is an API-based publisher platform dedicated to native advertising which does not require the integration of an SDK. Through PubNative, publishers can request over 20 parameters to enrich their ads and thereby create any number of combinations for unique and truly native ad units.
 
 # pubnative-ios-library
@@ -31,8 +29,8 @@ pubnative-ios-library is a collection of Open Source tools to implement API base
 <a name="install"></a>
 ## Install
 
-* Download this repository 
-* Copy PubNative folder into your application project target
+* Download the latest PubNativeLibrary.framework
+* Drag and drop the framework into the "Embeded Binaries" section of your desired target.
 
 **WatchKit support**
 
@@ -40,7 +38,7 @@ pubnative-ios-library is a collection of Open Source tools to implement API base
 * Add this to your application AppDelegate
 
 ```objective-c
-#import "Pubnative.h"
+#import <PubNativeLibrary/Pubnative.h>
 //==================================================================
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply
 {
@@ -79,7 +77,7 @@ You just need to control that the returned type in the array of ads is different
 * `PNAdRequest_Image`: returns `PNImageAdModel`
 
 ```objective-c
-#import "Pubnative.h"
+#import <PubNativeLibrary/Pubnative.h>
 //==================================================================
 // Create a new request parameters and set it up configuring at least your app token
 PNAdRequestParameters *parameters = [PNAdRequestParameters requestParameters];
@@ -113,7 +111,7 @@ Once the ads are downloaded, you can use them manually by accessing properties i
 Simply create and stick a `PNNativeAdRenderItem` to your custom view and make the `PNAdRenderingManager` fill it with the ad model.
 
 ```objective-c
-#import "Pubnative.h"
+#import <PubNativeLibrary/Pubnative.h>
 //==================================================================
 PNNativeAdRenderItem *renderItem = [PNNativeAdRenderItem renderItem];
 renderItem.icon = self.iconView;
@@ -138,7 +136,7 @@ FOUNDATION_EXPORT NSString *kPNAdRenderingManagerPortraitBannerNotification;
 We developed an utility to make you confirm impressions easier and safer, just send the ad you want to confirm to `PNTrackingManager` and it will get confirmed.
 
 ```objective-c
-#import "Pubnative.h"
+#import <PubNativeLibrary/Pubnative.h>
 //==================================================================
 [PNTrackingManager trackImpressionWithAd:self.ad
                               completion:^(id result, NSError *error)
@@ -235,7 +233,7 @@ So, in short, the usage is:
     * **`NSArray` of ads** for the Carousel cell
 
 ```objective-c
-#import "Pubnative.h"
+#import <PubNativeLibrary/Pubnative.h>
 //==================================================================
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -256,7 +254,7 @@ So, in short, the usage is:
 * Ensure to specify the right tableView cell height
 
 ```objective-c
-#import "Pubnative.h"
+#import <PubNativeLibrary/Pubnative.h>
 //==================================================================
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -314,7 +312,7 @@ Manual frame ads:
 Here is a sample request code
 
 ```objective-c
-#import "Pubnative.h"
+#import <PubNativeLibrary/Pubnative.h>
 //==================================================================
 
 @property (nonatomic, strong)UIViewControllerViewController *adVC;

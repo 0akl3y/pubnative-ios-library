@@ -23,8 +23,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "Pubnative.h"
-#import "PNNativeAdModel.h"
+#import <PubNativeLibrary/Pubnative.h>
 
 @interface AdViewController : UIViewController
 

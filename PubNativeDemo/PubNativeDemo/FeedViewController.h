@@ -23,7 +23,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "Pubnative.h"
+#import <PubNativeLibrary/Pubnative.h>
 #import "EFApiModel.h"
 #import "EventTableViewCell.h"
 

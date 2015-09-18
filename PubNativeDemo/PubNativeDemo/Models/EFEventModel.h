@@ -22,7 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "PNYADMJSONApiModel.h"
+#import "YADMJSONApiModel.h"
 #import "EFPerformersModel.h"
 #import "EFImageModel.h"
 
@@ -73,6 +73,6 @@
 
 @end
 
-@interface EFEventModel : PNYADMJSONApiModel <EFEventModel>
+@interface EFEventModel : YADMJSONApiModel <EFEventModel>
 
 @end
