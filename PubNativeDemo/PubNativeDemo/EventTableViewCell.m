@@ -23,6 +23,7 @@
 // THE SOFTWARE.
 
 #import "EventTableViewCell.h"
+#import <PubNativeLibrary/Pubnative.h>
 
 @implementation EventTableViewCell
 

@@ -11,43 +11,24 @@
       location = "group:PNLogo.png">
    </FileRef>
    <Group
-      location = "group:travis"
-      name = "travis">
+      location = "group:WKPubNativeLibrary"
+      name = "WKPubNativeLibrary">
       <FileRef
-         location = "group:add_keys.sh">
-      </FileRef>
-      <Group
-         location = "group:certs"
-         name = "certs">
-         <FileRef
-            location = "group:apple.cer">
-         </FileRef>
-         <FileRef
-            location = "group:distribution.cer.enc">
-         </FileRef>
-         <FileRef
-            location = "group:distribution.mobileprovision.enc">
-         </FileRef>
-         <FileRef
-            location = "group:distribution.p12.enc">
-         </FileRef>
-      </Group>
-      <FileRef
-         location = "group:testflight.sh">
+         location = "group:WKPNNativeAdModel.h">
       </FileRef>
       <FileRef
-         location = "group:hockey.sh">
+         location = "group:WKPNNativeAdModel.m">
       </FileRef>
       <FileRef
-         location = "group:remove_keys.sh">
+         location = "group:WKPubnative.h">
       </FileRef>
       <FileRef
-         location = "group:coveralls.sh">
-      </FileRef>
-      <FileRef
-         location = "group:coveralls.rb">
+         location = "group:WKPubnative.m">
       </FileRef>
    </Group>
+   <FileRef
+      location = "group:PubNativeLibrary/PubNativeLibrary.xcodeproj">
+   </FileRef>
    <FileRef
       location = "group:PubNativeDemo/PubNativeDemo.xcodeproj">
    </FileRef>

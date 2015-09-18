@@ -23,7 +23,7 @@
 // THE SOFTWARE.
 
 #import "ViewController.h"
-#import "Pubnative.h"
+#import <PubNativeLibrary/Pubnative.h>
 #import "FeedViewController.h"
 #import "SettingsViewController.h"
 #import "AdViewController.h"
@@ -80,9 +80,8 @@ NSString * const kPubnativeTestAppToken = @"e1a8e9fcf8aaeff31d1ddaee1f60810957f4
                                               headers:nil
                                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                               timeout:30
-                                   andCompletionBlock:^(NSError *error) {
-                                        __strong ViewController *strongSelf = weakSelf;
-                                        [strongSelf processEventsWithError:error];
+                                   andCompletionBlock:^(NSString *parsedJSON, NSError *error) {
+                                        [weakSelf processEventsWithError:error];
                                    }];
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
     NSString *version = [info objectForKey:@"CFBundleShortVersionString"];
