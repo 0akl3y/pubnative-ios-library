@@ -23,7 +23,7 @@ pubnative-ios-library is a collection of Open Source tools to implement API base
 <a name="requirements"></a>
 ## Requirements
 
-* ARC only; iOS 6.1+
+* ARC only; iOS 6.0 and above
 * An App Token provided in pubnative dashboard
 
 <a name="install"></a>
